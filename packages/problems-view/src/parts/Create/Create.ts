@@ -23,6 +23,7 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     listItems: [],
     collapsedUris: [],
     smallWidthBreakPoint: 650,
+    filteredProblems: [],
   }
   set(id, state, state)
 }
