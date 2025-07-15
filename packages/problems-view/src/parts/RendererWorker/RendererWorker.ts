@@ -1,3 +1,3 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 
-export const { set } = RendererWorker
+export const { set, writeClipBoardText } = RendererWorker
