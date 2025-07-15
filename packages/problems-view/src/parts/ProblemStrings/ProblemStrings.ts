@@ -1,26 +1,5 @@
 import * as I18NString from '@lvce-editor/i18n'
-
-/**
- * @enum {string}
- */
-const UiStrings = {
-  ClearFilters: 'Clear Filters',
-  Code: 'Code',
-  Copy: 'Copy',
-  CopyMessage: 'Copy Message',
-  File: 'File',
-  Filter: 'Filter',
-  LineColumn: '[Ln {PH1}, Col {PH2}]',
-  Message: 'Message',
-  NoProblemsDetected: 'No problems have been detected in the workspace.',
-  NoResultsFoundWithProvidedFilterCriteria: 'No results found with provided filter criteria.',
-  ProblemsDetected: 'Some problems have been detected in the workspace.',
-  ShowingOfItems: 'Showing {PH1} of {PH2} ',
-  Source: 'Source',
-  CollapseAll: 'Collapse All',
-  ViewAsTable: 'View as Table',
-  ViewAsList: 'View as List',
-}
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
 export const noProblemsDetected = (): string => {
   return I18NString.i18nString(UiStrings.NoProblemsDetected)
