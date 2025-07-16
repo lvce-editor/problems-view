@@ -14,28 +14,38 @@ test('getProblemsFilterVirtualDom returns correct dom structure without badge', 
     value: '',
   }
   const dom = getProblemsFilterVirtualDom(action)
-  expect(dom[0]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.Filter,
-    childCount: 2,
-  })
-  expect(dom[1]).toEqual({
-    type: VirtualDomElements.Input,
-    className: ClassNames.InputBox,
-    spellcheck: false,
-    autocapitalize: 'off',
-    autocorrect: 'off',
-    placeholder: 'Filter problems',
-    onInput: 'handleFilterInput',
-    name: InputName.Filter,
-    value: '',
-  })
-  expect(dom[2]).toMatchObject({
-    type: VirtualDomElements.Button,
-    className: ClassNames.IconButton,
-    title: 'more filters',
-    'data-command': 'more filters',
-  })
+  const expectedArray = [
+    {
+      type: VirtualDomElements.Div,
+      className: ClassNames.Filter,
+      childCount: 2,
+    },
+    {
+      type: VirtualDomElements.Input,
+      className: ClassNames.InputBox,
+      spellcheck: false,
+      autocapitalize: 'off',
+      autocorrect: 'off',
+      placeholder: 'Filter problems',
+      onInput: 'handleFilterInput',
+      name: InputName.Filter,
+      value: '',
+    },
+    {
+      type: VirtualDomElements.Button,
+      className: ClassNames.IconButton,
+      title: 'more filters',
+      'data-command': 'more filters',
+      childCount: 1,
+    },
+    {
+      type: VirtualDomElements.Div,
+      className: 'MaskIcon MaskIconFilter',
+      role: 'none',
+      childCount: 0,
+    },
+  ]
+  expect(dom).toEqual(expectedArray)
 })
 
 test('getProblemsFilterVirtualDom returns correct dom structure with badge', () => {
@@ -48,32 +58,46 @@ test('getProblemsFilterVirtualDom returns correct dom structure with badge', () 
     badgeText: 'Showing 5 of 10',
   }
   const dom = getProblemsFilterVirtualDom(action)
-  expect(dom[0]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.Filter,
-    childCount: 3,
-  })
-  expect(dom[1]).toEqual({
-    type: VirtualDomElements.Input,
-    className: ClassNames.InputBox,
-    spellcheck: false,
-    autocapitalize: 'off',
-    autocorrect: 'off',
-    placeholder: 'Filter problems',
-    onInput: 'handleFilterInput',
-    name: InputName.Filter,
-    value: 'test',
-  })
-  expect(dom[2]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.FilterBadge,
-    childCount: 1,
-  })
-  expect(dom[3]).toMatchObject({ text: 'Showing 5 of 10' })
-  expect(dom[4]).toMatchObject({
-    type: VirtualDomElements.Button,
-    className: ClassNames.IconButton,
-    title: 'more filters',
-    'data-command': 'more filters',
-  })
+  const expectedArray = [
+    {
+      type: VirtualDomElements.Div,
+      className: ClassNames.Filter,
+      childCount: 3,
+    },
+    {
+      type: VirtualDomElements.Input,
+      className: ClassNames.InputBox,
+      spellcheck: false,
+      autocapitalize: 'off',
+      autocorrect: 'off',
+      placeholder: 'Filter problems',
+      onInput: 'handleFilterInput',
+      name: InputName.Filter,
+      value: 'test',
+    },
+    {
+      type: VirtualDomElements.Div,
+      className: ClassNames.FilterBadge,
+      childCount: 1,
+    },
+         {
+       type: VirtualDomElements.Text,
+       text: 'Showing 5 of 10',
+       childCount: 0,
+     },
+    {
+      type: VirtualDomElements.Button,
+      className: ClassNames.IconButton,
+      title: 'more filters',
+      'data-command': 'more filters',
+      childCount: 1,
+    },
+    {
+      type: VirtualDomElements.Div,
+      className: 'MaskIcon MaskIconFilter',
+      role: 'none',
+      childCount: 0,
+    },
+  ]
+  expect(dom).toEqual(expectedArray)
 })
