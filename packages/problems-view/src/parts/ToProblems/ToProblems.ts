@@ -70,7 +70,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[]): readonly Problem
     // @ts-ignore
     problem.relativePath = problem.uri // TODO
     // @ts-ignore
-    problem.uri = problem.uri // TODO
+    // problem.uri = problem.uri // TODO
   }
   return problems
 }
