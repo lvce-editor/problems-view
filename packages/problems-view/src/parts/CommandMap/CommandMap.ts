@@ -10,6 +10,7 @@ import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import * as Render2 from '../Render2/Render2.ts'
+import { renderActions } from '../RenderActions/RenderActions.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 
@@ -24,6 +25,7 @@ export const commandMap = {
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
+  'Problems.renderActions': renderActions,
   'Problems.resize': Resize.resize,
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
