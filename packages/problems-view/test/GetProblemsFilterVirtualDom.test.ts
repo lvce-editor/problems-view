@@ -29,7 +29,6 @@ test('getProblemsFilterVirtualDom returns correct dom structure without badge', 
       placeholder: 'Filter problems',
       onInput: 'handleFilterInput',
       name: InputName.Filter,
-      value: '',
     },
     {
       type: VirtualDomElements.Button,
