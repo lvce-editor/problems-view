@@ -1,10 +1,9 @@
 import { test, expect } from '@jest/globals'
-import { getProblemsFilterVirtualDom } from '../src/parts/GetProblemsFilterVirtualDom/GetProblemsFilterVirtualDom.ts'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
-import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import * as InputName from '../src/parts/InputName/InputName.ts'
-
 import type { ViewletAction } from '../src/parts/ViewletAction/ViewletAction.ts'
+import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import { getProblemsFilterVirtualDom } from '../src/parts/GetProblemsFilterVirtualDom/GetProblemsFilterVirtualDom.ts'
+import * as InputName from '../src/parts/InputName/InputName.ts'
 
 test('getProblemsFilterVirtualDom returns correct dom structure without badge', () => {
   const action: ViewletAction = {
