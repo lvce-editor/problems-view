@@ -7,7 +7,7 @@ import { getInputBoxVirtualDom } from '../GetInputBoxVirtualDom/GetInputBoxVirtu
 import * as InputName from '../InputName/InputName.ts'
 import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 
-const getChildCount = (badgeText: string | undefined) => {
+const getChildCount = (badgeText: string | undefined): number => {
   let childCount = 0
   childCount++ // input
   if (badgeText) {
