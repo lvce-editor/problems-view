@@ -73,18 +73,17 @@ test('getProblemsFilterVirtualDom returns correct dom structure with badge', () 
       placeholder: 'Filter problems',
       onInput: 'handleFilterInput',
       name: InputName.Filter,
-      value: 'test',
     },
     {
       type: VirtualDomElements.Div,
       className: ClassNames.FilterBadge,
       childCount: 1,
     },
-         {
-       type: VirtualDomElements.Text,
-       text: 'Showing 5 of 10',
-       childCount: 0,
-     },
+    {
+      type: VirtualDomElements.Text,
+      text: 'Showing 5 of 10',
+      childCount: 0,
+    },
     {
       type: VirtualDomElements.Button,
       className: ClassNames.IconButton,
