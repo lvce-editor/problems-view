@@ -6,7 +6,7 @@ import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtual
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
-import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.js'
+import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
