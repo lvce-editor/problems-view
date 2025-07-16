@@ -1,6 +1,6 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
-import { set } from '../ProblemsStates/ProblemsStates.ts'
+import * as ProblemsStates from '../ProblemsStates/ProblemsStates.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const create = (id: number, uri: string, x: number, y: number, width: number, height: number, args: any, parentUid: number): void => {
@@ -25,5 +25,5 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     smallWidthBreakPoint: 650,
     filteredProblems: [],
   }
-  set(id, state, state)
+  ProblemsStates.set(id, state, state)
 }
