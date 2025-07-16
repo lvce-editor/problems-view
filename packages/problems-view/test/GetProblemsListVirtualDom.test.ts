@@ -2,8 +2,8 @@ import { test, expect } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 import { getProblemsListVirtualDom } from '../src/parts/GetProblemsListVirtualDom/GetProblemsListVirtualDom.ts'
+import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 
 test('getProblemsListVirtualDom with empty problems array', () => {
   const problems: readonly VisibleProblem[] = []
