@@ -3,6 +3,7 @@ import * as CopyMessage from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
+import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
@@ -41,4 +42,5 @@ export const commandMap = {
   'Problems.viewAsTable': viewAsTable,
   'Problems.viewAsList': viewAsList,
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
+  'Problems.getCommandIds': GetCommandIds.getCommandIds,
 }
