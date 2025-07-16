@@ -1,4 +1,5 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
+import { copyMessage } from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
@@ -19,4 +20,5 @@ export const commandMap = {
   'Problems.render2': render2,
   'Problems.saveState': saveState,
   'Problems.terminate': terminate,
+  'Problems.copyMessage': copyMessage,
 }
