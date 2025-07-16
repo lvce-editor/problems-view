@@ -12,6 +12,5 @@ export const getProblemsVirtualDom = (viewMode: number, problems: readonly Visib
   if (viewMode === ProblemsViewMode.Table) {
     return GetProblemsTableVirtualDom.getProblemsTableVirtualDom(problems)
   }
-  const dom = GetProblemsListVirtualDom.getProblemsListVirtualDom(problems)
-  return dom
+  return GetProblemsListVirtualDom.getProblemsListVirtualDom(problems)
 }
