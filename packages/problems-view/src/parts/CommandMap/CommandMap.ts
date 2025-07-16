@@ -6,6 +6,7 @@ import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
+import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
@@ -33,6 +34,7 @@ export const commandMap = {
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
   'Problems.handleIconThemeChange': handleIconThemeChange,
+  'Problems.handleContextMenu': handleContextMenu,
   'Problems.viewAsTable': viewAsTable,
   'Problems.viewAsList': viewAsList,
 }
