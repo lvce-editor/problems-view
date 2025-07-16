@@ -1,31 +1,17 @@
 import { test, expect } from '@jest/globals'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import type { SavedState } from '../src/parts/SavedState/SavedState.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 import { saveState } from '../src/parts/SaveState/SaveState.ts'
 
 test('saveState should extract viewMode, filterValue, and collapsedUris from ProblemsState', () => {
   const state: ProblemsState = {
-    uid: 1,
-    parentUid: 0,
-    problems: [],
-    focusedIndex: -2,
-    message: '',
-    itemHeight: 22,
-    x: 0,
-    y: 0,
-    width: 100,
-    height: 200,
+    ...createDefaultState(),
     filterValue: 'test filter',
     viewMode: ProblemsViewMode.List,
-    inputSource: InputSource.User,
-    minLineY: 0,
-    maxLineY: 0,
-    listItems: [],
     collapsedUris: ['file:///test1.ts', 'file:///test2.ts'],
-    smallWidthBreakPoint: 650,
-    filteredProblems: [],
   }
 
   const result: SavedState = saveState(state)
@@ -39,25 +25,10 @@ test('saveState should extract viewMode, filterValue, and collapsedUris from Pro
 
 test('saveState should handle empty state values', () => {
   const state: ProblemsState = {
-    uid: 1,
-    parentUid: 0,
-    problems: [],
-    focusedIndex: -2,
-    message: '',
-    itemHeight: 22,
-    x: 0,
-    y: 0,
-    width: 100,
-    height: 200,
+    ...createDefaultState(),
     filterValue: '',
     viewMode: ProblemsViewMode.None,
-    inputSource: InputSource.User,
-    minLineY: 0,
-    maxLineY: 0,
-    listItems: [],
     collapsedUris: [],
-    smallWidthBreakPoint: 650,
-    filteredProblems: [],
   }
 
   const result: SavedState = saveState(state)
@@ -71,6 +42,7 @@ test('saveState should handle empty state values', () => {
 
 test('saveState should preserve all other state properties but only return the required ones', () => {
   const state: ProblemsState = {
+    ...createDefaultState(),
     uid: 999,
     parentUid: 888,
     problems: [{ id: '1', message: 'test' } as any],
