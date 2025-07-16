@@ -14,7 +14,7 @@ test('writeText calls writeClipBoardText with the provided text', async () => {
   const testText = 'test clipboard text'
   await writeText(testText)
 
-  expect(invoke).toHaveBeenCalledWith('writeClipBoardText', testText)
+  expect(invoke).toHaveBeenCalledWith('ClipBoard.writeText', testText)
 })
 
 test('writeText handles empty string', async () => {
@@ -27,5 +27,5 @@ test('writeText handles empty string', async () => {
 
   await writeText('')
 
-  expect(invoke).toHaveBeenCalledWith('writeClipBoardText', '')
+  expect(invoke).toHaveBeenCalledWith('ClipBoard.writeText', '')
 })
