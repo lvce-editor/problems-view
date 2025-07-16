@@ -8,11 +8,11 @@ import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import { saveState } from '../SaveState/SaveState.ts'
 
 export const commandMap = {
-  'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
-  'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.create': Create.create,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
-  'Problems.terminate': terminate,
+  'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
+  'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.initialize': Initialize.initialize,
   'Problems.saveState': saveState,
+  'Problems.terminate': terminate,
 }
