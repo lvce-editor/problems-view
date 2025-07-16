@@ -5,6 +5,7 @@ import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
+import { saveState } from '../SaveState/SaveState.ts'
 
 export const commandMap = {
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
@@ -13,4 +14,5 @@ export const commandMap = {
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.terminate': terminate,
   'Problems.initialize': Initialize.initialize,
+  'Problems.saveState': saveState,
 }
