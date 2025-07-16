@@ -13,6 +13,7 @@ import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import { renderActions } from '../RenderActions/RenderActions.ts'
+import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
@@ -20,6 +21,7 @@ import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
 export const commandMap = {
   'Problems.copyMessage': CopyMessage.copyMessage,
+  'Problems.renderEventListeners': renderEventListeners,
   'Problems.create': Create.create,
   'Problems.diff2': Diff2.diff2,
   'Problems.focusIndex': FocusIndex.focusIndex,
