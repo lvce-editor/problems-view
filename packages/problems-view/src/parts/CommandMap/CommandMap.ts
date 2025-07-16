@@ -7,6 +7,7 @@ import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
+import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as Resize from '../Resize/Resize.ts'
@@ -21,6 +22,7 @@ export const commandMap = {
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.initialize': Initialize.initialize,
+  'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
   'Problems.resize': Resize.resize,
   'Problems.saveState': SaveState.saveState,
