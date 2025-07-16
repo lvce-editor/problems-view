@@ -1,27 +1,11 @@
 import { test, expect } from '@jest/globals'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleBlur } from '../src/parts/HandleBlur/HandleBlur.ts'
 
 const createState = (focusedIndex: number): ProblemsState => ({
-  uid: 1,
-  parentUid: 0,
-  problems: [],
+  ...createDefaultState(),
   focusedIndex,
-  message: '',
-  itemHeight: 22,
-  x: 0,
-  y: 0,
-  width: 100,
-  height: 100,
-  filterValue: '',
-  viewMode: 0,
-  inputSource: 0,
-  minLineY: 0,
-  maxLineY: 0,
-  listItems: [],
-  collapsedUris: [],
-  smallWidthBreakPoint: 650,
-  filteredProblems: [],
 })
 
 test('handleBlur sets focusedIndex to -2', () => {

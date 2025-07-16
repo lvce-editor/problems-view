@@ -2,34 +2,16 @@ import { test, expect } from '@jest/globals'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import * as ActionType from '../src/parts/ActionType/ActionType.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getActions } from '../src/parts/GetProblemActions/GetProblemActions.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import * as MaskIcon from '../src/parts/MaskIcon/MaskIcon.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
-
 const createMockState = (overrides: Partial<ProblemsState> = {}): ProblemsState => {
   return {
-    uid: 1,
-    parentUid: 0,
-    problems: [],
-    focusedIndex: -2,
-    message: '',
-    itemHeight: 22,
-    x: 0,
-    y: 0,
-    width: 800,
-    height: 600,
-    filterValue: '',
-    viewMode: ProblemsViewMode.List,
-    inputSource: InputSource.User,
-    minLineY: 0,
-    maxLineY: 0,
-    listItems: [],
-    collapsedUris: [],
-    smallWidthBreakPoint: 650,
-    filteredProblems: [],
+    ...createDefaultState(),
     ...overrides,
   }
 }
