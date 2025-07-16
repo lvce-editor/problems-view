@@ -3,7 +3,7 @@ import { root } from './root.ts'
 
 export const threshold = 490_000
 
-export const instantiations = 200
+export const instantiations = 500
 
 export const instantiationsPath = join(root, 'packages', 'problems-view')
 
