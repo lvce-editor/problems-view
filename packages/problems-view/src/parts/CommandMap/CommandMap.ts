@@ -14,6 +14,8 @@ import * as Render2 from '../Render2/Render2.ts'
 import { renderActions } from '../RenderActions/RenderActions.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { viewAsList } from '../ViewAsList/ViewAsList.ts'
+import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
 export const commandMap = {
   'Problems.copyMessage': CopyMessage.copyMessage,
@@ -31,4 +33,6 @@ export const commandMap = {
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
   'Problems.handleIconThemeChange': handleIconThemeChange,
+  'Problems.viewAsTable': viewAsTable,
+  'Problems.viewAsList': viewAsList,
 }
