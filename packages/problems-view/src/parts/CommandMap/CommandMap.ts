@@ -6,6 +6,7 @@ import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
+import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
@@ -29,4 +30,5 @@ export const commandMap = {
   'Problems.resize': Resize.resize,
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
+  'Problems.handleIconThemeChange': handleIconThemeChange,
 }
