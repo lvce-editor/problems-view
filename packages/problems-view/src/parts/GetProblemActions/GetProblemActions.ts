@@ -9,9 +9,10 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
-  const visibleCount = GetVisibleProblems.getVisibleProblems(state.problems, state.collapsedUris, state.focusedIndex, state.filterValue).length
-  const problemsCount = state.problems.length
-  const isSmall = state.width <= state.smallWidthBreakPoint
+  const { problems, width, collapsedUris, focusedIndex, smallWidthBreakPoint, filterValue, inputSource, viewMode } = state
+  const visibleCount = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue).length
+  const problemsCount = problems.length
+  const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
   if (!isSmall) {
     actions.push({
@@ -20,10 +21,10 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
       command: DomEventListenerFunctions.HandleFilterInput,
       badgeText: visibleCount === problemsCount ? '' : ProblemStrings.showingOf(visibleCount, problemsCount),
       placeholder: ProblemStrings.filter(),
-      value: state.inputSource === InputSource.Script ? state.filterValue : '',
+      value: inputSource === InputSource.Script ? filterValue : '',
     })
   }
-  if (state.viewMode === ProblemsViewMode.Table) {
+  if (viewMode === ProblemsViewMode.Table) {
     actions.push({
       type: ActionType.Button,
       id: ProblemStrings.viewAsList(),
