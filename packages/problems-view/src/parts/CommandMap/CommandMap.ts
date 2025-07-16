@@ -13,16 +13,16 @@ import { resize } from '../Resize/Resize.ts'
 import { saveState } from '../SaveState/SaveState.ts'
 
 export const commandMap = {
+  'Problems.copyMessage': copyMessage,
   'Problems.create': Create.create,
   'Problems.diff2': diff2,
+  'Problems.focusIndex': focusIndex,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.initialize': Initialize.initialize,
   'Problems.render2': render2,
+  'Problems.resize': resize,
   'Problems.saveState': saveState,
   'Problems.terminate': terminate,
-  'Problems.copyMessage': copyMessage,
-  'Problems.focusIndex': focusIndex,
-  'Problems.resize': resize,
 }
