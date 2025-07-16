@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals'
-import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
 
 test('isEqual returns true when problems arrays are the same reference', () => {
   const problems = [{ message: 'test', uri: 'test.ts', listItemType: 0, source: 'test', rowIndex: 1, columnIndex: 1, relativePath: 'test.ts', code: 'TEST', type: 'error', posInSet: 1, setSize: 1, level: 1, count: 1 }]
