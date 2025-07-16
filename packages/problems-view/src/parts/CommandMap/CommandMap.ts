@@ -6,6 +6,7 @@ import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
+import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
@@ -39,4 +40,5 @@ export const commandMap = {
   'Problems.handleContextMenu': handleContextMenu,
   'Problems.viewAsTable': viewAsTable,
   'Problems.viewAsList': viewAsList,
+  'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
 }
