@@ -9,6 +9,7 @@ import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
+import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
@@ -23,24 +24,25 @@ import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
 export const commandMap = {
   'Problems.copyMessage': CopyMessage.copyMessage,
-  'Problems.renderEventListeners': renderEventListeners,
   'Problems.create': Create.create,
   'Problems.diff2': Diff2.diff2,
   'Problems.focusIndex': FocusIndex.focusIndex,
+  'Problems.getCommandIds': GetCommandIds.getCommandIds,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
+  'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
+  'Problems.handleContextMenu': handleContextMenu,
+  'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
+  'Problems.handleIconThemeChange': handleIconThemeChange,
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
   'Problems.renderActions': renderActions,
+  'Problems.renderEventListeners': renderEventListeners,
   'Problems.resize': Resize.resize,
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
-  'Problems.handleIconThemeChange': handleIconThemeChange,
-  'Problems.handleContextMenu': handleContextMenu,
-  'Problems.viewAsTable': viewAsTable,
   'Problems.viewAsList': viewAsList,
-  'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
-  'Problems.getCommandIds': GetCommandIds.getCommandIds,
+  'Problems.viewAsTable': viewAsTable,
 }
