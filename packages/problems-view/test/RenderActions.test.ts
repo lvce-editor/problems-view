@@ -1,11 +1,11 @@
 import { test, expect } from '@jest/globals'
 import { VirtualDomElements, AriaRoles, type VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
-import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import { set } from '../src/parts/ProblemsStates/ProblemsStates.ts'
-import { renderActions } from '../src/parts/RenderActions/RenderActions.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
+import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { set } from '../src/parts/ProblemsStates/ProblemsStates.ts'
+import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import { renderActions } from '../src/parts/RenderActions/RenderActions.ts'
 
 test('renderActions should return virtual dom nodes', async (): Promise<void> => {
   const uid = 1
