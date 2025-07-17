@@ -30,7 +30,13 @@ const getSavedCollapsedUris = (savedState: any): readonly string[] => {
 }
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
-  const problems = await GetProblems.getProblems(state)
+  const { problems, error } = await GetProblems.getProblems(state)
+  if (error) {
+    return {
+      ...state,
+      message: error,
+    }
+  }
   const message = ViewletProblemsStrings.getMessage(problems.length)
   const viewMode = getSavedViewMode(savedState)
   const filterValue = getSavedFilterValue(savedState)
