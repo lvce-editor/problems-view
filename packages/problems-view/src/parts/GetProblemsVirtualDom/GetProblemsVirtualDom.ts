@@ -14,6 +14,7 @@ export const getProblemsVirtualDom = (
   problems: readonly VisibleProblem[],
   filterValue: string,
   isSmall: boolean,
+  message: string,
 ): readonly VirtualDomNode[] => {
   // TODO avoid mutation
   const dom = []
@@ -39,6 +40,6 @@ export const getProblemsVirtualDom = (
       }),
     )
   }
-  dom.push(...GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue))
+  dom.push(...GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue, message))
   return dom
 }
