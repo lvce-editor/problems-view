@@ -4,8 +4,9 @@ import * as GetProblemsVirtualDom from '../GetProblemsVirtualDom/GetProblemsVirt
 import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
 
 export const renderItems = (oldState: ProblemsState, newState: ProblemsState): ViewletCommand => {
-  const visible = GetVisibleProblems.getVisibleProblems(newState.problems, newState.collapsedUris, newState.focusedIndex, newState.filterValue)
-  const isSmall = newState.width <= newState.smallWidthBreakPoint
-  const dom = GetProblemsVirtualDom.getProblemsVirtualDom(newState.viewMode, visible, newState.filterValue, isSmall)
+  const { problems, width, smallWidthBreakPoint, collapsedUris, focusedIndex, viewMode, filterValue } = newState
+  const visible = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue)
+  const isSmall = width <= smallWidthBreakPoint
+  const dom = GetProblemsVirtualDom.getProblemsVirtualDom(viewMode, visible, filterValue, isSmall)
   return ['Viewlet.setDom2', dom]
 }
