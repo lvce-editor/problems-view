@@ -1,5 +1,6 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
+import * as InputSource from '../InputSource/InputSource.ts'
 
 export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boolean => {
-  return oldState.problems === newState.problems && oldState.filterValue === newState.filterValue && oldState.message === newState.message
+  return newState.inputSource === InputSource.User || oldState.filterValue === newState.filterValue
 }
