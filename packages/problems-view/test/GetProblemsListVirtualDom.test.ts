@@ -42,6 +42,7 @@ test('getProblemsListVirtualDom with single problem', () => {
     isActive: false,
     icon: 'file-icon',
     filterValueLength: 0,
+    fileName: '',
   }
 
   const problems: readonly VisibleProblem[] = [problem]
@@ -80,6 +81,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     isActive: true,
     icon: 'file-icon',
     filterValueLength: 0,
+    fileName: '',
   }
 
   const problem2: VisibleProblem = {
@@ -104,6 +106,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     isActive: false,
     icon: 'file-icon',
     filterValueLength: 0,
+    fileName: '',
   }
 
   const problems: readonly VisibleProblem[] = [problem1, problem2]

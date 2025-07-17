@@ -5,7 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
 
 test('isEqual returns true when problems arrays are the same reference', () => {
-  const problems = [
+  const problems: readonly Problem[] = [
     {
       message: 'test',
       uri: 'test.ts',
@@ -20,6 +20,7 @@ test('isEqual returns true when problems arrays are the same reference', () => {
       setSize: 1,
       level: 1,
       count: 1,
+      fileName: '',
     },
   ]
   const oldState: ProblemsState = { ...createDefaultState(), problems }
@@ -28,7 +29,7 @@ test('isEqual returns true when problems arrays are the same reference', () => {
 })
 
 test('isEqual returns false when problems arrays are different', () => {
-  const oldProblems = [
+  const oldProblems: readonly Problem[] = [
     {
       message: 'old',
       uri: 'old.ts',
@@ -43,9 +44,10 @@ test('isEqual returns false when problems arrays are different', () => {
       setSize: 1,
       level: 1,
       count: 1,
+      fileName: '',
     },
   ]
-  const newProblems = [
+  const newProblems: readonly Problem[] = [
     {
       message: 'new',
       uri: 'new.ts',
@@ -60,6 +62,7 @@ test('isEqual returns false when problems arrays are different', () => {
       setSize: 1,
       level: 1,
       count: 1,
+      fileName: '',
     },
   ]
   const oldState: ProblemsState = { ...createDefaultState(), problems: oldProblems }

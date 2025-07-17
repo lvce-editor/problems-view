@@ -1,15 +1,16 @@
 export interface Problem {
-  readonly message: string
-  readonly uri: string
-  readonly listItemType: number
-  readonly source: string
-  readonly rowIndex: number
-  readonly columnIndex: number
-  readonly relativePath: string
   readonly code: string | number
-  readonly type: string
-  readonly posInSet: number
-  readonly setSize: number
-  readonly level: number
+  readonly columnIndex: number
   readonly count: number
+  readonly fileName: string
+  readonly level: number
+  readonly listItemType: number
+  readonly message: string
+  readonly posInSet: number
+  readonly relativePath: string
+  readonly rowIndex: number
+  readonly setSize: number
+  readonly source: string
+  readonly type: string
+  readonly uri: string
 }

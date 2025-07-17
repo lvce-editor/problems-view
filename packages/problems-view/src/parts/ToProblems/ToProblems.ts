@@ -18,6 +18,7 @@ const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
     posInSet: index,
     setSize: 1,
     level: 2,
+    fileName: '',
   }
 }
 
@@ -26,6 +27,11 @@ const getRelativeUri = (uri: string, workspaceUri: string): string => {
     return uri.slice(workspaceUri.length)
   }
   return uri
+}
+
+const getFileName = (uri: string): string => {
+  const slashIndex = uri.lastIndexOf('/')
+  return uri.slice(slashIndex + 1)
 }
 
 type DeepMutable<T> = { -readonly [P in keyof T]: DeepMutable<T[P]> }
@@ -46,6 +52,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
     posInSet: 0,
     setSize: 0,
     type: '',
+    fileName: '',
   }
   let relativeIndex = 0
   for (const diagnostic of diagnostics) {
@@ -68,15 +75,18 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
         setSize: 123,
         level: 1,
         code: '',
+        fileName: '',
       }
       problems.push(problem)
     }
     problems.push(toProblem(diagnostic, relativeIndex))
   }
   for (const problem of problems) {
+    // TODO maybe rename property, this should be the relative path of the parent folder of the file
     // @ts-ignore
     problem.relativePath = getRelativeUri(problem.uri, workspaceUri)
     // @ts-ignore
+    problem.fileName = getFileName(problem.uri)
     // problem.uri = problem.uri // TODO
   }
   return problems

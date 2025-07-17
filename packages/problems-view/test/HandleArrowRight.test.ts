@@ -19,6 +19,7 @@ const defaultProblem: Problem = {
   setSize: 0,
   level: 0,
   count: 0,
+  fileName: '',
 }
 
 test('handleArrowRight expands and focuses on the same problem', () => {

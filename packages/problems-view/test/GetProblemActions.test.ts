@@ -31,6 +31,7 @@ const createMockProblem = (): Problem => {
     posInSet: 1,
     setSize: 1,
     listItemType: 1,
+    fileName: '',
   }
 }
 
