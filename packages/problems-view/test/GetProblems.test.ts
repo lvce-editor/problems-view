@@ -10,7 +10,7 @@ test('getProblems returns empty array', async () => {
     invoke,
   })
   EditorWorker.set(mockRpc)
-  const result = await getProblems({})
+  const result = await getProblems('')
   expect(result).toEqual({
     error: '',
     problems: [],
@@ -24,6 +24,6 @@ test('getProblems returns empty array for non-empty state', async () => {
     invoke,
   })
   EditorWorker.set(mockRpc)
-  const result = await getProblems({ foo: 'bar' })
+  const result = await getProblems('')
   expect(result).toEqual({ error: '', problems: [] })
 })
