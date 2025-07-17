@@ -4,7 +4,7 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { writeText } from '../src/parts/ClipBoard/ClipBoard.ts'
 
 test('writeText calls writeClipBoardText with the provided text', async () => {
-  const invoke = jest.fn((...args:readonly any[]) => undefined)
+  const invoke = jest.fn((...args: readonly any[]) => undefined)
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke,
@@ -18,7 +18,7 @@ test('writeText calls writeClipBoardText with the provided text', async () => {
 })
 
 test('writeText handles empty string', async () => {
-  const invoke = jest.fn((...args:readonly any[]) => undefined)
+  const invoke = jest.fn((...args: readonly any[]) => undefined)
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke,

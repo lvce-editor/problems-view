@@ -1,4 +1,6 @@
 import { test, expect } from '@jest/globals'
+import type { Problem } from '../src/parts/Problem/Problem.ts'
+import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
 
@@ -20,8 +22,8 @@ test('isEqual returns true when problems arrays are the same reference', () => {
       count: 1,
     },
   ]
-  const oldState = { ...createDefaultState(), problems }
-  const newState = { ...createDefaultState(), problems }
+  const oldState: ProblemsState = { ...createDefaultState(), problems }
+  const newState: ProblemsState = { ...createDefaultState(), problems }
   expect(isEqual(oldState, newState)).toBe(true)
 })
 
@@ -60,14 +62,14 @@ test('isEqual returns false when problems arrays are different', () => {
       count: 1,
     },
   ]
-  const oldState = { ...createDefaultState(), problems: oldProblems }
-  const newState = { ...createDefaultState(), problems: newProblems }
+  const oldState: ProblemsState = { ...createDefaultState(), problems: oldProblems }
+  const newState: ProblemsState = { ...createDefaultState(), problems: newProblems }
   expect(isEqual(oldState, newState)).toBe(false)
 })
 
 test('isEqual returns true when both states have the same empty problems array reference', () => {
-  const emptyProblems: any[] = []
-  const oldState = { ...createDefaultState(), problems: emptyProblems }
-  const newState = { ...createDefaultState(), problems: emptyProblems }
+  const emptyProblems: readonly Problem[] = []
+  const oldState: ProblemsState = { ...createDefaultState(), problems: emptyProblems }
+  const newState: ProblemsState = { ...createDefaultState(), problems: emptyProblems }
   expect(isEqual(oldState, newState)).toBe(true)
 })
