@@ -44,7 +44,6 @@ test('saveState should preserve all other state properties but only return the r
   const state: ProblemsState = {
     ...createDefaultState(),
     uid: 999,
-    parentUid: 888,
     problems: [{ id: '1', message: 'test' } as any],
     focusedIndex: 5,
     message: 'some message',

@@ -5,7 +5,6 @@ import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 export const createDefaultState = (): ProblemsState => {
   const state: ProblemsState = {
     uid: 0,
-    parentUid: 0,
     problems: [],
     focusedIndex: -2,
     message: '',
