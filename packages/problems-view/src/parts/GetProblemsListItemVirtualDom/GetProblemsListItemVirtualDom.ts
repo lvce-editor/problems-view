@@ -29,6 +29,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     source,
     type,
     uri,
+    fileName,
   } = problem
   let className = ClassNames.Problem
   if (isActive) {
@@ -52,7 +53,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
       GetFileIconVirtualDom.getFileIconVirtualDom(icon),
-      text(uri),
+      text(fileName),
       {
         type: VirtualDomElements.Div,
         className: ClassNames.LabelDetail,

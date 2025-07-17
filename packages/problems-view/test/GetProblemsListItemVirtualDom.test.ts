@@ -63,7 +63,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
     },
     {
       type: 12,
-      text: '/path/to/file.ts',
+      text: '',
       childCount: 0,
     },
     {
@@ -128,7 +128,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
     },
     {
       type: 12,
-      text: '/path/to/file.ts',
+      text: '',
       childCount: 0,
     },
     {
@@ -164,6 +164,8 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
     icon: 'icon-ts',
     filterValueLength: 0,
     isEven: false,
+    fileName: 'file.ts',
+    relativePath: '/path/to',
   }
   const dom = getProblemVirtualDom(problem)
   const expectedDom = [
