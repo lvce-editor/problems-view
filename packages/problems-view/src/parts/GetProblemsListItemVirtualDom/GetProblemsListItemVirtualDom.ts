@@ -12,23 +12,23 @@ import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
   const {
-    message,
-    rowIndex,
-    columnIndex,
-    isActive,
-    uri,
-    icon,
-    source,
-    relativePath,
-    messageMatchIndex,
-    filterValueLength,
     code,
-    type,
-    posInSet,
-    setSize,
+    columnIndex,
+    filterValueLength,
+    icon,
+    isActive,
+    isCollapsed,
     level,
     listItemType,
-    isCollapsed,
+    message,
+    messageMatchIndex,
+    posInSet,
+    relativePath,
+    rowIndex,
+    setSize,
+    source,
+    type,
+    uri,
   } = problem
   let className = ClassNames.Problem
   if (isActive) {
