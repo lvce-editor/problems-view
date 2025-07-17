@@ -21,9 +21,16 @@ const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
   }
 }
 
+const getRelativeUri = (uri: string, workspaceUri: string): string => {
+  if (uri.startsWith(workspaceUri)) {
+    return uri.slice(workspaceUri.length)
+  }
+  return uri
+}
+
 type DeepMutable<T> = { -readonly [P in keyof T]: DeepMutable<T[P]> }
 
-export const toProblems = (diagnostics: readonly Diagnostic[]): readonly Problem[] => {
+export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''): readonly Problem[] => {
   const problems = []
   let problem: DeepMutable<Problem> = {
     message: '',
@@ -68,7 +75,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[]): readonly Problem
   }
   for (const problem of problems) {
     // @ts-ignore
-    problem.relativePath = problem.uri // TODO
+    problem.relativePath = getRelativeUri(problem.uri, workspaceUri)
     // @ts-ignore
     // problem.uri = problem.uri // TODO
   }
