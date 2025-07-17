@@ -8,6 +8,7 @@ import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
+import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
@@ -32,7 +33,8 @@ export const commandMap = {
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
-  'Problems.handleContextMenu': handleContextMenu,
+  'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
+  'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': handleIconThemeChange,
   'Problems.initialize': Initialize.initialize,
