@@ -12,7 +12,6 @@ export interface ProblemsState {
   readonly maxLineY: number
   readonly message: string
   readonly minLineY: number
-  readonly parentUid: number
   readonly problems: readonly Problem[]
   readonly smallWidthBreakPoint: number
   readonly uid: number
