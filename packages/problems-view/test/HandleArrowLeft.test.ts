@@ -19,6 +19,7 @@ const defaultProblem: Problem = {
   setSize: 0,
   level: 0,
   count: 0,
+  fileName: '',
 }
 
 test('handleArrowLeft collapses and focuses on first expandable problem', () => {

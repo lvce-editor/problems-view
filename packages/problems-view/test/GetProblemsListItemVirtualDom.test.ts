@@ -22,6 +22,7 @@ const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActi
   sourceMatchIndex: -1,
   messageMatchIndex: -1,
   isEven: false,
+  fileName: '',
 }
 
 test('getProblemVirtualDom returns correct dom for Expanded', () => {

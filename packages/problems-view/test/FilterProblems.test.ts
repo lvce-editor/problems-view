@@ -19,6 +19,7 @@ test('filterProblems returns empty array when no problems match filter', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -45,6 +46,7 @@ test('filterProblems returns all problems when filter is empty', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -75,6 +77,7 @@ test('filterProblems matches by uri', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -104,6 +107,7 @@ test('filterProblems matches by source', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -133,6 +137,7 @@ test('filterProblems matches by message', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -162,6 +167,7 @@ test('filterProblems matches case insensitive', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -189,6 +195,7 @@ test('filterProblems excludes collapsed items when listItemType is Item', () => 
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = ['/path/to/file.ts']
@@ -215,6 +222,7 @@ test('filterProblems includes collapsed items when listItemType is not Item', ()
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = ['/path/to/file.ts']
@@ -243,6 +251,7 @@ test('filterProblems sets correct listItemType for non-collapsed items', () => {
       setSize: 1,
       level: 0,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []
@@ -271,6 +280,7 @@ test('filterProblems handles multiple problems with different matches', () => {
       setSize: 2,
       level: 0,
       count: 1,
+      fileName: '',
     },
     {
       message: 'Warning in file',
@@ -286,6 +296,7 @@ test('filterProblems handles multiple problems with different matches', () => {
       setSize: 2,
       level: 1,
       count: 1,
+      fileName: '',
     },
   ]
   const collapsedUris: readonly string[] = []

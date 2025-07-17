@@ -41,6 +41,7 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with problems
       isActive: false,
       icon: 'error',
       filterValueLength: 0,
+      fileName: '',
     },
   ]
   const dom = getProblemsTableBodyVirtualDom(problems)
