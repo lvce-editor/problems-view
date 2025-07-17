@@ -17,6 +17,5 @@ export const test: Test = async ({ Panel, Locator, expect, Command }) => {
   await Command.execute('Problems.handleFilterInput', 'abc')
 
   // assert
-
-  // TODO verify that message is displayed that no items have been found matching filter text
+  await expect(problemsView).toHaveText(`No results found with provided filter criteria.Clear Filters.`)
 }
