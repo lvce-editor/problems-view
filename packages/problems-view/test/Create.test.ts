@@ -11,7 +11,7 @@ test('create initializes state with correct default values', () => {
   const height = 400
   const args = { someArg: 'value' }
   const parentUid = 456
-  create(id, uri, x, y, width, height, args, parentUid)
+  create(id, uri, x, y, width, height, args, parentUid, '')
   const stateTuple = get(id)
   expect(stateTuple).toBeDefined()
 })

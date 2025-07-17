@@ -3,7 +3,17 @@ import * as InputSource from '../InputSource/InputSource.ts'
 import * as ProblemsStates from '../ProblemsStates/ProblemsStates.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
-export const create = (id: number, uri: string, x: number, y: number, width: number, height: number, args: any, parentUid: number): void => {
+export const create = (
+  id: number,
+  uri: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  args: any,
+  parentUid: number,
+  workspaceUri: string,
+): void => {
   const state: ProblemsState = {
     uid: id,
     parentUid,
@@ -24,6 +34,7 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     collapsedUris: [],
     smallWidthBreakPoint: 650,
     filteredProblems: [],
+    workspaceUri,
   }
   ProblemsStates.set(id, state, state)
 }
