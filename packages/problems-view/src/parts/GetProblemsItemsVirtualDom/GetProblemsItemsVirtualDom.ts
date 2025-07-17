@@ -14,7 +14,7 @@ export const getProblemsVirtualDom = (
   filterValue: string,
   message: string,
 ): readonly VirtualDomNode[] => {
-  if (message) {
+  if (problems.length === 0 && message) {
     return [
       {
         type: VirtualDomElements.Div,
