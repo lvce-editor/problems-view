@@ -1,5 +1,5 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 
 export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boolean => {
-  return oldState.problems === newState.problems
+  return oldState.problems === newState.problems && oldState.filterValue === newState.filterValue
 }
