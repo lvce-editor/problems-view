@@ -24,10 +24,10 @@ import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
 export const commandMap = {
-  'Problems.copyMessage': CopyMessage.copyMessage,
+  'Problems.copyMessage': WrapCommand.wrapCommand(CopyMessage.copyMessage),
   'Problems.create': Create.create,
   'Problems.diff2': Diff2.diff2,
-  'Problems.focusIndex': FocusIndex.focusIndex,
+  'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
   'Problems.getCommandIds': GetCommandIds.getCommandIds,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
@@ -36,7 +36,7 @@ export const commandMap = {
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
-  'Problems.handleIconThemeChange': handleIconThemeChange,
+  'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
@@ -45,6 +45,6 @@ export const commandMap = {
   'Problems.resize': Resize.resize,
   'Problems.saveState': SaveState.saveState,
   'Problems.terminate': ViewletRegistry.terminate,
-  'Problems.viewAsList': viewAsList,
-  'Problems.viewAsTable': viewAsTable,
+  'Problems.viewAsList': WrapCommand.wrapCommand(viewAsList),
+  'Problems.viewAsTable': WrapCommand.wrapCommand(viewAsTable),
 }
