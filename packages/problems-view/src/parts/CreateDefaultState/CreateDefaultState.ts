@@ -23,6 +23,7 @@ export const createDefaultState = (): ProblemsState => {
     collapsedUris: [],
     smallWidthBreakPoint: 650,
     filteredProblems: [],
+    workspaceUri: '',
   }
   return state
 }

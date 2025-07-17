@@ -18,6 +18,7 @@ export interface ProblemsState {
   readonly uid: number
   readonly viewMode: number
   readonly width: number
+  readonly workspaceUri: string
   readonly x: number
   readonly y: number
 }
