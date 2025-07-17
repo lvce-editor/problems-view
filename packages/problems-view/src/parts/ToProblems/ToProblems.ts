@@ -22,11 +22,9 @@ const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
   }
 }
 
-const getRelativeUri = (uri: string, workspaceUri: string): string => {
-  if (uri.startsWith(workspaceUri)) {
-    return uri.slice(workspaceUri.length)
-  }
-  return uri
+const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
+  const slashIndex = uri.lastIndexOf('/')
+  return uri.slice(0, slashIndex).slice(workspaceUri.length)
 }
 
 const getFileName = (uri: string): string => {
@@ -84,7 +82,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
   for (const problem of problems) {
     // TODO maybe rename property, this should be the relative path of the parent folder of the file
     // @ts-ignore
-    problem.relativePath = getRelativeUri(problem.uri, workspaceUri)
+    problem.relativePath = getRelativeParentUri(problem.uri, workspaceUri)
     // @ts-ignore
     problem.fileName = getFileName(problem.uri)
     // problem.uri = problem.uri // TODO
