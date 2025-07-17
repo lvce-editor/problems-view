@@ -28,7 +28,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     setSize,
     source,
     type,
-    uri,
     fileName,
   } = problem
   let className = ClassNames.Problem
