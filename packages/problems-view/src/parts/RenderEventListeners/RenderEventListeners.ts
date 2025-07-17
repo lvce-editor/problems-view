@@ -1,5 +1,6 @@
 import type { DomEventListener } from '@lvce-editor/virtual-dom-worker'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as InputSource from '../InputSource/InputSource.ts'
 
 export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
@@ -14,7 +15,8 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandleFilterInput,
-      params: ['handleFilterInput', 'event.target.value'],
+      // @ts-ignore
+      params: ['handleFilterInput', 'event.target.value', InputSource.User],
     },
     {
       name: DomEventListenerFunctions.HandleClearFilterClick,
