@@ -1,7 +1,12 @@
+import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as DiffFilterValue from '../DiffFilterValue/DiffFilterValue.ts'
 import * as DiffItems from '../DiffItems/DiffItems.ts'
 import * as DiffType from '../DiffType/DiffType.ts'
 
-export const modules = [DiffItems.isEqual, DiffFilterValue.isEqual]
+interface DiffFunction<T> {
+  (oldState: T, newState: T): boolean
+}
 
-export const numbers = [DiffType.RenderItems, DiffType.RenderFilterValue]
+export const modules: readonly DiffFunction<ProblemsState>[] = [DiffItems.isEqual, DiffFilterValue.isEqual]
+
+export const numbers: readonly number[] = [DiffType.RenderItems, DiffType.RenderFilterValue]
