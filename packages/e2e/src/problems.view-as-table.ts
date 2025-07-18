@@ -32,9 +32,9 @@ export const test: Test = async ({ Main, Command, FileSystem, Workspace, Extensi
   const cellCode = tableBody.locator('.ProblemsTableRowItem').nth(1)
   await expect(cellCode).toHaveText('xyz ')
   const cellMessage = tableBody.locator('.ProblemsTableRowItem').nth(2)
-  await expect(cellMessage).toHaveText('error 1 ')
+  await expect(cellMessage).toHaveText('error 1')
   const cellFile = tableBody.locator('.ProblemsTableRowItem').nth(3)
-  await expect(cellFile).toHaveText('memfs://workspace/file1.xyz')
+  await expect(cellFile).toHaveText('memfs:///workspace/file1.xyz')
   const cellSource = tableBody.locator('.ProblemsTableRowItem').nth(4)
   await expect(cellSource).toHaveText('xyz')
 }
