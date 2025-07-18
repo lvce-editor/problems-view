@@ -1,8 +1,10 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'problems.collapse-all'
 
 export const skip = 1
 
-export const test = async ({ Main, FileSystem, Workspace, Extension, Locator, Panel, expect }) => {
+export const test: Test = async ({ Main, FileSystem, Workspace, Extension, Locator, Panel, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')
@@ -12,7 +14,7 @@ export const test = async ({ Main, FileSystem, Workspace, Extension, Locator, Pa
   await Extension.addWebExtension(new URL(`../fixtures/${name}`, import.meta.url).toString())
 
   await Main.openUri(`${tmpDir}/file1.xyz`)
-  await Panel.open()
+  await Panel.open('Problems')
 
   // assert
   const problemsView = Locator('.Problems')
