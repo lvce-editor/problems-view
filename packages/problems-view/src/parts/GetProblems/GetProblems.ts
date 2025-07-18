@@ -6,8 +6,7 @@ import { toProblems } from '../ToProblems/ToProblems.ts'
 
 export const getProblems = async (workspaceUri: string): Promise<ProblemsResult> => {
   try {
-    // @ts-ignore
-    const diagnostics = await EditorWorker.invoke('Editor.getProblems')
+    const diagnostics = await EditorWorker.getProblems()
     // @ts-ignore
     const problems = toProblems(diagnostics, workspaceUri)
     return {
