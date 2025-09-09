@@ -1,4 +1,4 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import { EditorWorker } from '@lvce-editor/rpc-registry'
 import { getProblems } from '../src/parts/GetProblems/GetProblems.ts'
 
