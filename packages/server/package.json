@@ -6,6 +6,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "scripts": {
+    "postinstall": "node src/postinstall.js",
+    "dev": "node ./node_modules/@lvce-editor/server/bin/server.js --test-path=../e2e"
+  },
   "dependencies": {
     "@lvce-editor/server": "0.56.3"
   }
