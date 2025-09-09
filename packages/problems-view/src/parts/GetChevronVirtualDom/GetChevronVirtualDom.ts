@@ -1,11 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { mergeClassNames, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 export const getChevronDownVirtualDom = (extraClassName = ''): VirtualDomNode => {
   return {
     type: VirtualDomElements.Div,
-    className: `${ClassNames.Chevron} MaskIconChevronDown ${extraClassName}`,
+    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronDown', extraClassName) + (extraClassName === '' ? ' ' : ''),
     childCount: 0,
   }
 }
@@ -13,7 +13,7 @@ export const getChevronDownVirtualDom = (extraClassName = ''): VirtualDomNode =>
 export const getChevronRightVirtualDom = (extraClassName = ''): VirtualDomNode => {
   return {
     type: VirtualDomElements.Div,
-    className: `${ClassNames.Chevron} MaskIconChevronRight ${extraClassName}`,
+    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronRight', extraClassName) + (extraClassName === '' ? ' ' : ''),
     childCount: 0,
   }
 }
