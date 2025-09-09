@@ -1,5 +1,4 @@
-import { test, expect, jest } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
+import { test, expect } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { copyMessage } from '../src/parts/CopyMessage/CopyMessage.ts'
@@ -20,21 +19,18 @@ test('copyMessage should copy the focused problem message to clipboard', async (
     setSize: 1,
     source: 'TypeScript',
     type: 'error',
-    uri: 'file:///test.ts'
+    uri: 'file:///test.ts',
   }
 
   const state = { ...createDefaultState(), problems: [mockProblem], focusedIndex: 0 }
 
-  const invoke = jest.fn((...args: readonly any[]) => undefined)
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke,
+  const mockRpc = RendererWorker.registerMockRpc({
+    'ClipBoard.writeText': () => {},
   })
-  RendererWorker.set(mockRpc)
 
   const result = await copyMessage(state)
 
-  expect(invoke).toHaveBeenCalledWith('ClipBoard.writeText', 'Test error message')
+  expect(mockRpc.invocations).toEqual([['ClipBoard.writeText', 'Test error message']])
   expect(result).toBe(state)
 })
 
@@ -53,7 +49,7 @@ test('copyMessage should copy message from different problem index', async () =>
     setSize: 1,
     source: 'TypeScript',
     type: 'error',
-    uri: 'file:///test1.ts'
+    uri: 'file:///test1.ts',
   }
 
   const mockProblem2: Problem = {
@@ -70,20 +66,17 @@ test('copyMessage should copy message from different problem index', async () =>
     setSize: 1,
     source: 'TypeScript',
     type: 'warning',
-    uri: 'file:///test2.ts'
+    uri: 'file:///test2.ts',
   }
 
   const state = { ...createDefaultState(), problems: [mockProblem1, mockProblem2], focusedIndex: 1 }
 
-  const invoke = jest.fn((...args: readonly any[]) => undefined)
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke,
+  const mockRpc = RendererWorker.registerMockRpc({
+    'ClipBoard.writeText': () => {},
   })
-  RendererWorker.set(mockRpc)
 
   const result = await copyMessage(state)
 
-  expect(invoke).toHaveBeenCalledWith('ClipBoard.writeText', 'Second error message')
+  expect(mockRpc.invocations).toEqual([['ClipBoard.writeText', 'Second error message']])
   expect(result).toBe(state)
 })
