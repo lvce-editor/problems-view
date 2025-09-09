@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.view-as-table'
 
-export const skip = 1
-
 export const test: Test = async ({ Main, Command, FileSystem, Workspace, Extension, Locator, Panel, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
