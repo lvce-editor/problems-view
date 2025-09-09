@@ -15,7 +15,9 @@
     "noImplicitAny": false,
     "composite": true,
     "noUnusedParameters": true,
-    "isolatedDeclarations": true
+    "isolatedDeclarations": true,
+    "allowImportingTsExtensions": true,
+    "noUnusedLocals": true
   },
   "include": ["src", "test"]
 }
