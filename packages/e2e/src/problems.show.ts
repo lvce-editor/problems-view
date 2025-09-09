@@ -2,10 +2,7 @@ import { type Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.show'
 
-export const skip = 1
-
 export const test: Test = async ({ Panel, Locator, expect }) => {
-  // arrange
   // act
   await Panel.open('Problems')
 
