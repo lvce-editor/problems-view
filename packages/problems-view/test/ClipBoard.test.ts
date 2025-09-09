@@ -10,7 +10,7 @@ test('writeText calls writeClipBoardText with the provided text', async () => {
   const testText = 'test clipboard text'
   await writeText(testText)
 
-  expect(mockRpc.invocations).toHaveBeenCalledWith('ClipBoard.writeText', testText)
+  expect(mockRpc.invocations).toEqual([['ClipBoard.writeText', testText]])
 })
 
 test('writeText handles empty string', async () => {
