@@ -1,4 +1,4 @@
-import { test, expect, jest } from '@jest/globals'
+import { test, expect } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { writeText } from '../src/parts/ClipBoard/ClipBoard.ts'
 
@@ -14,15 +14,11 @@ test('writeText calls writeClipBoardText with the provided text', async () => {
 })
 
 test('writeText handles empty string', async () => {
-  const invoke = jest.fn((...args: readonly any[]) => undefined)
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {
-      'ClipBoard.writeText': invoke,
-    },
-    invoke,
+    'ClipBoard.writeText': () => {},
   })
 
   await writeText('')
 
-  expect(invoke).toHaveBeenCalledWith('ClipBoard.writeText', '')
+  expect(mockRpc.invocations).toEqual([['ClipBoard.writeText', '']])
 })
