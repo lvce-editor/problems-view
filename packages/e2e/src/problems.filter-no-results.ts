@@ -4,7 +4,7 @@ export const name = 'problems.filter-no-results'
 
 export const skip = 1
 
-export const test: Test = async ({ Panel, Locator, expect, Command }) => {
+export const test: Test = async ({ Panel, Locator, expect, Problems }) => {
   // arrange
   await Panel.open('Problems')
   const problemsView = Locator('.Viewlet.Problems')
@@ -14,7 +14,7 @@ export const test: Test = async ({ Panel, Locator, expect, Command }) => {
   await expect(input).toBeVisible()
 
   // act
-  await Command.execute('Problems.handleFilterInput', 'abc')
+  await Problems.handleFilterInput('abc')
 
   // assert
   await expect(problemsView).toHaveText(`No results found with provided filter criteria.Clear Filters.`)
