@@ -7,7 +7,7 @@ test('renderFilterValue returns correct ViewletCommand when filterValue changes'
   const oldState: ProblemsState = createDefaultState()
   const newState: ProblemsState = {
     ...createDefaultState(),
-    filterValue: 'test filter'
+    filterValue: 'test filter',
   }
 
   const result = renderFilterValue(oldState, newState)
@@ -19,7 +19,7 @@ test('renderFilterValue returns correct ViewletCommand when filterValue is empty
   const oldState: ProblemsState = createDefaultState()
   const newState: ProblemsState = {
     ...createDefaultState(),
-    filterValue: ''
+    filterValue: '',
   }
 
   const result = renderFilterValue(oldState, newState)
@@ -31,7 +31,7 @@ test('renderFilterValue returns correct ViewletCommand when filterValue has spec
   const oldState: ProblemsState = createDefaultState()
   const newState: ProblemsState = {
     ...createDefaultState(),
-    filterValue: 'error: "unexpected token"'
+    filterValue: 'error: "unexpected token"',
   }
 
   const result = renderFilterValue(oldState, newState)
