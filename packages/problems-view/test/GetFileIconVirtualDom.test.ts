@@ -6,10 +6,10 @@ test('getFileIconVirtualDom returns correct virtual dom node', () => {
   const icon = 'test-icon.png'
   const result = getFileIconVirtualDom(icon)
   expect(result).toEqual({
-    type: 17,
-    className: ClassNames.FileIcon,
-    src: icon,
-    role: 'none',
     childCount: 0,
+    className: ClassNames.FileIcon,
+    role: 'none',
+    src: icon,
+    type: 17,
   })
 })

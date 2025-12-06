@@ -7,20 +7,20 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 export const getNoResultsWithFilterVirtualDom = (): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Message,
       childCount: 3,
+      className: ClassNames.Message,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Span,
       childCount: 1,
+      type: VirtualDomElements.Span,
     },
     text(ProblemStrings.noResultsFoundWithProvidedFilterCriteria()),
     {
-      type: VirtualDomElements.A,
-      className: ClassNames.MessageAction,
       childCount: 1,
+      className: ClassNames.MessageAction,
       onClick: DomEventListenerFunctions.HandleClearFilterClick,
+      type: VirtualDomElements.A,
     },
     text(ProblemStrings.clearFilter()),
     text('.'),

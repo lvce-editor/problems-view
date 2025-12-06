@@ -5,7 +5,7 @@ import { resize } from '../src/parts/Resize/Resize.ts'
 
 test('resize updates width and height', () => {
   const state: ProblemsState = createDefaultState()
-  const newState: ProblemsState = resize(state, { width: 800, height: 600 })
+  const newState: ProblemsState = resize(state, { height: 600, width: 800 })
   expect(newState.width).toBe(800)
   expect(newState.height).toBe(600)
 })
@@ -19,6 +19,6 @@ test('resize preserves other state properties', () => {
 
 test('resize can update multiple properties', () => {
   const state: ProblemsState = createDefaultState()
-  const newState: ProblemsState = resize(state, { width: 123, height: 456, x: 10, y: 20 })
-  expect(newState).toMatchObject({ width: 123, height: 456, x: 10, y: 20 })
+  const newState: ProblemsState = resize(state, { height: 456, width: 123, x: 10, y: 20 })
+  expect(newState).toMatchObject({ height: 456, width: 123, x: 10, y: 20 })
 })

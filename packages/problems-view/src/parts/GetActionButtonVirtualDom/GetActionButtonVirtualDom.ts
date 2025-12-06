@@ -4,14 +4,14 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 
 export const getActionButtonVirtualDom = (action: any): readonly VirtualDomNode[] => {
-  const { id, icon, command } = action
+  const { command, icon, id } = action
   return [
     {
-      type: VirtualDomElements.Button,
-      className: ClassNames.IconButton,
-      title: id,
-      'data-command': command,
       childCount: 1,
+      className: ClassNames.IconButton,
+      'data-command': command,
+      title: id,
+      type: VirtualDomElements.Button,
     },
     GetIconVirtualDom.getIconVirtualDom(icon),
   ]

@@ -9,58 +9,58 @@ import { saveState } from '../src/parts/SaveState/SaveState.ts'
 test('saveState should extract viewMode, filterValue, and collapsedUris from ProblemsState', () => {
   const state: ProblemsState = {
     ...createDefaultState(),
+    collapsedUris: ['file:///test1.ts', 'file:///test2.ts'],
     filterValue: 'test filter',
     viewMode: ProblemsViewMode.List,
-    collapsedUris: ['file:///test1.ts', 'file:///test2.ts'],
   }
 
   const result: SavedState = saveState(state)
 
   expect(result).toEqual({
-    viewMode: ProblemsViewMode.List,
-    filterValue: 'test filter',
     collapsedUris: ['file:///test1.ts', 'file:///test2.ts'],
+    filterValue: 'test filter',
+    viewMode: ProblemsViewMode.List,
   })
 })
 
 test('saveState should handle empty state values', () => {
   const state: ProblemsState = {
     ...createDefaultState(),
+    collapsedUris: [],
     filterValue: '',
     viewMode: ProblemsViewMode.None,
-    collapsedUris: [],
   }
 
   const result: SavedState = saveState(state)
 
   expect(result).toEqual({
-    viewMode: ProblemsViewMode.None,
-    filterValue: '',
     collapsedUris: [],
+    filterValue: '',
+    viewMode: ProblemsViewMode.None,
   })
 })
 
 test('saveState should preserve all other state properties but only return the required ones', () => {
   const state: ProblemsState = {
     ...createDefaultState(),
-    uid: 999,
-    problems: [{ id: '1', message: 'test' } as any],
+    collapsedUris: ['file:///collapsed1.ts', 'file:///collapsed2.ts', 'file:///collapsed3.ts'],
+    filteredProblems: [{ id: '2', message: 'filtered' } as any],
+    filterValue: 'complex filter',
     focusedIndex: 5,
-    message: 'some message',
+    height: 400,
+    inputSource: InputSource.Script,
     itemHeight: 30,
+    listItems: [{ id: '1' } as any],
+    maxLineY: 20,
+    message: 'some message',
+    minLineY: 10,
+    problems: [{ id: '1', message: 'test' } as any],
+    smallWidthBreakPoint: 800,
+    uid: 999,
+    viewMode: ProblemsViewMode.Table,
+    width: 300,
     x: 100,
     y: 200,
-    width: 300,
-    height: 400,
-    filterValue: 'complex filter',
-    viewMode: ProblemsViewMode.Table,
-    inputSource: InputSource.Script,
-    minLineY: 10,
-    maxLineY: 20,
-    listItems: [{ id: '1' } as any],
-    collapsedUris: ['file:///collapsed1.ts', 'file:///collapsed2.ts', 'file:///collapsed3.ts'],
-    smallWidthBreakPoint: 800,
-    filteredProblems: [{ id: '2', message: 'filtered' } as any],
   }
 
   const result: SavedState = saveState(state)
@@ -68,9 +68,9 @@ test('saveState should preserve all other state properties but only return the r
   // Should only contain the three required properties
   expect(Object.keys(result)).toHaveLength(3)
   expect(result).toEqual({
-    viewMode: ProblemsViewMode.Table,
-    filterValue: 'complex filter',
     collapsedUris: ['file:///collapsed1.ts', 'file:///collapsed2.ts', 'file:///collapsed3.ts'],
+    filterValue: 'complex filter',
+    viewMode: ProblemsViewMode.Table,
   })
 
   // Original state should remain unchanged

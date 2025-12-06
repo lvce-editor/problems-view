@@ -36,11 +36,11 @@ export const filterProblems = (problems: readonly Problem[], collapsedUris: read
 
     filtered.push({
       ...problem,
-      uriMatchIndex,
-      sourceMatchIndex,
-      messageMatchIndex,
-      listItemType: getListItemType(problem.listItemType, isCollapsed),
       isCollapsed,
+      listItemType: getListItemType(problem.listItemType, isCollapsed),
+      messageMatchIndex,
+      sourceMatchIndex,
+      uriMatchIndex,
     })
   }
   return filtered

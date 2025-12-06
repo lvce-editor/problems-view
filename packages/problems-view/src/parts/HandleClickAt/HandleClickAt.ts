@@ -3,7 +3,7 @@ import { focusIndex } from '../FocusIndex/FocusIndex.ts'
 import * as GetListIndex from '../GetListIndex/GetListIndex.ts'
 
 export const handleClickAt = (state: ProblemsState, eventX: number, eventY: number): ProblemsState => {
-  const { problems, x, y, itemHeight } = state
+  const { itemHeight, problems, x, y } = state
 
   // TODO use functional focus rendering
   // Focus.setFocus(FocusKey.Problems)

@@ -6,9 +6,9 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 export const getProblemsNoProblemsFoundVirtualDom = (): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Message,
       childCount: 1,
+      className: ClassNames.Message,
+      type: VirtualDomElements.Div,
     },
     text(ProblemStrings.noProblemsDetected()),
   ]

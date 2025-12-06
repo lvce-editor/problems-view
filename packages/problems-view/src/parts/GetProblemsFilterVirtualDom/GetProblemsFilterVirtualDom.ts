@@ -23,9 +23,9 @@ const getBadgeDom = (badgeText: string | undefined): readonly VirtualDomNode[] =
   }
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.FilterBadge,
       childCount: 1,
+      className: ClassNames.FilterBadge,
+      type: VirtualDomElements.Div,
     },
     text(badgeText),
   ]
@@ -34,16 +34,16 @@ const getBadgeDom = (badgeText: string | undefined): readonly VirtualDomNode[] =
 export const getProblemsFilterVirtualDom = (action: ViewletAction): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Filter,
       childCount: getChildCount(action.badgeText),
+      className: ClassNames.Filter,
+      type: VirtualDomElements.Div,
     },
     getInputBoxVirtualDom(InputName.Filter, action.command, action.placeholder || ''),
     ...getBadgeDom(action.badgeText),
     ...GetActionButtonVirtualDom.getActionButtonVirtualDom({
-      id: 'more filters', // TODO use i18n string
-      icon: MaskIcon.Filter,
       command: 'more filters',
+      icon: MaskIcon.Filter,
+      id: 'more filters', // TODO use i18n string
     }),
   ]
 }

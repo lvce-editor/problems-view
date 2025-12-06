@@ -4,9 +4,9 @@ import { mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-
 export const getBadgeVirtualDom = (className: string, count: number): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: mergeClassNames('Badge', className) + (className === '' ? ' ' : ''),
       childCount: 1,
+      className: mergeClassNames('Badge', className) + (className === '' ? ' ' : ''),
+      type: VirtualDomElements.Div,
     },
     text(`${count}`),
   ]

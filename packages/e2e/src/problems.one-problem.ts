@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.one-problem'
 
-export const test: Test = async ({ Main, FileSystem, Workspace, Extension, Locator, Panel, expect }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')

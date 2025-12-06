@@ -17,9 +17,9 @@ export const getProblemsVirtualDom = (
   if (problems.length === 0 && message) {
     return [
       {
-        type: VirtualDomElements.Div,
-        className: ClassNames.Message,
         childCount: 1,
+        className: ClassNames.Message,
+        type: VirtualDomElements.Div,
       },
       text(message),
     ]

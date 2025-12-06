@@ -13,7 +13,7 @@ const getClassName = (isEven: boolean): string => {
 }
 
 export const getProblemsTableRowVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
-  const { code, source, uri, message, isEven, type } = problem
+  const { code, isEven, message, source, type, uri } = problem
   // TODO problems are grouped by uri, depending
   // on which renderer is used the data needs to look different
   if (!message) {
@@ -21,38 +21,38 @@ export const getProblemsTableRowVirtualDom = (problem: VisibleProblem): readonly
   }
   const dom = [
     {
-      type: VirtualDomElements.Div,
-      className: getClassName(isEven),
       childCount: 5,
+      className: getClassName(isEven),
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(GetProblemSourceDetail.getProblemSourceDetail(source, code)),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(message),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(uri),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(source),
   ]

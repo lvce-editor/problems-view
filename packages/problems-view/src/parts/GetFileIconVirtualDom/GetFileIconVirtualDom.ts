@@ -4,10 +4,10 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 export const getFileIconVirtualDom = (icon: string): VirtualDomNode => {
   return {
-    type: VirtualDomElements.Img,
-    className: ClassNames.FileIcon,
-    src: icon,
-    role: AriaRoles.None,
     childCount: 0,
+    className: ClassNames.FileIcon,
+    role: AriaRoles.None,
+    src: icon,
+    type: VirtualDomElements.Img,
   }
 }

@@ -8,9 +8,9 @@ import * as GetProblemsTableHeaderVirtualDom from '../GetProblemsTableHeaderVirt
 export const getProblemsTableVirtualDom = (problems: readonly VisibleProblem[]): readonly VirtualDomNode[] => {
   const dom = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTable,
       childCount: 2,
+      className: ClassNames.ProblemsTable,
+      type: VirtualDomElements.Div,
     },
     ...GetProblemsTableHeaderVirtualDom.getProblemsTableHeaderVirtualDom(),
     ...GetProblemsTableBodyVirtualDom.getProblemsTableBodyVirtualDom(problems),

@@ -7,35 +7,35 @@ import { getProblemsIconVirtualDom } from '../src/parts/GetProblemsIconVirtualDo
 test('getProblemsIconVirtualDom returns warning icon for warning type', () => {
   const result = getProblemsIconVirtualDom(DiagnosticType.Warning)
   expect(result).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsWarningIcon}`,
     childCount: 0,
+    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsWarningIcon}`,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getProblemsIconVirtualDom returns error icon for error type', () => {
   const result = getProblemsIconVirtualDom(DiagnosticType.Error)
   expect(result).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
     childCount: 0,
+    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getProblemsIconVirtualDom returns error icon for other type', () => {
   const result = getProblemsIconVirtualDom(DiagnosticType.Other)
   expect(result).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
     childCount: 0,
+    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getProblemsIconVirtualDom returns error icon for unknown type', () => {
   const result = getProblemsIconVirtualDom('unknown')
   expect(result).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
     childCount: 0,
+    className: `${ClassNames.ProblemsIcon} ${ClassNames.ProblemsErrorIcon}`,
+    type: VirtualDomElements.Div,
   })
 })

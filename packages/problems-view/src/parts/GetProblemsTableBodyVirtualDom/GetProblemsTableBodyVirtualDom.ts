@@ -7,9 +7,9 @@ import * as GetProblemsTableRowVirtualDom from '../GetProblemsTableRowVirtualDom
 export const getProblemsTableBodyVirtualDom = (problems: readonly VisibleProblem[]): readonly VirtualDomNode[] => {
   const dom = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableBody,
       childCount: problems.length,
+      className: ClassNames.ProblemsTableBody,
+      type: VirtualDomElements.Div,
     },
     ...problems.flatMap(GetProblemsTableRowVirtualDom.getProblemsTableRowVirtualDom),
   ]

@@ -22,7 +22,7 @@ test('copyMessage should copy the focused problem message to clipboard', async (
     uri: 'file:///test.ts',
   }
 
-  const state = { ...createDefaultState(), problems: [mockProblem], focusedIndex: 0 }
+  const state = { ...createDefaultState(), focusedIndex: 0, problems: [mockProblem] }
 
   const mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},
@@ -69,7 +69,7 @@ test('copyMessage should copy message from different problem index', async () =>
     uri: 'file:///test2.ts',
   }
 
-  const state = { ...createDefaultState(), problems: [mockProblem1, mockProblem2], focusedIndex: 1 }
+  const state = { ...createDefaultState(), focusedIndex: 1, problems: [mockProblem1, mockProblem2] }
 
   const mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},

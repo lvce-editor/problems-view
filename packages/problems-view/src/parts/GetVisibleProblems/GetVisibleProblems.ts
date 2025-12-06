@@ -28,10 +28,10 @@ export const getVisibleProblems = (
     const problem = filtered[i]
     visibleItems.push({
       ...problem,
-      isEven: i % 2 === 0,
-      isActive: i === focusedIndex,
-      icon: getIcon(problem.uri),
       filterValueLength,
+      icon: getIcon(problem.uri),
+      isActive: i === focusedIndex,
+      isEven: i % 2 === 0,
     })
   }
   return visibleItems

@@ -3,9 +3,9 @@ import { AriaRoles, mergeClassNames, VirtualDomElements } from '@lvce-editor/vir
 
 export const getIconVirtualDom = (icon: string, type = VirtualDomElements.Div): VirtualDomNode => {
   return {
-    type,
+    childCount: 0,
     className: mergeClassNames('MaskIcon', `MaskIcon${icon}`),
     role: AriaRoles.None,
-    childCount: 0,
+    type,
   }
 }

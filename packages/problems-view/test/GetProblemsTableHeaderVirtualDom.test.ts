@@ -7,59 +7,59 @@ test('getProblemsTableHeaderVirtualDom returns correct dom structure', () => {
   const dom = getProblemsTableHeaderVirtualDom()
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.ProblemsTableHeader,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRow,
       childCount: 5,
+      className: ClassNames.ProblemsTableRow,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Div,
       className: ClassNames.ProblemsTableRowItem,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
       text: 'Code',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
       text: 'Message',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
       text: 'File',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'Source',
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 0,
+      text: 'Source',
+      type: VirtualDomElements.Text,
     },
   ]
   expect(dom).toEqual(expectedArray)

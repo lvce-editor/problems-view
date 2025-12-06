@@ -9,9 +9,9 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with empty pr
   const dom = getProblemsTableBodyVirtualDom(problems)
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableBody,
       childCount: 0,
+      className: ClassNames.ProblemsTableBody,
+      type: VirtualDomElements.Div,
     },
   ]
   expect(dom).toEqual(expectedArray)
@@ -20,36 +20,36 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with empty pr
 test('getProblemsTableBodyVirtualDom returns correct dom structure with problems', () => {
   const problems: readonly VisibleProblem[] = [
     {
-      message: 'Test error message',
-      uri: '/test/file.ts',
-      listItemType: 1,
-      source: 'TypeScript',
-      rowIndex: 1,
-      columnIndex: 1,
-      relativePath: 'file.ts',
       code: 'TS1234',
-      type: 'error',
-      posInSet: 1,
-      setSize: 1,
-      level: 1,
+      columnIndex: 1,
       count: 1,
-      uriMatchIndex: -1,
-      sourceMatchIndex: -1,
-      messageMatchIndex: -1,
+      fileName: '',
+      filterValueLength: 0,
+      icon: 'error',
+      isActive: false,
       isCollapsed: false,
       isEven: true,
-      isActive: false,
-      icon: 'error',
-      filterValueLength: 0,
-      fileName: '',
+      level: 1,
+      listItemType: 1,
+      message: 'Test error message',
+      messageMatchIndex: -1,
+      posInSet: 1,
+      relativePath: 'file.ts',
+      rowIndex: 1,
+      setSize: 1,
+      source: 'TypeScript',
+      sourceMatchIndex: -1,
+      type: 'error',
+      uri: '/test/file.ts',
+      uriMatchIndex: -1,
     },
   ]
   const dom = getProblemsTableBodyVirtualDom(problems)
 
   expect(dom[0]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.ProblemsTableBody,
     childCount: 1,
+    className: ClassNames.ProblemsTableBody,
+    type: VirtualDomElements.Div,
   })
 
   expect(dom.length).toBeGreaterThan(1)

@@ -24,11 +24,11 @@ const getArrowLeftNewFocusedIndex = (problems: readonly Problem[], collapsedUris
 }
 
 export const handleArrowLeft = (state: ProblemsState): ProblemsState => {
-  const { problems, focusedIndex, collapsedUris } = state
+  const { collapsedUris, focusedIndex, problems } = state
   const { index, newCollapsedUris } = getArrowLeftNewFocusedIndex(problems, collapsedUris, focusedIndex)
   return {
     ...state,
-    focusedIndex: index,
     collapsedUris: newCollapsedUris,
+    focusedIndex: index,
   }
 }
