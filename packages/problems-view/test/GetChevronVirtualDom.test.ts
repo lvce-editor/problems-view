@@ -6,17 +6,17 @@ import { getChevronDownVirtualDom, getChevronRightVirtualDom } from '../src/part
 test('getChevronDownVirtualDom returns correct dom structure', () => {
   const dom = getChevronDownVirtualDom('extra')
   expect(dom).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.Chevron} MaskIconChevronDown extra`,
     childCount: 0,
+    className: `${ClassNames.Chevron} MaskIconChevronDown extra`,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getChevronRightVirtualDom returns correct dom structure', () => {
   const dom = getChevronRightVirtualDom('extra')
   expect(dom).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.Chevron} MaskIconChevronRight extra`,
     childCount: 0,
+    className: `${ClassNames.Chevron} MaskIconChevronRight extra`,
+    type: VirtualDomElements.Div,
   })
 })

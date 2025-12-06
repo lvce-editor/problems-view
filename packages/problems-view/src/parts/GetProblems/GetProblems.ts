@@ -10,13 +10,13 @@ export const getProblems = async (workspaceUri: string): Promise<ProblemsResult>
     // @ts-ignore
     const problems = toProblems(diagnostics, workspaceUri)
     return {
-      problems,
       error: '',
+      problems,
     }
   } catch (error) {
     return {
-      problems: [],
       error: `${error}`,
+      problems: [],
     }
   }
 }

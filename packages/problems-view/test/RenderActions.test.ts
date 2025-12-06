@@ -11,13 +11,13 @@ test('renderActions should return virtual dom nodes', async (): Promise<void> =>
   const uid = 1
   const mockState: ProblemsState = {
     ...createDefaultState(),
+    collapsedUris: [],
+    filterValue: '',
+    focusedIndex: -2,
+    inputSource: 0,
+    problems: [],
     viewMode: ProblemsViewMode.Table,
     width: 800,
-    problems: [],
-    collapsedUris: [],
-    focusedIndex: -2,
-    filterValue: '',
-    inputSource: 0,
   }
 
   // Set up the state in the registry

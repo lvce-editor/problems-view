@@ -14,6 +14,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   const {
     code,
     columnIndex,
+    fileName,
     filterValueLength,
     icon,
     isActive,
@@ -28,7 +29,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     setSize,
     source,
     type,
-    fileName,
   } = problem
   let className = ClassNames.Problem
   if (isActive) {
@@ -37,16 +37,16 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   if (listItemType === ProblemListItemType.Expanded || listItemType === ProblemListItemType.Collapsed) {
     return [
       {
-        type: VirtualDomElements.Div,
-        className,
-        childCount: 5,
-        paddingLeft: GetTreeItemIndent.getTreeItemIndent(1),
-        ariaPosInSet: posInSet,
-        ariaSetSize: setSize,
-        ariaLevel: level,
         ariaExpanded: !isCollapsed,
+        ariaLevel: level,
+        ariaPosInSet: posInSet,
         ariaSelected: isActive,
+        ariaSetSize: setSize,
+        childCount: 5,
+        className,
+        paddingLeft: GetTreeItemIndent.getTreeItemIndent(1),
         role: AriaRoles.TreeItem,
+        type: VirtualDomElements.Div,
       },
       listItemType === ProblemListItemType.Collapsed
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
@@ -54,9 +54,9 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       GetFileIconVirtualDom.getFileIconVirtualDom(icon),
       text(fileName),
       {
-        type: VirtualDomElements.Div,
-        className: ClassNames.LabelDetail,
         childCount: 1,
+        className: ClassNames.LabelDetail,
+        type: VirtualDomElements.Div,
       },
       text(relativePath),
       ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.ProblemBadge, problem.count),
@@ -64,24 +64,24 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   }
   const lineColumn = ViewletProblemsStrings.atLineColumn(rowIndex, columnIndex)
   const label = {
-    type: VirtualDomElements.Div,
-    className: ClassNames.Label,
     childCount: 1,
+    className: ClassNames.Label,
+    type: VirtualDomElements.Div,
   }
   /**
    * @type {any}
    */
   const dom = [
     {
-      type: VirtualDomElements.Div,
-      className,
-      childCount: 3,
-      paddingLeft: GetTreeItemIndent.getTreeItemIndent(2),
-      ariaPosInSet: posInSet,
-      ariaSetSize: setSize,
       ariaLevel: level,
+      ariaPosInSet: posInSet,
       ariaSelected: isActive,
+      ariaSetSize: setSize,
+      childCount: 3,
+      className,
+      paddingLeft: GetTreeItemIndent.getTreeItemIndent(2),
       role: AriaRoles.TreeItem,
+      type: VirtualDomElements.Div,
     },
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),
     label,
@@ -94,9 +94,9 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     dom.push(
       text(before),
       {
-        type: VirtualDomElements.Div,
-        className: ClassNames.Highlight,
         childCount: 1,
+        className: ClassNames.Highlight,
+        type: VirtualDomElements.Div,
       },
       text(middle),
       text(after),
@@ -106,9 +106,9 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   }
   dom.push(
     {
-      type: VirtualDomElements.Span,
-      className: ClassNames.ProblemAt,
       childCount: 2,
+      className: ClassNames.ProblemAt,
+      type: VirtualDomElements.Span,
     },
     text(GetProblemSourceDetail.getProblemSourceDetail(source, code)),
     text(lineColumn),

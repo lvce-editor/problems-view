@@ -9,41 +9,41 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
-  const { problems, width, collapsedUris, focusedIndex, smallWidthBreakPoint, filterValue, inputSource, viewMode } = state
+  const { collapsedUris, filterValue, focusedIndex, inputSource, problems, smallWidthBreakPoint, viewMode, width } = state
   const visibleCount = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue).length
   const problemsCount = problems.length
   const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
   if (!isSmall) {
     actions.push({
-      type: ActionType.ProblemsFilter,
-      id: 'Filter',
-      command: DomEventListenerFunctions.HandleFilterInput,
       badgeText: visibleCount === problemsCount ? '' : ProblemStrings.showingOf(visibleCount, problemsCount),
+      command: DomEventListenerFunctions.HandleFilterInput,
+      id: 'Filter',
       placeholder: ProblemStrings.filter(),
+      type: ActionType.ProblemsFilter,
       value: inputSource === InputSource.Script ? filterValue : '',
     })
   }
   if (viewMode === ProblemsViewMode.Table) {
     actions.push({
-      type: ActionType.Button,
-      id: ProblemStrings.viewAsList(),
       command: 'viewAsList',
       icon: MaskIcon.ListTree,
+      id: ProblemStrings.viewAsList(),
+      type: ActionType.Button,
     })
   } else {
     actions.push(
       {
-        type: ActionType.Button,
-        id: ProblemStrings.collapseAll(),
         command: 'collapseAll',
         icon: MaskIcon.CollapseAll,
+        id: ProblemStrings.collapseAll(),
+        type: ActionType.Button,
       },
       {
-        type: ActionType.Button,
-        id: ProblemStrings.viewAsTable(),
         command: 'viewAsTable',
         icon: MaskIcon.ListFlat,
+        id: ProblemStrings.viewAsTable(),
+        type: ActionType.Button,
       },
     )
   }

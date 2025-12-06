@@ -7,11 +7,11 @@ import * as GetProblemsListItemVirtualDom from '../GetProblemsListItemVirtualDom
 export const getProblemsListVirtualDom = (problems: readonly VisibleProblem[]): readonly VirtualDomNode[] => {
   const dom = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsList,
-      childCount: problems.length,
-      role: AriaRoles.Tree,
       ariaLabel: 'Problems Tree', // TODO use i18n string
+      childCount: problems.length,
+      className: ClassNames.ProblemsList,
+      role: AriaRoles.Tree,
+      type: VirtualDomElements.Div,
     },
     ...problems.flatMap(GetProblemsListItemVirtualDom.getProblemVirtualDom),
   ]

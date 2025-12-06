@@ -7,14 +7,14 @@ test('getProblemsNoProblemsFoundVirtualDom with empty filterValue', () => {
   const dom = getProblemsNoProblemsFoundVirtualDom()
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Message,
       childCount: 1,
+      className: ClassNames.Message,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'No problems have been detected in the workspace.',
       childCount: 0,
+      text: 'No problems have been detected in the workspace.',
+      type: VirtualDomElements.Text,
     },
   ]
   expect(dom).toEqual(expectedArray)
@@ -24,34 +24,34 @@ test.skip('getProblemsNoProblemsFoundVirtualDom with non-empty filterValue', () 
   const dom = getProblemsNoProblemsFoundVirtualDom()
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Message,
       childCount: 3,
+      className: ClassNames.Message,
+      type: VirtualDomElements.Div,
     },
     {
+      childCount: 1,
       type: VirtualDomElements.Span,
-      childCount: 1,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'No results found with provided filter criteria.',
-      childCount: 0,
+      type: VirtualDomElements.Text,
     },
     {
-      type: VirtualDomElements.A,
-      className: ClassNames.MessageAction,
       childCount: 1,
+      className: ClassNames.MessageAction,
       onClick: expect.any(String),
+      type: VirtualDomElements.A,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Clear Filters',
-      childCount: 0,
+      type: VirtualDomElements.Text,
     },
     {
-      type: VirtualDomElements.Text,
-      text: '.',
       childCount: 0,
+      text: '.',
+      type: VirtualDomElements.Text,
     },
   ]
   expect(dom).toEqual(expectedArray)

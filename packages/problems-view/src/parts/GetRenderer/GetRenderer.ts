@@ -6,10 +6,10 @@ import * as RenderItems from '../RenderItems/RenderItems.ts'
 
 export const getRenderer = (diffType: number): Renderer<ProblemsState> => {
   switch (diffType) {
-    case DiffType.RenderItems:
-      return RenderItems.renderItems
     case DiffType.RenderFilterValue:
       return renderFilterValue
+    case DiffType.RenderItems:
+      return RenderItems.renderItems
     default:
       throw new Error('unknown renderer')
   }

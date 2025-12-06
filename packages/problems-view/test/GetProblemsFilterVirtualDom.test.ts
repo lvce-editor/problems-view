@@ -7,41 +7,41 @@ import * as InputName from '../src/parts/InputName/InputName.ts'
 
 test('getProblemsFilterVirtualDom returns correct dom structure without badge', () => {
   const action: ViewletAction = {
-    type: 1,
-    id: 'Filter',
     command: 'handleFilterInput',
+    id: 'Filter',
     placeholder: 'Filter problems',
+    type: 1,
     value: '',
   }
   const dom = getProblemsFilterVirtualDom(action)
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Filter,
       childCount: 2,
+      className: ClassNames.Filter,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Input,
-      className: ClassNames.InputBox,
-      spellcheck: false,
       autocapitalize: 'off',
       autocorrect: 'off',
-      placeholder: 'Filter problems',
-      onInput: 'handleFilterInput',
+      className: ClassNames.InputBox,
       name: InputName.Filter,
+      onInput: 'handleFilterInput',
+      placeholder: 'Filter problems',
+      spellcheck: false,
+      type: VirtualDomElements.Input,
     },
     {
-      type: VirtualDomElements.Button,
-      className: ClassNames.IconButton,
-      title: 'more filters',
-      'data-command': 'more filters',
       childCount: 1,
+      className: ClassNames.IconButton,
+      'data-command': 'more filters',
+      title: 'more filters',
+      type: VirtualDomElements.Button,
     },
     {
-      type: VirtualDomElements.Div,
+      childCount: 0,
       className: 'MaskIcon MaskIconFilter',
       role: 'none',
-      childCount: 0,
+      type: VirtualDomElements.Div,
     },
   ]
   expect(dom).toEqual(expectedArray)
@@ -49,52 +49,52 @@ test('getProblemsFilterVirtualDom returns correct dom structure without badge', 
 
 test('getProblemsFilterVirtualDom returns correct dom structure with badge', () => {
   const action: ViewletAction = {
-    type: 1,
-    id: 'Filter',
-    command: 'handleFilterInput',
-    placeholder: 'Filter problems',
-    value: 'test',
     badgeText: 'Showing 5 of 10',
+    command: 'handleFilterInput',
+    id: 'Filter',
+    placeholder: 'Filter problems',
+    type: 1,
+    value: 'test',
   }
   const dom = getProblemsFilterVirtualDom(action)
   const expectedArray = [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Filter,
       childCount: 3,
+      className: ClassNames.Filter,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Input,
-      className: ClassNames.InputBox,
-      spellcheck: false,
       autocapitalize: 'off',
       autocorrect: 'off',
-      placeholder: 'Filter problems',
-      onInput: 'handleFilterInput',
+      className: ClassNames.InputBox,
       name: InputName.Filter,
+      onInput: 'handleFilterInput',
+      placeholder: 'Filter problems',
+      spellcheck: false,
+      type: VirtualDomElements.Input,
     },
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.FilterBadge,
-      childCount: 1,
-    },
-    {
-      type: VirtualDomElements.Text,
-      text: 'Showing 5 of 10',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Button,
-      className: ClassNames.IconButton,
-      title: 'more filters',
-      'data-command': 'more filters',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'Showing 5 of 10',
+      type: VirtualDomElements.Text,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.IconButton,
+      'data-command': 'more filters',
+      title: 'more filters',
+      type: VirtualDomElements.Button,
+    },
+    {
+      childCount: 0,
       className: 'MaskIcon MaskIconFilter',
       role: 'none',
-      childCount: 0,
+      type: VirtualDomElements.Div,
     },
   ]
   expect(dom).toEqual(expectedArray)

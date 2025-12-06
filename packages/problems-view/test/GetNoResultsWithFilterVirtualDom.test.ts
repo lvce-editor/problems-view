@@ -15,9 +15,9 @@ test('getNoResultsWithFilterVirtualDom first element is message div', () => {
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.Message,
     childCount: 3,
+    className: ClassNames.Message,
+    type: VirtualDomElements.Div,
   })
 })
 
@@ -25,8 +25,8 @@ test('getNoResultsWithFilterVirtualDom second element is span', () => {
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[1]).toEqual({
-    type: VirtualDomElements.Span,
     childCount: 1,
+    type: VirtualDomElements.Span,
   })
 })
 
@@ -34,9 +34,9 @@ test('getNoResultsWithFilterVirtualDom third element is no results text', () => 
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[2]).toEqual({
-    type: 12,
-    text: ProblemStrings.noResultsFoundWithProvidedFilterCriteria(),
     childCount: 0,
+    text: ProblemStrings.noResultsFoundWithProvidedFilterCriteria(),
+    type: 12,
   })
 })
 
@@ -44,10 +44,10 @@ test('getNoResultsWithFilterVirtualDom fourth element is clear filter link', () 
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[3]).toEqual({
-    type: VirtualDomElements.A,
-    className: ClassNames.MessageAction,
     childCount: 1,
+    className: ClassNames.MessageAction,
     onClick: DomEventListenerFunctions.HandleClearFilterClick,
+    type: VirtualDomElements.A,
   })
 })
 
@@ -55,9 +55,9 @@ test('getNoResultsWithFilterVirtualDom fifth element is clear filter text', () =
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[4]).toEqual({
-    type: 12,
-    text: ProblemStrings.clearFilter(),
     childCount: 0,
+    text: ProblemStrings.clearFilter(),
+    type: 12,
   })
 })
 
@@ -65,9 +65,9 @@ test('getNoResultsWithFilterVirtualDom sixth element is period text', () => {
   const result = getNoResultsWithFilterVirtualDom()
 
   expect(result[5]).toEqual({
-    type: 12,
-    text: '.',
     childCount: 0,
+    text: '.',
+    type: 12,
   })
 })
 

@@ -4,16 +4,16 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 export const getChevronDownVirtualDom = (extraClassName = ''): VirtualDomNode => {
   return {
-    type: VirtualDomElements.Div,
-    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronDown', extraClassName) + (extraClassName === '' ? ' ' : ''),
     childCount: 0,
+    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronDown', extraClassName) + (extraClassName === '' ? ' ' : ''),
+    type: VirtualDomElements.Div,
   }
 }
 
 export const getChevronRightVirtualDom = (extraClassName = ''): VirtualDomNode => {
   return {
-    type: VirtualDomElements.Div,
-    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronRight', extraClassName) + (extraClassName === '' ? ' ' : ''),
     childCount: 0,
+    className: mergeClassNames(ClassNames.Chevron, 'MaskIconChevronRight', extraClassName) + (extraClassName === '' ? ' ' : ''),
+    type: VirtualDomElements.Div,
   }
 }

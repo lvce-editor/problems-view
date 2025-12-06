@@ -7,13 +7,13 @@ test('loadContent returns a new state with expected properties', async () => {
   const savedState = {}
   const result = await loadContent(state, savedState)
   expect(result).toMatchObject({
-    problems: [],
-    message: expect.any(String),
-    viewMode: expect.any(Number),
+    collapsedUris: [],
+    filteredProblems: [],
     filterValue: '',
     inputSource: expect.any(Number),
-    filteredProblems: [],
     listItems: [],
-    collapsedUris: [],
+    message: expect.any(String),
+    problems: [],
+    viewMode: expect.any(Number),
   })
 })

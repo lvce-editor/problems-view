@@ -18,49 +18,49 @@ const createMockState = (overrides: Partial<ProblemsState> = {}): ProblemsState 
 
 const createMockProblem = (): Problem => {
   return {
-    uri: 'test.ts',
-    message: 'Test error',
-    source: 'TypeScript',
     code: 'TS1234',
-    type: 'error',
-    rowIndex: 1,
     columnIndex: 1,
-    relativePath: 'test.ts',
-    level: 1,
     count: 1,
-    posInSet: 1,
-    setSize: 1,
-    listItemType: 1,
     fileName: '',
+    level: 1,
+    listItemType: 1,
+    message: 'Test error',
+    posInSet: 1,
+    relativePath: 'test.ts',
+    rowIndex: 1,
+    setSize: 1,
+    source: 'TypeScript',
+    type: 'error',
+    uri: 'test.ts',
   }
 }
 
 test('getActions returns filter action when not small width', () => {
   const state = createMockState({
-    width: 800,
-    smallWidthBreakPoint: 650,
-    problems: [createMockProblem(), createMockProblem()],
     filterValue: '',
+    problems: [createMockProblem(), createMockProblem()],
+    smallWidthBreakPoint: 650,
+    width: 800,
   })
 
   const actions = getActions(state)
 
   expect(actions).toHaveLength(3)
   expect(actions[0]).toEqual({
-    type: ActionType.ProblemsFilter,
-    id: 'Filter',
-    command: DomEventListenerFunctions.HandleFilterInput,
     badgeText: '',
+    command: DomEventListenerFunctions.HandleFilterInput,
+    id: 'Filter',
     placeholder: expect.any(String),
+    type: ActionType.ProblemsFilter,
     value: '',
   })
 })
 
 test('getActions does not return filter action when small width', () => {
   const state = createMockState({
-    width: 600,
-    smallWidthBreakPoint: 650,
     problems: [createMockProblem()],
+    smallWidthBreakPoint: 650,
+    width: 600,
   })
 
   const actions = getActions(state)
@@ -72,9 +72,9 @@ test('getActions does not return filter action when small width', () => {
 
 test('getActions shows badge text when filtered problems differ from total', () => {
   const state = createMockState({
-    width: 800,
-    problems: [createMockProblem(), createMockProblem(), createMockProblem()],
     filterValue: 'specific',
+    problems: [createMockProblem(), createMockProblem(), createMockProblem()],
+    width: 800,
   })
 
   const actions = getActions(state)
@@ -93,10 +93,10 @@ test('getActions returns viewAsList button when in table mode', () => {
 
   expect(actions).toHaveLength(2)
   expect(actions[1]).toEqual({
-    type: ActionType.Button,
-    id: expect.any(String),
     command: 'viewAsList',
     icon: MaskIcon.ListTree,
+    id: expect.any(String),
+    type: ActionType.Button,
   })
 })
 
@@ -110,24 +110,24 @@ test('getActions returns collapseAll and viewAsTable buttons when in list mode',
 
   expect(actions).toHaveLength(3)
   expect(actions[1]).toEqual({
-    type: ActionType.Button,
-    id: expect.any(String),
     command: 'collapseAll',
     icon: MaskIcon.CollapseAll,
+    id: expect.any(String),
+    type: ActionType.Button,
   })
   expect(actions[2]).toEqual({
-    type: ActionType.Button,
-    id: expect.any(String),
     command: 'viewAsTable',
     icon: MaskIcon.ListFlat,
+    id: expect.any(String),
+    type: ActionType.Button,
   })
 })
 
 test('getActions sets filter value when input source is script', () => {
   const state = createMockState({
-    width: 800,
-    inputSource: InputSource.Script,
     filterValue: 'test filter',
+    inputSource: InputSource.Script,
+    width: 800,
   })
 
   const actions = getActions(state)
@@ -137,9 +137,9 @@ test('getActions sets filter value when input source is script', () => {
 
 test('getActions sets empty filter value when input source is user', () => {
   const state = createMockState({
-    width: 800,
-    inputSource: InputSource.User,
     filterValue: 'test filter',
+    inputSource: InputSource.User,
+    width: 800,
   })
 
   const actions = getActions(state)
@@ -149,8 +149,8 @@ test('getActions sets empty filter value when input source is user', () => {
 
 test('getActions with no problems and small width', () => {
   const state = createMockState({
-    width: 600,
     problems: [],
+    width: 600,
   })
 
   const actions = getActions(state)
@@ -162,9 +162,9 @@ test('getActions with no problems and small width', () => {
 
 test('getActions with filtered problems showing different count', () => {
   const state = createMockState({
-    width: 800,
-    problems: [createMockProblem(), createMockProblem(), createMockProblem()],
     filterValue: 'specific',
+    problems: [createMockProblem(), createMockProblem(), createMockProblem()],
+    width: 800,
   })
 
   const actions = getActions(state)

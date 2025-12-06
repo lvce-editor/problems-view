@@ -7,10 +7,10 @@ import * as GetActionVirtualDom from '../GetActionVirtualDom/GetActionVirtualDom
 export const getActionsVirtualDom = (actions: readonly ViewletAction[]): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
+      childCount: actions.length,
       className: ClassNames.Actions,
       role: AriaRoles.ToolBar,
-      childCount: actions.length,
+      type: VirtualDomElements.Div,
     },
     ...actions.flatMap(GetActionVirtualDom.getActionVirtualDom),
   ]

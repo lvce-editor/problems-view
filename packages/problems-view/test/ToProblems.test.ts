@@ -4,15 +4,15 @@ import { toProblems } from '../src/parts/ToProblems/ToProblems.ts'
 test('toProblems returns correct problems for single diagnostic', () => {
   const diagnostics = [
     {
-      message: 'msg',
-      uri: 'file:///a',
-      listItemType: 0,
-      source: 'src',
-      rowIndex: 1,
-      columnIndex: 2,
-      relativePath: '',
       code: 'E1',
+      columnIndex: 2,
+      listItemType: 0,
+      message: 'msg',
+      relativePath: '',
+      rowIndex: 1,
+      source: 'src',
       type: 'error',
+      uri: 'file:///a',
     },
   ]
   const problems = toProblems(diagnostics)

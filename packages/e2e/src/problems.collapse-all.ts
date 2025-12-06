@@ -4,7 +4,7 @@ export const name = 'problems.collapse-all'
 
 export const skip = 1
 
-export const test: Test = async ({ Main, FileSystem, Workspace, Extension, Locator, Panel, expect }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')

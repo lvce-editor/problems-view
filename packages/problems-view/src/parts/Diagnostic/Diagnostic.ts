@@ -1,11 +1,11 @@
 export interface Diagnostic {
-  readonly message: string
-  readonly uri: string
-  readonly listItemType: number
-  readonly source: string
-  readonly rowIndex: number
-  readonly columnIndex: number
-  readonly relativePath: string
   readonly code: string | number
+  readonly columnIndex: number
+  readonly listItemType: number
+  readonly message: string
+  readonly relativePath: string
+  readonly rowIndex: number
+  readonly source: string
   readonly type: string
+  readonly uri: string
 }

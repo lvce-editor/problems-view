@@ -2,10 +2,10 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import type { SavedState } from '../SavedState/SavedState.ts'
 
 export const saveState = (state: ProblemsState): SavedState => {
-  const { viewMode, filterValue, collapsedUris } = state
+  const { collapsedUris, filterValue, viewMode } = state
   return {
-    viewMode,
-    filterValue,
     collapsedUris,
+    filterValue,
+    viewMode,
   }
 }

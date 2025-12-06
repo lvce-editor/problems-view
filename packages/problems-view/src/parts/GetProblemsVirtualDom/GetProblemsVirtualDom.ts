@@ -19,23 +19,23 @@ export const getProblemsVirtualDom = (
   // TODO avoid mutation
   const dom = []
   dom.push({
-    type: VirtualDomElements.Div,
-    className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
-    tabIndex: 0,
-    onPointerDown: DomEventListenerFunctions.HandlePointerDown,
-    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
-    onBlur: DomEventListenerFunctions.HandleBlur,
     childCount: 1,
+    className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
+    onBlur: DomEventListenerFunctions.HandleBlur,
+    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
+    onPointerDown: DomEventListenerFunctions.HandlePointerDown,
+    tabIndex: 0,
+    type: VirtualDomElements.Div,
   })
   if (isSmall) {
     dom[0].childCount++
     dom.push(
       ...GetProblemsFilterVirtualDom.getProblemsFilterVirtualDom({
-        type: ActionType.ProblemsFilter,
-        id: DomId.Filter,
-        command: DomEventListenerFunctions.HandleFilterInput,
         badgeText: '',
+        command: DomEventListenerFunctions.HandleFilterInput,
+        id: DomId.Filter,
         placeholder: ProblemStrings.filter(),
+        type: ActionType.ProblemsFilter,
         value: '',
       }),
     )

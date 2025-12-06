@@ -30,7 +30,7 @@ const getSavedCollapsedUris = (savedState: any): readonly string[] => {
 }
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
-  const { problems, error } = await GetProblems.getProblems(state.workspaceUri)
+  const { error, problems } = await GetProblems.getProblems(state.workspaceUri)
   if (error) {
     return {
       ...state,
@@ -43,13 +43,13 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
   const collapsedUris = getSavedCollapsedUris(savedState)
   return {
     ...state,
-    problems,
-    message,
-    viewMode,
+    collapsedUris,
+    filteredProblems: problems,
     filterValue,
     inputSource: InputSource.Script,
-    filteredProblems: problems,
     listItems: [],
-    collapsedUris,
+    message,
+    problems,
+    viewMode,
   }
 }

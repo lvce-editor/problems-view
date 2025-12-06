@@ -4,7 +4,7 @@ export const name = 'problems.filter-no-results'
 
 export const skip = 1
 
-export const test: Test = async ({ Panel, Locator, expect, Problems }) => {
+export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
   // arrange
   await Panel.open('Problems')
   const problemsView = Locator('.Viewlet.Problems')

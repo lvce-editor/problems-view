@@ -6,29 +6,29 @@ import { handleArrowRight } from '../src/parts/HandleArrowRight/HandleArrowRight
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 
 const defaultProblem: Problem = {
-  message: '',
-  uri: '',
-  listItemType: ProblemListItemType.Item,
-  source: '',
-  rowIndex: 0,
-  columnIndex: 0,
-  relativePath: '',
   code: '',
-  type: '',
-  posInSet: 0,
-  setSize: 0,
-  level: 0,
+  columnIndex: 0,
   count: 0,
   fileName: '',
+  level: 0,
+  listItemType: ProblemListItemType.Item,
+  message: '',
+  posInSet: 0,
+  relativePath: '',
+  rowIndex: 0,
+  setSize: 0,
+  source: '',
+  type: '',
+  uri: '',
 }
 
 test('handleArrowRight expands and focuses on the same problem', () => {
   const problems: Problem[] = [
-    { ...defaultProblem, uri: 'a', listItemType: ProblemListItemType.Item },
-    { ...defaultProblem, uri: 'b', listItemType: ProblemListItemType.Collapsed },
-    { ...defaultProblem, uri: 'c', listItemType: ProblemListItemType.Item },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'a' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Collapsed, uri: 'b' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'c' },
   ]
-  const state: ProblemsState = { ...createDefaultState(), problems, focusedIndex: 1, collapsedUris: ['b'] }
+  const state: ProblemsState = { ...createDefaultState(), collapsedUris: ['b'], focusedIndex: 1, problems }
   const newState: ProblemsState = handleArrowRight(state)
   expect(newState.focusedIndex).toBe(1)
   expect(newState.collapsedUris).not.toContain('b')
@@ -36,11 +36,11 @@ test('handleArrowRight expands and focuses on the same problem', () => {
 
 test('handleArrowRight does not change focus if problem is not collapsed', () => {
   const problems: Problem[] = [
-    { ...defaultProblem, uri: 'a', listItemType: ProblemListItemType.Item },
-    { ...defaultProblem, uri: 'b', listItemType: ProblemListItemType.Expanded },
-    { ...defaultProblem, uri: 'c', listItemType: ProblemListItemType.Item },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'a' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Expanded, uri: 'b' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'c' },
   ]
-  const state: ProblemsState = { ...createDefaultState(), problems, focusedIndex: 1, collapsedUris: [] }
+  const state: ProblemsState = { ...createDefaultState(), collapsedUris: [], focusedIndex: 1, problems }
   const newState: ProblemsState = handleArrowRight(state)
   expect(newState.focusedIndex).toBe(1)
   expect(newState.collapsedUris).toEqual([])
@@ -48,11 +48,11 @@ test('handleArrowRight does not change focus if problem is not collapsed', () =>
 
 test('handleArrowRight removes uri from collapsedUris if present', () => {
   const problems: Problem[] = [
-    { ...defaultProblem, uri: 'a', listItemType: ProblemListItemType.Item },
-    { ...defaultProblem, uri: 'b', listItemType: ProblemListItemType.Collapsed },
-    { ...defaultProblem, uri: 'c', listItemType: ProblemListItemType.Item },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'a' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Collapsed, uri: 'b' },
+    { ...defaultProblem, listItemType: ProblemListItemType.Item, uri: 'c' },
   ]
-  const state: ProblemsState = { ...createDefaultState(), problems, focusedIndex: 1, collapsedUris: ['a', 'b', 'c'] }
+  const state: ProblemsState = { ...createDefaultState(), collapsedUris: ['a', 'b', 'c'], focusedIndex: 1, problems }
   const newState: ProblemsState = handleArrowRight(state)
   expect(newState.focusedIndex).toBe(1)
   expect(newState.collapsedUris).toEqual(['a', 'c'])

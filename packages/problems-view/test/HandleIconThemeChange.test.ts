@@ -21,8 +21,8 @@ test('handleIconThemeChange preserves all other state properties', () => {
     ...createDefaultState(),
     filterValue: 'test filter',
     focusedIndex: 5,
-    width: 800,
     height: 600,
+    width: 800,
   }
 
   const result = handleIconThemeChange(state)
@@ -49,8 +49,8 @@ test('handleIconThemeChange works with empty problems array', () => {
 
 test('handleIconThemeChange works with problems array containing items', () => {
   const mockProblems = [
-    { uri: 'file1.ts', message: 'Error 1', line: 1, column: 1, severity: 'error' },
-    { uri: 'file2.ts', message: 'Warning 1', line: 2, column: 3, severity: 'warning' },
+    { column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' },
+    { column: 3, line: 2, message: 'Warning 1', severity: 'warning', uri: 'file2.ts' },
   ] as any
 
   const state: ProblemsState = {

@@ -10,42 +10,42 @@ export const getProblemsTableHeaderVirtualDom = (): readonly VirtualDomNode[] =>
   const textFile = ProblemStrings.file()
   const dom = [
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.ProblemsTableHeader,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRow,
       childCount: 5,
+      className: ClassNames.ProblemsTableRow,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 0,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(textCode),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(textMessage),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(textFile),
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.ProblemsTableRowItem,
       childCount: 1,
+      className: ClassNames.ProblemsTableRowItem,
+      type: VirtualDomElements.Div,
     },
     text(textSource),
   ]
