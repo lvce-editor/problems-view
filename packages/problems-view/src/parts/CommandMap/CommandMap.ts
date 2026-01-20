@@ -3,7 +3,6 @@ import * as CopyMessage from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
-import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
@@ -18,6 +17,7 @@ import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeC
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
+import { getCommandIds } from '../ProblemsStates/ProblemsStates.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import { renderActions } from '../RenderActions/RenderActions.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
@@ -31,7 +31,7 @@ export const commandMap = {
   'Problems.create': Create.create,
   'Problems.diff2': Diff2.diff2,
   'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
-  'Problems.getCommandIds': GetCommandIds.getCommandIds,
+  'Problems.getCommandIds': getCommandIds,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'Problems.getMenuIds': getMenuIds,
