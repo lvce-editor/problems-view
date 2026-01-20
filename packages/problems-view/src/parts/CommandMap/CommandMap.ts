@@ -5,6 +5,7 @@ import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
+import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
@@ -30,6 +31,7 @@ export const commandMap = {
   'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
   'Problems.getCommandIds': GetCommandIds.getCommandIds,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
+  'Problems.getMenuIds': getMenuIds,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
