@@ -8,7 +8,7 @@ export const getInputBoxVirtualDom = (name: string, onInput: string | number, pl
     autocorrect: 'off',
     className: ClassNames.InputBox,
     name,
-    onInput: onInput,
+    onInput,
     placeholder: placeholder,
     spellcheck: false,
     type: VirtualDomElements.Input,
