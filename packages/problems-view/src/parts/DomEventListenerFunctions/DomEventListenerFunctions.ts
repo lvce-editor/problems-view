@@ -1,6 +1,6 @@
-export const HandleBlur = 'handleBlur'
-export const HandleClearFilterClick = 'handleClearFilterClick'
-export const HandleContextMenu = 'handleContextMenu'
-export const HandleFilterInput = 'handleFilterInput'
-export const HandlePointerDown = 'handlePointerDown'
-export const HandleClickMoreFilters = 'handleClickMoreFilters'
+export const HandleBlur = 1
+export const HandleClearFilterClick = 2
+export const HandleContextMenu = 3
+export const HandleFilterInput = 4
+export const HandlePointerDown = 5
+export const HandleClickMoreFilters = 6
