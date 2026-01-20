@@ -5,7 +5,7 @@ export interface ContextMenuPropsBase {
 }
 
 export interface ContextMenuPropsExplorer extends ContextMenuPropsBase {
-  readonly menuId: typeof MenuEntryId.ExtensionSearchFilter
+  readonly menuId: typeof MenuEntryId.ProblemsFilter
 }
 
 export type ContextMenuProps = ContextMenuPropsExplorer
