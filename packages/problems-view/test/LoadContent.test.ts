@@ -7,7 +7,7 @@ import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
 test('loadContent returns a new state with expected properties', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -24,10 +24,11 @@ test('loadContent returns a new state with expected properties', async () => {
     viewMode: ProblemsViewMode.List,
   })
   expect(result).not.toBe(state)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent preserves state properties', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = {
@@ -43,10 +44,11 @@ test('loadContent preserves state properties', async () => {
   expect(result.width).toBe(100)
   expect(result.height).toBe(200)
   expect(result.focusedIndex).toBe(5)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with empty savedState uses defaults', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -55,10 +57,11 @@ test('loadContent with empty savedState uses defaults', async () => {
   expect(result.viewMode).toBe(ProblemsViewMode.List)
   expect(result.filterValue).toBe('')
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with savedState containing viewMode', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -67,10 +70,11 @@ test('loadContent with savedState containing viewMode', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(ProblemsViewMode.Table)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with savedState containing filterValue', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -79,10 +83,11 @@ test('loadContent with savedState containing filterValue', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.filterValue).toBe('test filter')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with savedState containing collapsedUris', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -91,6 +96,7 @@ test('loadContent with savedState containing collapsedUris', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual(['file:///test1.ts', 'file:///test2.ts'])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with savedState containing all properties', async () => {
@@ -110,7 +116,7 @@ test('loadContent with savedState containing all properties', async () => {
 })
 
 test('loadContent with invalid viewMode type defaults to List', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -119,10 +125,11 @@ test('loadContent with invalid viewMode type defaults to List', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(ProblemsViewMode.List)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with invalid filterValue type defaults to empty string', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -131,10 +138,11 @@ test('loadContent with invalid filterValue type defaults to empty string', async
   }
   const result = await loadContent(state, savedState)
   expect(result.filterValue).toBe('')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with invalid collapsedUris type defaults to empty array', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -143,10 +151,11 @@ test('loadContent with invalid collapsedUris type defaults to empty array', asyn
   }
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with collapsedUris containing non-string values defaults to empty array', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -155,10 +164,11 @@ test('loadContent with collapsedUris containing non-string values defaults to em
   }
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with null savedState uses defaults', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -166,10 +176,11 @@ test('loadContent with null savedState uses defaults', async () => {
   expect(result.viewMode).toBe(ProblemsViewMode.List)
   expect(result.filterValue).toBe('')
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with undefined savedState uses defaults', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -177,10 +188,11 @@ test('loadContent with undefined savedState uses defaults', async () => {
   expect(result.viewMode).toBe(ProblemsViewMode.List)
   expect(result.filterValue).toBe('')
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent handles error from GetProblems', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => {
       throw new Error('Failed to get problems')
     },
@@ -190,6 +202,7 @@ test('loadContent handles error from GetProblems', async () => {
   const result = await loadContent(state, savedState)
   expect(result.message).toBe('Error: Failed to get problems')
   expect(result.problems).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with error preserves state properties', async () => {
@@ -213,7 +226,7 @@ test('loadContent with error preserves state properties', async () => {
 })
 
 test('loadContent with zero problems', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -221,10 +234,11 @@ test('loadContent with zero problems', async () => {
   const result = await loadContent(state, savedState)
   expect(result.problems).toEqual([])
   expect(result.filteredProblems).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with one problem', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       {
         code: 'E1001',
@@ -243,10 +257,11 @@ test('loadContent with one problem', async () => {
   expect(result.problems.length).toBe(2)
   expect(result.filteredProblems.length).toBe(2)
   expect(result.problems.some((p) => p.uri === 'file:///test.ts')).toBe(true)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with multiple problems', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       {
         code: 'E1001',
@@ -285,30 +300,33 @@ test('loadContent with multiple problems', async () => {
   expect(result.problems.some((p) => p.uri === 'file:///test1.ts')).toBe(true)
   expect(result.problems.some((p) => p.uri === 'file:///test2.ts')).toBe(true)
   expect(result.problems.some((p) => p.uri === 'file:///test3.ts')).toBe(true)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent sets inputSource to Script', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
   const savedState = {}
   const result = await loadContent(state, savedState)
   expect(result.inputSource).toBe(InputSource.Script)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent sets listItems to empty array', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
   const savedState = {}
   const result = await loadContent(state, savedState)
   expect(result.listItems).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with viewMode None', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -317,10 +335,11 @@ test('loadContent with viewMode None', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(ProblemsViewMode.None)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with empty filterValue', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -329,10 +348,11 @@ test('loadContent with empty filterValue', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.filterValue).toBe('')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with empty collapsedUris array', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -341,10 +361,11 @@ test('loadContent with empty collapsedUris array', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with large collapsedUris array', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -355,10 +376,11 @@ test('loadContent with large collapsedUris array', async () => {
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual(collapsedUris)
   expect(result.collapsedUris.length).toBe(100)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with viewMode as string number defaults to List', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -367,10 +389,11 @@ test('loadContent with viewMode as string number defaults to List', async () => 
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(ProblemsViewMode.List)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with viewMode as zero defaults to List', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -379,10 +402,11 @@ test('loadContent with viewMode as zero defaults to List', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(ProblemsViewMode.None)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with viewMode as negative number defaults to List', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -391,10 +415,11 @@ test('loadContent with viewMode as negative number defaults to List', async () =
   }
   const result = await loadContent(state, savedState)
   expect(result.viewMode).toBe(-1)
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with filterValue containing special characters', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -403,10 +428,11 @@ test('loadContent with filterValue containing special characters', async () => {
   }
   const result = await loadContent(state, savedState)
   expect(result.filterValue).toBe('test@#$%^&*()')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
 test('loadContent with collapsedUris containing special characters', async () => {
-  EditorWorker.registerMockRpc({
+  const mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -415,4 +441,5 @@ test('loadContent with collapsedUris containing special characters', async () =>
   }
   const result = await loadContent(state, savedState)
   expect(result.collapsedUris).toEqual(['file:///test with spaces.ts', 'file:///test@special.ts'])
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
