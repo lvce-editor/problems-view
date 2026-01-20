@@ -62,9 +62,7 @@ test('handleClickAt with problems and click beyond problems length returns focus
   const state: ProblemsState = {
     ...createDefaultState(),
     itemHeight: 22,
-    problems: [
-      { column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' },
-    ] as any,
+    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' }] as any,
     x: 0,
     y: 0,
   }
@@ -77,9 +75,7 @@ test('handleClickAt with problems and click exactly at problems length boundary 
   const state: ProblemsState = {
     ...createDefaultState(),
     itemHeight: 22,
-    problems: [
-      { column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' },
-    ] as any,
+    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' }] as any,
     x: 0,
     y: 0,
   }
@@ -110,9 +106,7 @@ test('handleClickAt preserves other state properties', () => {
     filterValue: 'test',
     focusedIndex: 5,
     itemHeight: 22,
-    problems: [
-      { column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' },
-    ] as any,
+    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' }] as any,
     x: 0,
     y: 0,
   }
