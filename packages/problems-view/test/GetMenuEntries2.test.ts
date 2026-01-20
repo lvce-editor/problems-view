@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import { MenuEntryId } from '@lvce-editor/constants'
+import { MenuEntryId, MenuItemFlags } from '@lvce-editor/constants'
 import type { ContextMenuProps } from '../src/parts/ContextMenuProps/ContextMenuProps.ts'
 import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
@@ -58,4 +58,22 @@ test('getMenuEntries2 returns correct menu entry structure', () => {
     expect(typeof entry.id).toBe('string')
     expect(typeof entry.label).toBe('string')
   }
+})
+
+test('getMenuEntries2 sets checkbox flags based on state', () => {
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    showErrors: true,
+    showInfos: true,
+    showWarnings: false,
+  }
+  const props: ContextMenuProps = {
+    menuId: MenuEntryId.ProblemsFilter,
+  }
+
+  const result: readonly MenuEntry[] = getMenuEntries2(state, props)
+
+  expect(result[0].flags).toBe(MenuItemFlags.Checked)
+  expect(result[1].flags).toBe(MenuItemFlags.Unchecked)
+  expect(result[2].flags).toBe(MenuItemFlags.Checked)
 })
