@@ -10,6 +10,7 @@ import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
+import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
@@ -36,6 +37,7 @@ export const commandMap = {
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
   'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
+  'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
