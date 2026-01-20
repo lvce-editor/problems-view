@@ -3,9 +3,9 @@ import { MenuEntryId } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
+import { handleClickMoreFilters } from '../src/parts/HandleClickMoreFilters/HandleClickMoreFilters.ts'
 
-test('handleContextMenu calls showContextMenu2 with correct parameters', async () => {
+test('handleClickMoreFilters calls showContextMenu2 with correct parameters', async () => {
   const state: ProblemsState = {
     ...createDefaultState(),
     uid: 42,
@@ -17,7 +17,7 @@ test('handleContextMenu calls showContextMenu2 with correct parameters', async (
     'ContextMenu.show2': () => {},
   })
 
-  await handleContextMenu(state, eventX, eventY)
+  await handleClickMoreFilters(state, eventX, eventY)
 
   expect(mockRpc.invocations).toEqual([
     [
@@ -33,7 +33,7 @@ test('handleContextMenu calls showContextMenu2 with correct parameters', async (
   ])
 })
 
-test('handleContextMenu returns the same state', async () => {
+test('handleClickMoreFilters returns the same state', async () => {
   const state: ProblemsState = {
     ...createDefaultState(),
     uid: 1,
@@ -45,13 +45,13 @@ test('handleContextMenu returns the same state', async () => {
     'ContextMenu.show2': () => {},
   })
 
-  const result = await handleContextMenu(state, eventX, eventY)
+  const result = await handleClickMoreFilters(state, eventX, eventY)
 
   expect(result).toBe(state)
   expect(mockRpc.invocations.length).toBe(1)
 })
 
-test('handleContextMenu works with different coordinates', async () => {
+test('handleClickMoreFilters works with different coordinates', async () => {
   const state: ProblemsState = {
     ...createDefaultState(),
     uid: 123,
@@ -63,7 +63,7 @@ test('handleContextMenu works with different coordinates', async () => {
     'ContextMenu.show2': () => {},
   })
 
-  await handleContextMenu(state, eventX, eventY)
+  await handleClickMoreFilters(state, eventX, eventY)
 
   expect(mockRpc.invocations).toEqual([
     [
@@ -79,7 +79,7 @@ test('handleContextMenu works with different coordinates', async () => {
   ])
 })
 
-test('handleContextMenu uses correct menuId', async () => {
+test('handleClickMoreFilters uses correct menuId', async () => {
   const state: ProblemsState = {
     ...createDefaultState(),
     uid: 99,
@@ -91,9 +91,33 @@ test('handleContextMenu uses correct menuId', async () => {
     'ContextMenu.show2': () => {},
   })
 
-  await handleContextMenu(state, eventX, eventY)
+  await handleClickMoreFilters(state, eventX, eventY)
 
   const invocation = mockRpc.invocations[0]
   expect(invocation[2]).toBe(MenuEntryId.ProblemsFilter)
   expect(invocation[5].menuId).toBe(MenuEntryId.ProblemsFilter)
+})
+
+test('handleClickMoreFilters works with different state configurations', async () => {
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    filterValue: 'test filter',
+    focusedIndex: 3,
+    height: 600,
+    uid: 5,
+    width: 800,
+  }
+  const eventX = 150
+  const eventY = 250
+
+  const mockRpc = RendererWorker.registerMockRpc({
+    'ContextMenu.show2': () => {},
+  })
+
+  const result = await handleClickMoreFilters(state, eventX, eventY)
+
+  expect(result).toBe(state)
+  expect(result.filterValue).toBe('test filter')
+  expect(result.focusedIndex).toBe(3)
+  expect(mockRpc.invocations.length).toBe(1)
 })
