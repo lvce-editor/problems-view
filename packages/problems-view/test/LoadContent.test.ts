@@ -1,6 +1,5 @@
 import { test, expect } from '@jest/globals'
 import { EditorWorker } from '@lvce-editor/rpc-registry'
-import type { Problem } from '../src/parts/Problem/Problem.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
