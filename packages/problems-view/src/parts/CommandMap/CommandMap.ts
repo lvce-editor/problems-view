@@ -5,6 +5,7 @@ import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
+import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
@@ -32,6 +33,7 @@ export const commandMap = {
   'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
   'Problems.getCommandIds': GetCommandIds.getCommandIds,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
+  'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'Problems.getMenuIds': getMenuIds,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
@@ -47,7 +49,7 @@ export const commandMap = {
   'Problems.renderActions': renderActions,
   'Problems.renderEventListeners': renderEventListeners,
   'Problems.resize': Resize.resize,
-  'Problems.saveState': SaveState.saveState,
+  'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
   'Problems.terminate': ViewletRegistry.terminate,
   'Problems.viewAsList': WrapCommand.wrapCommand(viewAsList),
   'Problems.viewAsTable': WrapCommand.wrapCommand(viewAsTable),
