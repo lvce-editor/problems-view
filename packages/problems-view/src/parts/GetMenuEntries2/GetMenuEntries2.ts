@@ -8,7 +8,7 @@ export const getMenuEntries2 = (state: ProblemsState, props: ContextMenuProps): 
   const { menuId } = props
   switch (menuId) {
     case MenuEntryId.ProblemsFilter:
-      return getMenuEntriesFilter()
+      return getMenuEntriesFilter(state)
     default:
       return []
   }
