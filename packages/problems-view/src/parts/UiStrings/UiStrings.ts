@@ -1,6 +1,7 @@
 export const ClearFilters = 'Clear Filters'
 export const Code = 'Code'
 export const Copy = 'Copy'
+export const Error = 'Error'
 export const CopyMessage = 'Copy Message'
 export const File = 'File'
 export const Filter = 'Filter'
