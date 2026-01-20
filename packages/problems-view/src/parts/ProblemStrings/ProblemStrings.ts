@@ -23,6 +23,10 @@ export const copy = (): string => {
   return I18NString.i18nString(UiStrings.Copy)
 }
 
+export const error = (): string => {
+  return I18NString.i18nString(UiStrings.Error)
+}
+
 export const clearFilter = (): string => {
   return I18NString.i18nString(UiStrings.ClearFilters)
 }
