@@ -16,9 +16,44 @@ test('getMessage returns problems detected message when count is greater than 0'
   expect(result).toBe('Some problems have been detected in the workspace.')
 })
 
+test('getMessage returns problems detected message when count is 1', () => {
+  const result = ProblemStrings.getMessage(1)
+  expect(result).toBe('Some problems have been detected in the workspace.')
+})
+
+test('getMessage returns problems detected message for negative count', () => {
+  const result = ProblemStrings.getMessage(-1)
+  expect(result).toBe('Some problems have been detected in the workspace.')
+})
+
+test('getMessage returns problems detected message for very large count', () => {
+  const result = ProblemStrings.getMessage(1_000_000)
+  expect(result).toBe('Some problems have been detected in the workspace.')
+})
+
 test('atLineColumn returns formatted line and column string', () => {
   const result = ProblemStrings.atLineColumn(10, 5)
   expect(result).toBe('[Ln 10, Col 5]')
+})
+
+test('atLineColumn returns formatted string for line 1 and column 1', () => {
+  const result = ProblemStrings.atLineColumn(1, 1)
+  expect(result).toBe('[Ln 1, Col 1]')
+})
+
+test('atLineColumn returns formatted string for line 0 and column 0', () => {
+  const result = ProblemStrings.atLineColumn(0, 0)
+  expect(result).toBe('[Ln 0, Col 0]')
+})
+
+test('atLineColumn returns formatted string for negative line and column', () => {
+  const result = ProblemStrings.atLineColumn(-5, -3)
+  expect(result).toBe('[Ln -5, Col -3]')
+})
+
+test('atLineColumn returns formatted string for very large line and column', () => {
+  const result = ProblemStrings.atLineColumn(999_999, 888_888)
+  expect(result).toBe('[Ln 999999, Col 888888]')
 })
 
 test('copy returns copy string', () => {
@@ -56,6 +91,36 @@ test('showingOf returns formatted showing count string', () => {
   expect(result).toBe('Showing 5 of 10 ')
 })
 
+test('showingOf returns formatted string when visible equals total', () => {
+  const result = ProblemStrings.showingOf(10, 10)
+  expect(result).toBe('Showing 10 of 10 ')
+})
+
+test('showingOf returns formatted string when visible is 0', () => {
+  const result = ProblemStrings.showingOf(0, 10)
+  expect(result).toBe('Showing 0 of 10 ')
+})
+
+test('showingOf returns formatted string when total is 0', () => {
+  const result = ProblemStrings.showingOf(0, 0)
+  expect(result).toBe('Showing 0 of 0 ')
+})
+
+test('showingOf returns formatted string when visible is 1', () => {
+  const result = ProblemStrings.showingOf(1, 5)
+  expect(result).toBe('Showing 1 of 5 ')
+})
+
+test('showingOf returns formatted string when visible is greater than total', () => {
+  const result = ProblemStrings.showingOf(15, 10)
+  expect(result).toBe('Showing 15 of 10 ')
+})
+
+test('showingOf returns formatted string for negative values', () => {
+  const result = ProblemStrings.showingOf(-5, -10)
+  expect(result).toBe('Showing -5 of -10 ')
+})
+
 test('source returns source string', () => {
   const result = ProblemStrings.source()
   expect(result).toBe('Source')
@@ -84,4 +149,24 @@ test('viewAsList returns view as list string', () => {
 test('viewAsTable returns view as table string', () => {
   const result = ProblemStrings.viewAsTable()
   expect(result).toBe('View as Table')
+})
+
+test('error returns error string', () => {
+  const result = ProblemStrings.error()
+  expect(result).toBe('Error')
+})
+
+test('showErrors returns show errors string', () => {
+  const result = ProblemStrings.showErrors()
+  expect(result).toBe('Show Errors')
+})
+
+test('showWarnings returns show warnings string', () => {
+  const result = ProblemStrings.showWarnings()
+  expect(result).toBe('Show Warnings')
+})
+
+test('showInfos returns show infos string', () => {
+  const result = ProblemStrings.showInfos()
+  expect(result).toBe('Show Infos')
 })
