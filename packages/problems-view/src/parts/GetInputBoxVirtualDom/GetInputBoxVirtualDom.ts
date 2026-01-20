@@ -9,7 +9,7 @@ export const getInputBoxVirtualDom = (name: string, onInput: string | number, pl
     className: ClassNames.InputBox,
     name,
     onInput,
-    placeholder: placeholder,
+    placeholder,
     spellcheck: false,
     type: VirtualDomElements.Input,
   }
