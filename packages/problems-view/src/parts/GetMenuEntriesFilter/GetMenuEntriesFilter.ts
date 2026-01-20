@@ -1,12 +1,23 @@
 import { MenuItemFlags } from '@lvce-editor/constants'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
-import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const getMenuEntriesFilter = (): readonly MenuEntry[] => [
   {
-    command: 'Problems.filterByError',
+    command: '-1',
     flags: MenuItemFlags.None,
-    id: 'filterByError',
-    label: ProblemStrings.error(),
+    id: 'show-errors',
+    label: 'Show Errors',
+  },
+  {
+    command: '-1',
+    flags: MenuItemFlags.None,
+    id: 'show-warnings',
+    label: 'Show Warnings',
+  },
+  {
+    command: '-1',
+    flags: MenuItemFlags.None,
+    id: 'show-infos',
+    label: 'Show Infos',
   },
 ]
