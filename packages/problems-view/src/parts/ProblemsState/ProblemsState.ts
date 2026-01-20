@@ -13,6 +13,9 @@ export interface ProblemsState {
   readonly message: string
   readonly minLineY: number
   readonly problems: readonly Problem[]
+  readonly showErrors: boolean
+  readonly showInfos: boolean
+  readonly showWarnings: boolean
   readonly smallWidthBreakPoint: number
   readonly uid: number
   readonly viewMode: number
