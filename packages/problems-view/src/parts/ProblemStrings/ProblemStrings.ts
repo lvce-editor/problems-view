@@ -77,3 +77,15 @@ export const viewAsList = (): string => {
 export const viewAsTable = (): string => {
   return I18NString.i18nString(UiStrings.ViewAsTable)
 }
+
+export const showErrors = (): string => {
+  return I18NString.i18nString(UiStrings.ShowErrors)
+}
+
+export const showWarnings = (): string => {
+  return I18NString.i18nString(UiStrings.ShowWarnings)
+}
+
+export const showInfos = (): string => {
+  return I18NString.i18nString(UiStrings.ShowInfos)
+}
