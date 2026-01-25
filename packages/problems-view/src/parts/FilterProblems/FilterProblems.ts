@@ -1,13 +1,7 @@
 import type { FilteredProblem } from '../FilteredProblem/FilteredProblem.ts'
 import type { Problem } from '../Problem/Problem.ts'
+import { matchesFilterValue } from '../MatchesFilterValue/MatchesFilterValue.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
-
-const matchesFilterValue = (string: string, filterValueLower: string): number => {
-  if (filterValueLower) {
-    return string.toLowerCase().indexOf(filterValueLower)
-  }
-  return 0
-}
 
 const getListItemType = (listItemType: number, isCollapsed: boolean): number => {
   if (listItemType === ProblemListItemType.Item) {
