@@ -1,9 +1,10 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { ViewletAction } from '../ViewletAction/ViewletAction.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetActionButtonVirtualDom from '../GetActionButtonVirtualDom/GetActionButtonVirtualDom.ts'
+import { getFilterBadgeDom } from '../GetFilterBadgeDom/GetFilterBadgeDom.ts'
 import { getInputBoxVirtualDom } from '../GetInputBoxVirtualDom/GetInputBoxVirtualDom.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
@@ -18,20 +19,6 @@ const getChildCount = (badgeText: string | undefined): number => {
   return childCount
 }
 
-const getBadgeDom = (badgeText: string | undefined): readonly VirtualDomNode[] => {
-  if (!badgeText) {
-    return []
-  }
-  return [
-    {
-      childCount: 1,
-      className: ClassNames.FilterBadge,
-      type: VirtualDomElements.Div,
-    },
-    text(badgeText),
-  ]
-}
-
 export const getProblemsFilterVirtualDom = (action: ViewletAction): readonly VirtualDomNode[] => {
   return [
     {
@@ -40,7 +27,7 @@ export const getProblemsFilterVirtualDom = (action: ViewletAction): readonly Vir
       type: VirtualDomElements.Div,
     },
     getInputBoxVirtualDom(InputName.Filter, action.command, action.placeholder || ''),
-    ...getBadgeDom(action.badgeText),
+    ...getFilterBadgeDom(action.badgeText),
     ...GetActionButtonVirtualDom.getActionButtonVirtualDom({
       command: 'more filters',
       icon: MaskIcon.Filter,
