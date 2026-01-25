@@ -16,9 +16,7 @@ export const getProblemsVirtualDom = (
   isSmall: boolean,
   message: string,
 ): readonly VirtualDomNode[] => {
-  // TODO avoid mutation
-  const dom = []
-  dom.push({
+  const baseDom = {
     childCount: 1,
     className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
     onBlur: DomEventListenerFunctions.HandleBlur,
@@ -26,20 +24,20 @@ export const getProblemsVirtualDom = (
     onPointerDown: DomEventListenerFunctions.HandlePointerDown,
     tabIndex: 0,
     type: VirtualDomElements.Div,
-  })
-  if (isSmall) {
-    dom[0].childCount++
-    dom.push(
-      ...GetProblemsFilterVirtualDom.getProblemsFilterVirtualDom({
+  }
+
+  const filterDom = isSmall
+    ? GetProblemsFilterVirtualDom.getProblemsFilterVirtualDom({
         badgeText: '',
         command: DomEventListenerFunctions.HandleFilterInput,
         id: DomId.Filter,
         placeholder: ProblemStrings.filter(),
         type: ActionType.ProblemsFilter,
         value: '',
-      }),
-    )
-  }
-  dom.push(...GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue, message))
-  return dom
+      })
+    : []
+
+  const itemsDom = GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue, message)
+
+  return [baseDom, ...filterDom, ...itemsDom]
 }
