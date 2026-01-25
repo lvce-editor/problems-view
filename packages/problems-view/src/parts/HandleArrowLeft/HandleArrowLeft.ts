@@ -1,11 +1,7 @@
+import type { IndexResult } from '../IndexResult/IndexResult.ts'
 import type { Problem } from '../Problem/Problem.ts'
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
-
-interface IndexResult {
-  readonly index: number
-  readonly newCollapsedUris: readonly string[]
-}
 
 const getArrowLeftNewFocusedIndex = (problems: readonly Problem[], collapsedUris: readonly string[], focusedIndex: number): IndexResult => {
   for (let i = focusedIndex; i >= 0; i--) {
