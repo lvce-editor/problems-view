@@ -25,6 +25,7 @@ import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
+import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
 
 export const commandMap = {
   'Problems.copyMessage': WrapCommand.wrapCommand(CopyMessage.copyMessage),
@@ -43,6 +44,7 @@ export const commandMap = {
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
+  'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
