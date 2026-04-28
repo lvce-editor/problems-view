@@ -8,6 +8,7 @@ import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
+import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
 import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
@@ -37,6 +38,7 @@ export const commandMap = {
   'Problems.getMenuIds': getMenuIds,
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
+  'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
   'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
