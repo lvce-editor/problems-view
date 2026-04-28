@@ -24,7 +24,7 @@ test('copyMessage should copy the focused problem message to clipboard', async (
 
   const state = { ...createDefaultState(), focusedIndex: 0, problems: [mockProblem] }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},
   })
 
@@ -71,7 +71,7 @@ test('copyMessage should copy message from different problem index', async () =>
 
   const state = { ...createDefaultState(), focusedIndex: 1, problems: [mockProblem1, mockProblem2] }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},
   })
 
