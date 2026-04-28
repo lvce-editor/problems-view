@@ -7,7 +7,7 @@ import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
 test('loadContent returns a new state with expected properties', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -28,7 +28,7 @@ test('loadContent returns a new state with expected properties', async () => {
 })
 
 test('loadContent preserves state properties', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = {
@@ -48,7 +48,7 @@ test('loadContent preserves state properties', async () => {
 })
 
 test('loadContent with empty savedState uses defaults', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -61,7 +61,7 @@ test('loadContent with empty savedState uses defaults', async () => {
 })
 
 test('loadContent with savedState containing viewMode', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -74,7 +74,7 @@ test('loadContent with savedState containing viewMode', async () => {
 })
 
 test('loadContent with savedState containing filterValue', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -87,7 +87,7 @@ test('loadContent with savedState containing filterValue', async () => {
 })
 
 test('loadContent with savedState containing collapsedUris', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -116,7 +116,7 @@ test('loadContent with savedState containing all properties', async () => {
 })
 
 test('loadContent with invalid viewMode type defaults to List', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -129,7 +129,7 @@ test('loadContent with invalid viewMode type defaults to List', async () => {
 })
 
 test('loadContent with invalid filterValue type defaults to empty string', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -142,7 +142,7 @@ test('loadContent with invalid filterValue type defaults to empty string', async
 })
 
 test('loadContent with invalid collapsedUris type defaults to empty array', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -155,7 +155,7 @@ test('loadContent with invalid collapsedUris type defaults to empty array', asyn
 })
 
 test('loadContent with collapsedUris containing non-string values defaults to empty array', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -168,7 +168,7 @@ test('loadContent with collapsedUris containing non-string values defaults to em
 })
 
 test('loadContent with null savedState uses defaults', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -180,7 +180,7 @@ test('loadContent with null savedState uses defaults', async () => {
 })
 
 test('loadContent with undefined savedState uses defaults', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -192,7 +192,7 @@ test('loadContent with undefined savedState uses defaults', async () => {
 })
 
 test('loadContent handles error from GetProblems', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => {
       throw new Error('Failed to get problems')
     },
@@ -226,7 +226,7 @@ test('loadContent with error preserves state properties', async () => {
 })
 
 test('loadContent with zero problems', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -238,7 +238,7 @@ test('loadContent with zero problems', async () => {
 })
 
 test('loadContent with one problem', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       {
         code: 'E1001',
@@ -261,7 +261,7 @@ test('loadContent with one problem', async () => {
 })
 
 test('loadContent with multiple problems', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       {
         code: 'E1001',
@@ -304,7 +304,7 @@ test('loadContent with multiple problems', async () => {
 })
 
 test('loadContent sets inputSource to Script', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -315,7 +315,7 @@ test('loadContent sets inputSource to Script', async () => {
 })
 
 test('loadContent sets listItems to empty array', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -326,7 +326,7 @@ test('loadContent sets listItems to empty array', async () => {
 })
 
 test('loadContent with viewMode None', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -339,7 +339,7 @@ test('loadContent with viewMode None', async () => {
 })
 
 test('loadContent with empty filterValue', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -352,7 +352,7 @@ test('loadContent with empty filterValue', async () => {
 })
 
 test('loadContent with empty collapsedUris array', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -365,7 +365,7 @@ test('loadContent with empty collapsedUris array', async () => {
 })
 
 test('loadContent with large collapsedUris array', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -380,7 +380,7 @@ test('loadContent with large collapsedUris array', async () => {
 })
 
 test('loadContent with viewMode as string number defaults to List', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -393,7 +393,7 @@ test('loadContent with viewMode as string number defaults to List', async () => 
 })
 
 test('loadContent with viewMode as zero defaults to List', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -406,7 +406,7 @@ test('loadContent with viewMode as zero defaults to List', async () => {
 })
 
 test('loadContent with viewMode as negative number defaults to List', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -419,7 +419,7 @@ test('loadContent with viewMode as negative number defaults to List', async () =
 })
 
 test('loadContent with filterValue containing special characters', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()
@@ -432,7 +432,7 @@ test('loadContent with filterValue containing special characters', async () => {
 })
 
 test('loadContent with collapsedUris containing special characters', async () => {
-  const mockRpc = EditorWorker.registerMockRpc({
+  using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [],
   })
   const state: ProblemsState = createDefaultState()

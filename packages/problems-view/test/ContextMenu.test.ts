@@ -12,7 +12,7 @@ test('show2 calls showContextMenu2 with correct parameters', async () => {
     menuId: MenuEntryId.ProblemsFilter,
   }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -32,7 +32,7 @@ test('show2 works with different coordinates', async () => {
     menuId: MenuEntryId.ProblemsFilter,
   }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -51,7 +51,7 @@ test('show2 works with different uid values', async () => {
     menuId: MenuEntryId.ProblemsFilter,
   }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -70,7 +70,7 @@ test('show2 passes through all parameters correctly', async () => {
     menuId: MenuEntryId.ProblemsFilter,
   }
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 

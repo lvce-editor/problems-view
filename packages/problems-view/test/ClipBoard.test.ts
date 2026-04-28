@@ -3,7 +3,7 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { writeText } from '../src/parts/ClipBoard/ClipBoard.ts'
 
 test('writeText calls writeClipBoardText with the provided text', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},
   })
 
@@ -14,7 +14,7 @@ test('writeText calls writeClipBoardText with the provided text', async () => {
 })
 
 test('writeText handles empty string', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ClipBoard.writeText': () => {},
   })
 

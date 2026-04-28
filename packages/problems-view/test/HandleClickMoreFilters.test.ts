@@ -13,7 +13,7 @@ test('handleClickMoreFilters calls showContextMenu2 with correct parameters', as
   const eventX = 100
   const eventY = 200
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -41,7 +41,7 @@ test('handleClickMoreFilters returns the same state', async () => {
   const eventX = 50
   const eventY = 75
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -59,7 +59,7 @@ test('handleClickMoreFilters works with different coordinates', async () => {
   const eventX = 0
   const eventY = 0
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -87,7 +87,7 @@ test('handleClickMoreFilters uses correct menuId', async () => {
   const eventX = 300
   const eventY = 400
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 
@@ -110,7 +110,7 @@ test('handleClickMoreFilters works with different state configurations', async (
   const eventX = 150
   const eventY = 250
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2': () => {},
   })
 

@@ -66,7 +66,7 @@ test('initializeEditorWorkerRpc sets up mockRpc correctly', async () => {
   const { dispose, start } = mockWorkerGlobalRpc()
   start()
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'Renderer.sendMessagePortToEditorWorker': async () => {},
   })
 
