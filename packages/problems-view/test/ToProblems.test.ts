@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals'
 import { toProblems } from '../src/parts/ToProblems/ToProblems.ts'
 
-test('toProblems returns correct problems for single diagnostic', () => {
+test('toProblems maps a single diagnostic to a header item and a problem item', () => {
   const diagnostics = [
     {
       code: 'E1',
@@ -12,12 +12,77 @@ test('toProblems returns correct problems for single diagnostic', () => {
       rowIndex: 1,
       source: 'src',
       type: 'error',
-      uri: 'file:///a',
+      uri: 'file:///workspace/file.ts',
     },
   ]
-  const problems = toProblems(diagnostics)
-  expect(problems.length).toBeGreaterThan(0)
-  expect(problems[0].uri).toBe('file:///a')
+  const problems = toProblems(diagnostics, 'file:///workspace')
+  expect(problems).toEqual([
+    {
+      code: '',
+      columnIndex: 0,
+      count: 1,
+      fileName: 'file.ts',
+      level: 1,
+      listItemType: 1,
+      message: '',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 0,
+      setSize: 123,
+      source: '',
+      type: '',
+      uri: 'file:///workspace/file.ts',
+    },
+    {
+      code: 'E1',
+      columnIndex: 2,
+      count: 0,
+      fileName: 'file.ts',
+      level: 2,
+      listItemType: 0,
+      message: 'msg',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 1,
+      setSize: 1,
+      source: 'src',
+      type: 'error',
+      uri: 'file:///workspace/file.ts',
+    },
+  ])
+})
+
+test('toProblems falls back to default item values for missing diagnostic fields', () => {
+  const diagnostics = [
+    {
+      code: undefined,
+      columnIndex: undefined,
+      listItemType: 0,
+      message: undefined,
+      relativePath: '',
+      rowIndex: undefined,
+      source: undefined,
+      type: undefined,
+      uri: 'file:///workspace/defaults.ts',
+    },
+  ] as any
+  const problems = toProblems(diagnostics, 'file:///workspace')
+  expect(problems[1]).toEqual({
+    code: '',
+    columnIndex: 0,
+    count: 0,
+    fileName: 'defaults.ts',
+    level: 2,
+    listItemType: 0,
+    message: '',
+    posInSet: 1,
+    relativePath: '',
+    rowIndex: 0,
+    setSize: 1,
+    source: '',
+    type: 'error',
+    uri: 'file:///workspace/defaults.ts',
+  })
 })
 
 test('toProblems increments relativeIndex and count for multiple diagnostics with same URI', () => {
