@@ -17,7 +17,7 @@ export const getProblemsVirtualDom = (
   message: string,
 ): readonly VirtualDomNode[] => {
   const baseDom = {
-    childCount: 1,
+    childCount: isSmall ? 2 : 1,
     className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
     onBlur: DomEventListenerFunctions.HandleBlur,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
