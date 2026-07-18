@@ -25,6 +25,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
 
   const firstProblem = problems.nth(0)
   await expect(firstProblem).toHaveText('file1.xyz1')
+  const fileName = firstProblem.locator('.Label')
+  await expect(fileName).toHaveText('file1.xyz')
 
   const secondProblem = problems.nth(1)
   await expect(secondProblem).toHaveText('error 1xyz [Ln 0, Col 0]')

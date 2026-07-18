@@ -62,6 +62,11 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
       type: VirtualDomElements.Img,
     },
     {
+      childCount: 1,
+      className: ClassNames.Label,
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
       text: '',
       type: 12,
@@ -125,6 +130,11 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
       role: AriaRoles.None,
       src: 'icon-ts',
       type: VirtualDomElements.Img,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.Label,
+      type: VirtualDomElements.Span,
     },
     {
       childCount: 0,
