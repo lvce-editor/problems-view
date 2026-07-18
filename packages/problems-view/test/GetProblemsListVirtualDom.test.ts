@@ -48,7 +48,7 @@ test('getProblemsListVirtualDom with single problem', () => {
   const problems: readonly VisibleProblem[] = [problem]
   const result = getProblemsListVirtualDom(problems)
 
-  expect(result).toHaveLength(9) // 1 container + 8 problem items
+  expect(result).toHaveLength(10) // 1 container + 9 problem items
   expect(result[0]).toEqual({
     ariaLabel: 'Problems Tree',
     childCount: 1,
@@ -112,7 +112,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
   const problems: readonly VisibleProblem[] = [problem1, problem2]
   const result = getProblemsListVirtualDom(problems)
 
-  expect(result).toHaveLength(17) // 1 container + 8 items for problem1 + 8 items for problem2
+  expect(result).toHaveLength(19) // 1 container + 9 items for problem1 + 9 items for problem2
   expect(result[0]).toEqual({
     ariaLabel: 'Problems Tree',
     childCount: 2,
