@@ -52,6 +52,11 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
       GetFileIconVirtualDom.getFileIconVirtualDom(icon),
+      {
+        childCount: 1,
+        className: ClassNames.Label,
+        type: VirtualDomElements.Span,
+      },
       text(fileName),
       {
         childCount: 1,
