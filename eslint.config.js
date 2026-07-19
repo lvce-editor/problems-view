@@ -3,6 +3,7 @@ import * as actions from '@lvce-editor/eslint-plugin-github-actions'
 
 export default [
   ...config.default,
+  ...config.recommendedVirtualDom,
   ...actions.default,
   {
     rules: {
@@ -14,6 +15,21 @@ export default [
       'unicorn/no-immediate-mutation': 'off',
       'unicorn/no-useless-template-literals': 'off',
       'unicorn/prefer-url-href': 'off',
+    },
+  },
+  {
+    files: ['packages/problems-view/test/**/*.ts'],
+    rules: {
+      'virtual-dom/no-inline-event-handlers': 'off',
+      'virtual-dom/prefer-constants': 'off',
+      'virtual-dom/prefer-merge-class-names': 'off',
+      'virtual-dom/prefer-state-destructuring': 'off',
+    },
+  },
+  {
+    files: ['packages/problems-view/test/Main.test.ts'],
+    rules: {
+      'jest/expect-expect': 'off',
     },
   },
 ]
