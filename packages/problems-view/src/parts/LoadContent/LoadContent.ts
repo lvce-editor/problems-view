@@ -30,7 +30,8 @@ const getSavedCollapsedUris = (savedState: any): readonly string[] => {
 }
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
-  const { error, problems } = await GetProblems.getProblems(state.workspaceUri)
+  const { workspaceUri } = state
+  const { error, problems } = await GetProblems.getProblems(workspaceUri)
   if (error) {
     return {
       ...state,

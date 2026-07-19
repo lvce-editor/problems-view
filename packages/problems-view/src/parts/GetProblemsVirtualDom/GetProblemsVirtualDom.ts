@@ -8,6 +8,7 @@ import * as DomId from '../DomId/DomId.ts'
 import * as GetProblemsFilterVirtualDom from '../GetProblemsFilterVirtualDom/GetProblemsFilterVirtualDom.ts'
 import * as GetProblemsItemsVirtualDom from '../GetProblemsItemsVirtualDom/GetProblemsItemsVirtualDom.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
+import * as TabIndex from '../TabIndex/TabIndex.ts'
 
 export const getProblemsVirtualDom = (
   viewMode: number,
@@ -22,7 +23,7 @@ export const getProblemsVirtualDom = (
     onBlur: DomEventListenerFunctions.HandleBlur,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onPointerDown: DomEventListenerFunctions.HandlePointerDown,
-    tabIndex: 0,
+    tabIndex: TabIndex.Focusable,
     type: VirtualDomElements.Div,
   }
 
