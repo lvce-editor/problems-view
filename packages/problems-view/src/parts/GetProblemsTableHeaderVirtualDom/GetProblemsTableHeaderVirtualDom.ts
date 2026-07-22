@@ -3,50 +3,46 @@ import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 
+const tableHeaderNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.ProblemsTableHeader,
+  type: VirtualDomElements.Div,
+}
+
+const tableRowNode: VirtualDomNode = {
+  childCount: 5,
+  className: ClassNames.ProblemsTableRow,
+  type: VirtualDomElements.Div,
+}
+
+const emptyRowItemNode: VirtualDomNode = {
+  childCount: 0,
+  className: ClassNames.ProblemsTableRowItem,
+  type: VirtualDomElements.Div,
+}
+
+const rowItemNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.ProblemsTableRowItem,
+  type: VirtualDomElements.Div,
+}
+
 export const getProblemsTableHeaderVirtualDom = (): readonly VirtualDomNode[] => {
   const textCode = ProblemStrings.code()
   const textSource = ProblemStrings.source()
   const textMessage = ProblemStrings.message()
   const textFile = ProblemStrings.file()
   const dom = [
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableHeader,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 5,
-      className: ClassNames.ProblemsTableRow,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    tableHeaderNode,
+    tableRowNode,
+    emptyRowItemNode,
+    rowItemNode,
     text(textCode),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(textMessage),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(textFile),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(textSource),
   ]
   return dom

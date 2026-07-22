@@ -5,6 +5,12 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
 
+const rowItemNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.ProblemsTableRowItem,
+  type: VirtualDomElements.Div,
+}
+
 const getClassName = (isEven: boolean): string => {
   if (isEven) {
     return ClassNames.ProblemsTableRow
@@ -25,35 +31,15 @@ export const getProblemsTableRowVirtualDom = (problem: VisibleProblem): readonly
       className: getClassName(isEven),
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(GetProblemSourceDetail.getProblemSourceDetail(source, code)),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(message),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(uri),
-    {
-      childCount: 1,
-      className: ClassNames.ProblemsTableRowItem,
-      type: VirtualDomElements.Div,
-    },
+    rowItemNode,
     text(source),
   ]
   return dom

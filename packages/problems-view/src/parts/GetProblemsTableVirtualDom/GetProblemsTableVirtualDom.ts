@@ -5,13 +5,15 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetProblemsTableBodyVirtualDom from '../GetProblemsTableBodyVirtualDom/GetProblemsTableBodyVirtualDom.ts'
 import * as GetProblemsTableHeaderVirtualDom from '../GetProblemsTableHeaderVirtualDom/GetProblemsTableHeaderVirtualDom.ts'
 
+const tableNode: VirtualDomNode = {
+  childCount: 2,
+  className: ClassNames.ProblemsTable,
+  type: VirtualDomElements.Div,
+}
+
 export const getProblemsTableVirtualDom = (problems: readonly VisibleProblem[]): readonly VirtualDomNode[] => {
   const dom = [
-    {
-      childCount: 2,
-      className: ClassNames.ProblemsTable,
-      type: VirtualDomElements.Div,
-    },
+    tableNode,
     ...GetProblemsTableHeaderVirtualDom.getProblemsTableHeaderVirtualDom(),
     ...GetProblemsTableBodyVirtualDom.getProblemsTableBodyVirtualDom(problems),
   ]
