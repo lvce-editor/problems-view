@@ -76,3 +76,10 @@ test('isEqual returns true when both states have the same empty problems array r
   const newState: ProblemsState = { ...createDefaultState(), problems: emptyProblems }
   expect(isEqual(oldState, newState)).toBe(true)
 })
+
+test('isEqual returns false when the active uri changes', () => {
+  const problems: readonly Problem[] = []
+  const oldState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///old.ts', problems }
+  const newState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///new.ts', problems }
+  expect(isEqual(oldState, newState)).toBe(false)
+})

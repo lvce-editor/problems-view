@@ -11,6 +11,7 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as TabIndex from '../TabIndex/TabIndex.ts'
 
 export const getProblemsVirtualDom = (
+  activeUri: string,
   viewMode: number,
   problems: readonly VisibleProblem[],
   filterValue: string,
@@ -20,6 +21,7 @@ export const getProblemsVirtualDom = (
   const baseDom = {
     childCount: isSmall ? 2 : 1,
     className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
+    dataActiveUri: activeUri,
     onBlur: DomEventListenerFunctions.HandleBlur,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onPointerDown: DomEventListenerFunctions.HandlePointerDown,
