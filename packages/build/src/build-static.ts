@@ -24,6 +24,7 @@ export const getRemoteUrl = (path: string): string => {
 
 const content = await readFile(rendererWorkerPath, 'utf8')
 const workerPath = join(root, '.tmp/dist/dist/problemsViewWorkerMain.js')
+const problemsViewDistPath = join(root, 'dist', commitHash, 'packages', 'problems-view', 'dist', 'problemsViewWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
 const occurrence = `// const problemsViewWorkerUrl = \`\${assetDir}/packages/problems-view/dist/problemsViewWorkerMain.js\`
@@ -34,5 +35,6 @@ if (!content.includes(occurrence)) {
 }
 const newContent = content.replace(occurrence, replacement)
 await writeFile(rendererWorkerPath, newContent)
+await cp(workerPath, problemsViewDistPath)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })

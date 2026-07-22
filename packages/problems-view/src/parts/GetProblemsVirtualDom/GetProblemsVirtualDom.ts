@@ -21,7 +21,7 @@ export const getProblemsVirtualDom = (
   const baseDom = {
     childCount: isSmall ? 2 : 1,
     className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
-    dataActiveUri: activeUri,
+    'data-activeUri': activeUri,
     onBlur: DomEventListenerFunctions.HandleBlur,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onPointerDown: DomEventListenerFunctions.HandlePointerDown,
