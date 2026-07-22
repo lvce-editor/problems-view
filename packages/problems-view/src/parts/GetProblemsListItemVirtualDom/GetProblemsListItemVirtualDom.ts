@@ -1,4 +1,4 @@
-import { type VirtualDomNode, AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { type VirtualDomNode, AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
@@ -9,6 +9,30 @@ import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSou
 import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
+
+const labelNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Label,
+  type: VirtualDomElements.Span,
+}
+
+const labelDetailNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.LabelDetail,
+  type: VirtualDomElements.Div,
+}
+
+const highlightNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Highlight,
+  type: VirtualDomElements.Div,
+}
+
+const problemAtNode: VirtualDomNode = {
+  childCount: 2,
+  className: ClassNames.ProblemAt,
+  type: VirtualDomElements.Span,
+}
 
 export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
   const {
@@ -32,7 +56,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   } = problem
   let className = ClassNames.Problem
   if (isActive) {
-    className += ' ' + ClassNames.ProblemSelected
+    className = mergeClassNames(className, ClassNames.ProblemSelected)
   }
   if (listItemType === ProblemListItemType.Expanded || listItemType === ProblemListItemType.Collapsed) {
     return [
@@ -52,17 +76,9 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
       GetFileIconVirtualDom.getFileIconVirtualDom(icon),
-      {
-        childCount: 1,
-        className: ClassNames.Label,
-        type: VirtualDomElements.Span,
-      },
+      labelNode,
       text(fileName),
-      {
-        childCount: 1,
-        className: ClassNames.LabelDetail,
-        type: VirtualDomElements.Div,
-      },
+      labelDetailNode,
       text(relativePath),
       ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.ProblemBadge, problem.count),
     ]
@@ -96,27 +112,10 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     const middle = message.slice(messageMatchIndex, messageMatchIndex + filterValueLength)
     const after = message.slice(messageMatchIndex + filterValueLength)
     label.childCount += 2
-    dom.push(
-      text(before),
-      {
-        childCount: 1,
-        className: ClassNames.Highlight,
-        type: VirtualDomElements.Div,
-      },
-      text(middle),
-      text(after),
-    )
+    dom.push(text(before), highlightNode, text(middle), text(after))
   } else {
     dom.push(text(message))
   }
-  dom.push(
-    {
-      childCount: 2,
-      className: ClassNames.ProblemAt,
-      type: VirtualDomElements.Span,
-    },
-    text(GetProblemSourceDetail.getProblemSourceDetail(source, code)),
-    text(lineColumn),
-  )
+  dom.push(problemAtNode, text(GetProblemSourceDetail.getProblemSourceDetail(source, code)), text(lineColumn))
   return dom
 }

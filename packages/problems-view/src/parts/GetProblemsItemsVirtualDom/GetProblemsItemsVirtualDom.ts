@@ -8,6 +8,12 @@ import * as GetProblemsNoProblemsFoundVirtualDom from '../GetProblemsNoProblemsF
 import * as GetProblemsTableVirtualDom from '../GetProblemsTableVirtualDom/GetProblemsTableVirtualDom.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
+const messageNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Message,
+  type: VirtualDomElements.Div,
+}
+
 export const getProblemsVirtualDom = (
   viewMode: number,
   problems: readonly VisibleProblem[],
@@ -15,14 +21,7 @@ export const getProblemsVirtualDom = (
   message: string,
 ): readonly VirtualDomNode[] => {
   if (problems.length === 0 && message) {
-    return [
-      {
-        childCount: 1,
-        className: ClassNames.Message,
-        type: VirtualDomElements.Div,
-      },
-      text(message),
-    ]
+    return [messageNode, text(message)]
   }
   if (problems.length === 0 && filterValue) {
     return getNoResultsWithFilterVirtualDom()
