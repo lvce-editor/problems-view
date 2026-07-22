@@ -4,6 +4,7 @@ import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const createDefaultState = (): ProblemsState => {
   const state: ProblemsState = {
+    activeUri: '',
     collapsedUris: [],
     filteredProblems: [],
     filterValue: '',

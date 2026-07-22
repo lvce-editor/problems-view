@@ -5,6 +5,7 @@ import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const create = (id: number, uri: string, x: number, y: number, width: number, height: number, workspaceUri: string): void => {
   const state: ProblemsState = {
+    activeUri: '',
     collapsedUris: [],
     filteredProblems: [],
     filterValue: '',

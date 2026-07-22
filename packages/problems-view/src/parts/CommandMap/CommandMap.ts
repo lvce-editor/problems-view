@@ -6,6 +6,7 @@ import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { handleActiveEditorChange } from '../HandleActiveEditorChange/HandleActiveEditorChange.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
@@ -36,6 +37,7 @@ export const commandMap = {
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'Problems.getMenuIds': getMenuIds,
+  'Problems.handleActiveEditorChange': WrapCommand.wrapCommand(handleActiveEditorChange),
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
