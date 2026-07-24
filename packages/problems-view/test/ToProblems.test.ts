@@ -66,7 +66,9 @@ test.each([
     {
       code: 'TS2307',
       columnIndex: 42,
+      listItemType: 0,
       message: 'Cannot find module',
+      relativePath: '',
       rowIndex: 0,
       source: 'TypeScript',
       type: 'error',
