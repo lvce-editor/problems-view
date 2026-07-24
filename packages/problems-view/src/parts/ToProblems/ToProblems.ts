@@ -29,7 +29,7 @@ const normalizeFileUri = (uri: string): string => {
 
 const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
   const normalizedUri = normalizeFileUri(uri)
-  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(/\/+$/, '')
+  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(/\/$/, '')
   const slashIndex = normalizedUri.lastIndexOf('/')
   const parentUri = normalizedUri.slice(0, slashIndex)
   if (parentUri === normalizedWorkspaceUri) {
