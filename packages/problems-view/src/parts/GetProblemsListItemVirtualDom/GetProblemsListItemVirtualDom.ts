@@ -4,9 +4,9 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
+import * as GetProblemIndent from '../GetProblemIndent/GetProblemIndent.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
-import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
@@ -55,6 +55,8 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     type,
   } = problem
   let className = ClassNames.Problem
+  const indent = GetProblemIndent.getProblemIndent(listItemType)
+  className = mergeClassNames(className, `Indent-${indent}`)
   if (isActive) {
     className = mergeClassNames(className, ClassNames.ProblemSelected)
   }
@@ -68,7 +70,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ariaSetSize: setSize,
         childCount: 5,
         className,
-        paddingLeft: GetTreeItemIndent.getTreeItemIndent(1),
         role: AriaRoles.TreeItem,
         type: VirtualDomElements.Div,
       },
@@ -100,7 +101,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       ariaSetSize: setSize,
       childCount: 3,
       className,
-      paddingLeft: GetTreeItemIndent.getTreeItemIndent(2),
       role: AriaRoles.TreeItem,
       type: VirtualDomElements.Div,
     },
