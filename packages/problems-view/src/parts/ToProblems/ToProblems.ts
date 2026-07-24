@@ -22,9 +22,23 @@ const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
   }
 }
 
+const normalizeFileUri = (uri: string): string => {
+  const normalizedUri = uri.startsWith('file://') ? uri.slice('file://'.length) : uri
+  return /^\/[a-z]:\//i.test(normalizedUri) ? normalizedUri.slice(1) : normalizedUri
+}
+
 const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
-  const slashIndex = uri.lastIndexOf('/')
-  return uri.slice(0, slashIndex).slice(workspaceUri.length)
+  const normalizedUri = normalizeFileUri(uri)
+  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(/\/$/, '')
+  const slashIndex = normalizedUri.lastIndexOf('/')
+  const parentUri = normalizedUri.slice(0, slashIndex)
+  if (parentUri === normalizedWorkspaceUri) {
+    return ''
+  }
+  if (normalizedWorkspaceUri && parentUri.startsWith(`${normalizedWorkspaceUri}/`)) {
+    return parentUri.slice(normalizedWorkspaceUri.length + 1)
+  }
+  return parentUri.replace(/^\/+/, '')
 }
 
 const getFileName = (uri: string): string => {

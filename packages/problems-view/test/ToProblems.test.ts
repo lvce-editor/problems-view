@@ -52,6 +52,36 @@ test('toProblems maps a single diagnostic to a header item and a problem item', 
   ])
 })
 
+test.each([
+  {
+    diagnosticUri: '/workspace/packages/running-extensions-view/src/parts/DisableWorkspace/DisableWorkspace.ts',
+    workspaceUri: 'file:///workspace',
+  },
+  {
+    diagnosticUri: 'file:///workspace/packages/running-extensions-view/src/parts/DisableWorkspace/DisableWorkspace.ts',
+    workspaceUri: '/workspace',
+  },
+])('toProblems normalizes file URIs when computing relative paths', ({ diagnosticUri, workspaceUri }) => {
+  const diagnostics = [
+    {
+      code: 'TS2307',
+      columnIndex: 42,
+      listItemType: 0,
+      message: 'Cannot find module',
+      relativePath: '',
+      rowIndex: 0,
+      source: 'TypeScript',
+      type: 'error',
+      uri: diagnosticUri,
+    },
+  ]
+
+  const problems = toProblems(diagnostics, workspaceUri)
+
+  expect(problems[0].relativePath).toBe('packages/running-extensions-view/src/parts/DisableWorkspace')
+  expect(problems[1].relativePath).toBe('packages/running-extensions-view/src/parts/DisableWorkspace')
+})
+
 test('toProblems falls back to default item values for missing diagnostic fields', () => {
   const diagnostics = [
     {
