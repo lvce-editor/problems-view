@@ -62,7 +62,7 @@ test('handleClickAt with problems and click beyond problems length returns focus
   const state: ProblemsState = {
     ...createDefaultState(),
     itemHeight: 22,
-    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' }] as any,
+    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', source: '', uri: 'file1.ts' }] as any,
     x: 0,
     y: 0,
   }
@@ -103,18 +103,37 @@ test('handleClickAt with offset y position', () => {
 test('handleClickAt preserves other state properties', () => {
   const state: ProblemsState = {
     ...createDefaultState(),
-    filterValue: 'test',
+    filterValue: 'error',
     focusedIndex: 5,
     itemHeight: 22,
-    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', uri: 'file1.ts' }] as any,
+    problems: [{ column: 1, line: 1, message: 'Error 1', severity: 'error', source: '', uri: 'file1.ts' }] as any,
     x: 0,
     y: 0,
   }
   const result = handleClickAt(state, 50, 11)
 
   expect(result.focusedIndex).toBe(0)
-  expect(result.filterValue).toBe('test')
+  expect(result.filterValue).toBe('error')
   expect(result.problems).toBe(state.problems)
+})
+
+test('handleClickAt includes the virtual scroll offset', () => {
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    deltaY: 44,
+    itemHeight: 22,
+    problems: [
+      { message: 'Error 1', uri: 'file1.ts' },
+      { message: 'Error 2', uri: 'file2.ts' },
+      { message: 'Error 3', uri: 'file3.ts' },
+    ] as any,
+    x: 0,
+    y: 0,
+  }
+
+  const result = handleClickAt(state, 50, 11)
+
+  expect(result.focusedIndex).toBe(2)
 })
 
 test('handleClickAt with multiple problems and click at middle item', () => {

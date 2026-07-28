@@ -4,3 +4,7 @@ export const HandleContextMenu = 3
 export const HandleFilterInput = 4
 export const HandlePointerDown = 5
 export const HandleClickMoreFilters = 6
+export const HandleWheel = 7
+export const HandleScrollBarMove = 8
+export const HandleScrollBarPointerCaptureLost = 9
+export const HandleScrollBarPointerDown = 10

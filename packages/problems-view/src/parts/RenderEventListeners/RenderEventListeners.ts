@@ -1,4 +1,5 @@
 import type { DomEventListener } from '@lvce-editor/virtual-dom-worker'
+import { EventExpression } from '@lvce-editor/constants'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 
@@ -29,6 +30,25 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     {
       name: DomEventListenerFunctions.HandleClickMoreFilters,
       params: ['handleClickMoreFilters'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleWheel,
+      params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
+      passive: true,
+    },
+    {
+      name: DomEventListenerFunctions.HandleScrollBarPointerDown,
+      params: ['handleScrollBarClick', EventExpression.ClientY],
+      preventDefault: true,
+      trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarMove, DomEventListenerFunctions.HandleScrollBarPointerCaptureLost],
+    } as DomEventListener,
+    {
+      name: DomEventListenerFunctions.HandleScrollBarMove,
+      params: ['handleScrollBarMove', EventExpression.ClientY],
+    },
+    {
+      name: DomEventListenerFunctions.HandleScrollBarPointerCaptureLost,
+      params: ['handleScrollBarCaptureLost'],
     },
   ]
 }

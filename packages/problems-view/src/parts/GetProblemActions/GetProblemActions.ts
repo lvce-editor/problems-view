@@ -10,7 +10,7 @@ import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
   const { collapsedUris, filterValue, focusedIndex, inputSource, problems, smallWidthBreakPoint, viewMode, width } = state
-  const visibleCount = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue).length
+  const visibleCount = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue, 0, Infinity, viewMode).length
   const problemsCount = problems.length
   const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
