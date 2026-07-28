@@ -87,7 +87,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
   const lineColumn = ViewletProblemsStrings.atLineColumn(rowIndex, columnIndex)
   const label = {
     childCount: 1,
-    className: ClassNames.Label,
+    className: ClassNames.ProblemLabel,
     type: VirtualDomElements.Div,
   }
   /**

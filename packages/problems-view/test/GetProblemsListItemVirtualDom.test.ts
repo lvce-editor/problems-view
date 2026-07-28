@@ -194,7 +194,7 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
     },
     {
       childCount: 1,
-      className: ClassNames.Label,
+      className: ClassNames.ProblemLabel,
       type: VirtualDomElements.Div,
     },
     {
@@ -252,7 +252,7 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
     },
     {
       childCount: 3,
-      className: ClassNames.Label,
+      className: ClassNames.ProblemLabel,
       type: VirtualDomElements.Div,
     },
     {
