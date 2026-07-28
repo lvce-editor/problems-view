@@ -3,17 +3,21 @@ import { mergeClassNames, VirtualDomElements } from '@lvce-editor/virtual-dom-wo
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DiagnosticType from '../DiagnosticType/DiagnosticType.ts'
 
+const warningIconNode: VirtualDomNode = {
+  childCount: 0,
+  className: mergeClassNames(ClassNames.ProblemsIcon, ClassNames.ProblemsWarningIcon),
+  type: VirtualDomElements.Div,
+}
+
+const errorIconNode: VirtualDomNode = {
+  childCount: 0,
+  className: mergeClassNames(ClassNames.ProblemsIcon, ClassNames.ProblemsErrorIcon),
+  type: VirtualDomElements.Div,
+}
+
 export const getProblemsIconVirtualDom = (type: string): VirtualDomNode => {
   if (type === DiagnosticType.Warning) {
-    return {
-      childCount: 0,
-      className: mergeClassNames(ClassNames.ProblemsIcon, ClassNames.ProblemsWarningIcon),
-      type: VirtualDomElements.Div,
-    }
+    return warningIconNode
   }
-  return {
-    childCount: 0,
-    className: mergeClassNames(ClassNames.ProblemsIcon, ClassNames.ProblemsErrorIcon),
-    type: VirtualDomElements.Div,
-  }
+  return errorIconNode
 }
