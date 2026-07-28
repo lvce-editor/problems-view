@@ -23,15 +23,21 @@ const createProblem = (listItemType: number, uri: string): Problem => {
   }
 }
 
-test('renderCss returns empty CSS when there are no visible problems', () => {
+test('renderCss returns the virtual list base CSS when there are no visible problems', () => {
   const state = createDefaultState()
-  expect(renderCss(state, state)).toEqual(['Viewlet.setCss', 0, ''])
+  const result = renderCss(state, state)
+
+  expect(result[0]).toBe('Viewlet.setCss')
+  expect(result[1]).toBe(0)
+  expect(result[2]).toContain('.ProblemsContent')
+  expect(result[2]).toContain('height: 0px;')
 })
 
 test('renderCss generates matching rules for unique visible indents', () => {
   const oldState = createDefaultState()
   const newState = {
     ...oldState,
+    maxLineY: 3,
     problems: [
       createProblem(ProblemListItemType.Expanded, 'file:///file.ts'),
       createProblem(ProblemListItemType.Item, 'file:///file.ts'),
@@ -39,14 +45,32 @@ test('renderCss generates matching rules for unique visible indents', () => {
     ],
     uid: 12,
   }
-  expect(renderCss(oldState, newState)).toEqual([
-    'Viewlet.setCss',
-    12,
-    `.Indent-1rem {
+  const result = renderCss(oldState, newState)
+
+  expect(result[0]).toBe('Viewlet.setCss')
+  expect(result[1]).toBe(12)
+  expect(result[2]).toContain(`.Indent-1rem {
   padding-left: 1rem;
 }
 .Indent-2rem {
   padding-left: 2rem;
-}`,
-  ])
+}`)
+})
+
+test('renderCss positions the thumb and first partially visible item', () => {
+  const state = {
+    ...createDefaultState(),
+    deltaY: 45,
+    finalDeltaY: 200,
+    height: 100,
+    itemHeight: 20,
+    scrollBarHeight: 20,
+    viewMode: 2,
+    width: 800,
+  }
+
+  const result = renderCss(createDefaultState(), state)
+
+  expect(result[2]).toContain('translate: 0 18px;')
+  expect(result[2]).toContain('margin-top: -5px;')
 })

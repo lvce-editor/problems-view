@@ -1,0 +1,10 @@
+{
+  "activation": ["onDiagnostic:xyz"],
+  "browser": "main.js",
+  "languages": [
+    {
+      "extensions": [".xyz"],
+      "id": "xyz"
+    }
+  ]
+}

@@ -16,6 +16,10 @@ import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMor
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
+import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
+import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
+import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
+import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
@@ -47,6 +51,10 @@ export const commandMap = {
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
+  'Problems.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
+  'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
+  'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
+  'Problems.handleWheel': WrapCommand.wrapCommand(handleWheel),
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,

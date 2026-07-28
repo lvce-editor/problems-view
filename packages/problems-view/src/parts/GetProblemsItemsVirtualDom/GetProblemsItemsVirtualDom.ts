@@ -19,14 +19,15 @@ export const getProblemsVirtualDom = (
   problems: readonly VisibleProblem[],
   filterValue: string,
   message: string,
+  problemCount = problems.length,
 ): readonly VirtualDomNode[] => {
-  if (problems.length === 0 && message) {
+  if (problemCount === 0 && message) {
     return [messageNode, text(message)]
   }
-  if (problems.length === 0 && filterValue) {
+  if (problemCount === 0 && filterValue) {
     return getNoResultsWithFilterVirtualDom()
   }
-  if (problems.length === 0) {
+  if (problemCount === 0) {
     return GetProblemsNoProblemsFoundVirtualDom.getProblemsNoProblemsFoundVirtualDom()
   }
   if (viewMode === ProblemsViewMode.Table) {
