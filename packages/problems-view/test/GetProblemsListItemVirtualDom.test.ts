@@ -214,11 +214,31 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
     },
     {
       childCount: 0,
-      text: '[Ln 10, Col 5]',
+      text: '[Ln 11, Col 6]',
       type: 12,
     },
   ]
   expect(dom).toEqual(expectedDom)
+})
+
+test('getProblemVirtualDom displays zero-based diagnostic indexes as one-based coordinates', () => {
+  const problem: VisibleProblem = {
+    ...baseProblem,
+    columnIndex: 0,
+    filterValueLength: 0,
+    icon: 'icon-ts',
+    isActive: false,
+    isCollapsed: false,
+    isEven: false,
+    listItemType: ProblemListItemType.Item,
+    rowIndex: 0,
+  }
+  const dom = getProblemVirtualDom(problem)
+  expect(dom.at(-1)).toEqual({
+    childCount: 0,
+    text: '[Ln 1, Col 1]',
+    type: VirtualDomElements.Text,
+  })
 })
 
 test('getProblemVirtualDom returns correct dom for Item with filter highlight', () => {
@@ -287,7 +307,7 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
     },
     {
       childCount: 0,
-      text: '[Ln 10, Col 5]',
+      text: '[Ln 11, Col 6]',
       type: 12,
     },
   ]
