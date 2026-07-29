@@ -84,7 +84,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.ProblemBadge, problem.count),
     ]
   }
-  const lineColumn = ViewletProblemsStrings.atLineColumn(rowIndex, columnIndex)
+  const lineColumn = ViewletProblemsStrings.atLineColumn(rowIndex + 1, columnIndex + 1)
   const label = {
     childCount: 1,
     className: ClassNames.ProblemLabel,

@@ -27,5 +27,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await expect(firstProblem).toHaveText('file1.xyz1')
 
   const secondProblem = problems.nth(1)
-  await expect(secondProblem).toHaveText('error 1xyz [Ln 0, Col 0]')
+  await expect(secondProblem).toHaveText('error 1xyz [Ln 1, Col 1]')
 }
