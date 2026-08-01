@@ -5,7 +5,7 @@ export const getActiveEditorId = (): Promise<number> => {
   return RendererWorker.getActiveEditorId()
 }
 
-export const sendMessagePortToEditorWorker = (port: MessagePort, rpcId: number): Promise<void> => {
+export const sendMessagePortToEditorWorker = (port: any, rpcId: number): Promise<void> => {
   return RendererWorker.sendMessagePortToEditorWorker(port, rpcId)
 }
 
