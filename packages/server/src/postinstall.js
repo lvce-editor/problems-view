@@ -1,4 +1,4 @@
-import { readFile, readdir, writeFile } from 'node:fs/promises'
+import { copyFile, readFile, readdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -15,6 +15,8 @@ const nodeModulesPath = join(root, 'node_modules')
 
 const workerPath = join(root, '.tmp', 'dist', 'dist', 'problemsViewWorkerMain.js')
 
+const testWorkerPath = join(nodeModulesPath, '@lvce-editor', 'test-worker', 'dist', 'testWorkerMain.js')
+
 const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
 
 const RE_COMMIT_HASH = /^[a-z\d]+$/
@@ -25,6 +27,8 @@ const isCommitHash = (dirent) => {
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
+
+const testWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 
@@ -37,3 +41,5 @@ const problemsViewWorkerUrl = \`${remoteUrl}\``
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerMainPath, newContent)
 }
+
+await copyFile(testWorkerPath, testWorkerStaticPath)

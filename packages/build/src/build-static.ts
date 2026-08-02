@@ -16,8 +16,6 @@ const { commitHash } = await sharedProcess.exportStatic({
 })
 
 const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
-const testWorkerPath = join(root, 'node_modules', '@lvce-editor', 'test-worker', 'dist', 'testWorkerMain.js')
-const testWorkerDistPath = join(root, 'dist', commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
 
 export const getRemoteUrl = (path: string): string => {
   const url = pathToFileURL(path).toString().slice(8)
@@ -38,6 +36,5 @@ if (!content.includes(occurrence)) {
 const newContent = content.replace(occurrence, replacement)
 await writeFile(rendererWorkerPath, newContent)
 await cp(workerPath, problemsViewDistPath)
-await cp(testWorkerPath, testWorkerDistPath)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
