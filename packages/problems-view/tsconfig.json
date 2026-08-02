@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "lib": ["esnext"],
+    "lib": ["esnext", "WebWorker"],
     "checkJs": true,
     "target": "esnext",
-    "types": [],
+    "types": ["node"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
@@ -19,7 +19,8 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "exactOptionalPropertyTypes": true
   },
   "include": ["src", "test"]
 }

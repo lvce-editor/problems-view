@@ -2,6 +2,10 @@ import type { Diagnostic } from '../Diagnostic/Diagnostic.ts'
 import type { Problem } from '../Problem/Problem.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 
+const leadingSlashesRegex = /^\/+/
+const trailingSlashRegex = /\/$/
+const windowsDrivePathRegex = /^\/[a-z]:\//i
+
 const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
   const { code, columnIndex, message, rowIndex, source, type, uri } = diagnostic
   return {
@@ -24,12 +28,12 @@ const toProblem = (diagnostic: Diagnostic, index: number): Problem => {
 
 const normalizeFileUri = (uri: string): string => {
   const normalizedUri = uri.startsWith('file://') ? uri.slice('file://'.length) : uri
-  return /^\/[a-z]:\//i.test(normalizedUri) ? normalizedUri.slice(1) : normalizedUri
+  return windowsDrivePathRegex.test(normalizedUri) ? normalizedUri.slice(1) : normalizedUri
 }
 
 const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
   const normalizedUri = normalizeFileUri(uri)
-  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(/\/$/, '')
+  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(trailingSlashRegex, '')
   const slashIndex = normalizedUri.lastIndexOf('/')
   const parentUri = normalizedUri.slice(0, slashIndex)
   if (parentUri === normalizedWorkspaceUri) {
@@ -38,7 +42,7 @@ const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
   if (normalizedWorkspaceUri && parentUri.startsWith(`${normalizedWorkspaceUri}/`)) {
     return parentUri.slice(normalizedWorkspaceUri.length + 1)
   }
-  return parentUri.replace(/^\/+/, '')
+  return parentUri.replace(leadingSlashesRegex, '')
 }
 
 const getFileName = (uri: string): string => {
