@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.context-menu-after-reopen'
 
 export const test: Test = async ({ Command, expect, Locator, Output, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   await Output.show()
   await Panel.openProblems()
 

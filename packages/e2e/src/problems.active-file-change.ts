@@ -13,7 +13,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await Workspace.setPath(tmpDir)
   await Main.openUri(firstUri)
   await Main.openUri(secondUri)
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   await Command.execute('Problems.handleActiveEditorChange', firstUri)
 

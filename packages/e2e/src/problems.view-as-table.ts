@@ -12,7 +12,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   // @ts-ignore
   await Extension.addWebExtension(new URL(`../fixtures/problems.one-problem`, import.meta.url).toString())
   await Main.openUri(`${tmpDir}/file1.xyz`)
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Problems')
   await expect(problemsView).toBeVisible()
   const problems = Locator('.Problem')

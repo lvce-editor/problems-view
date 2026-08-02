@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-encoded-unicode'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const uri = 'memfs:///workspace/%E6%96%87%E4%BB%B6.ts'
 
   await Command.execute('Problems.handleActiveEditorChange', uri)

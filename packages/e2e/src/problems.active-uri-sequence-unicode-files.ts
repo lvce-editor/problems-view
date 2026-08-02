@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-sequence-unicode-files'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
   const uris = ['memfs:///workspace/一.ts', 'memfs:///workspace/二.ts', 'memfs:///workspace/三.ts']
 

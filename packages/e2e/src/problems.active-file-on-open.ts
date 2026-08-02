@@ -9,7 +9,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Wor
   await Workspace.setPath(tmpDir)
   await Main.openUri(fileUri)
 
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toHaveAttribute('data-active-uri', fileUri)

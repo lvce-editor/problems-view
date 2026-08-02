@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-input-accessibility'
 
 export const test: Test = async ({ expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   const input = Locator('.Panel .InputBox')
   await expect(input).toBeVisible()

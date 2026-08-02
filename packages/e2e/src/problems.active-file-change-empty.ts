@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await FileSystem.writeFile(fileUri, 'content')
   await Workspace.setPath(tmpDir)
   await Main.openUri(fileUri)
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   await Command.execute('Problems.handleActiveEditorChange', '')
 

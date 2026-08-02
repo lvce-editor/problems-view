@@ -4,7 +4,7 @@ export const name = 'problems.active-file-special-characters'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
   const fileUri = 'memfs:///workspace/folder with spaces/file-%23.txt'
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   await Command.execute('Problems.handleActiveEditorChange', fileUri)
 
