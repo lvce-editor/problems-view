@@ -1,35 +1,11 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as GetActiveUri from '../GetActiveUri/GetActiveUri.ts'
 import * as GetProblems from '../GetProblems/GetProblems.ts'
+import * as GetSavedCollapsedUris from '../GetSavedCollapsedUris/GetSavedCollapsedUris.ts'
+import * as GetSavedFilterValue from '../GetSavedFilterValue/GetSavedFilterValue.ts'
+import * as GetSavedViewMode from '../GetSavedViewMode/GetSavedViewMode.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
-import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
-
-const getSavedViewMode = (savedState: any): number => {
-  if (savedState && typeof savedState.viewMode === 'number') {
-    return savedState.viewMode
-  }
-  return ProblemsViewMode.List
-}
-
-const getSavedFilterValue = (savedState: any): string => {
-  if (savedState && typeof savedState.filterValue === 'string') {
-    return savedState.filterValue
-  }
-  return ''
-}
-
-const isString = (value: unknown): value is string => {
-  return typeof value === 'string'
-}
-
-const getSavedCollapsedUris = (savedState: any): readonly string[] => {
-  const collapsedUris: unknown = savedState?.collapsedUris
-  if (Array.isArray(collapsedUris) && collapsedUris.every(isString)) {
-    return [...new Set(collapsedUris)]
-  }
-  return []
-}
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
   const { workspaceUri } = state
@@ -45,9 +21,9 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
     }
   }
   const message = ViewletProblemsStrings.getMessage(problems.length)
-  const viewMode = getSavedViewMode(savedState)
-  const filterValue = getSavedFilterValue(savedState)
-  const collapsedUris = getSavedCollapsedUris(savedState)
+  const viewMode = GetSavedViewMode.getSavedViewMode(savedState)
+  const filterValue = GetSavedFilterValue.getSavedFilterValue(savedState)
+  const collapsedUris = GetSavedCollapsedUris.getSavedCollapsedUris(savedState)
   return {
     ...state,
     activeUri,
