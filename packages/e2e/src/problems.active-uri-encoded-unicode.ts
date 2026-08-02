@@ -2,11 +2,11 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.active-uri-encoded-unicode'
 
-export const test: Test = async ({ Command, expect, Locator, Panel }) => {
+export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
   await Panel.openProblems()
   const uri = 'memfs:///workspace/%E6%96%87%E4%BB%B6.ts'
 
-  await Command.execute('Problems.handleActiveEditorChange', uri)
+  await Problems.handleActiveEditorChange(uri)
 
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toHaveAttribute('data-active-uri', uri)

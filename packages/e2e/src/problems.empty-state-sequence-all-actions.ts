@@ -2,14 +2,14 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.empty-state-sequence-all-actions'
 
-export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
+export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
   await Panel.openProblems()
   const actions = ['blur', 'click', 'focus', 'icon-theme', 'table', 'list']
 
   const runAction = async (action: string): Promise<void> => {
     switch (action) {
       case 'blur':
-        await Command.execute('Problems.handleBlur')
+        await Problems.handleBlur()
         break
       case 'click':
         await Problems.handleClickAt(10, 10)

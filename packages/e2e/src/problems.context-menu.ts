@@ -2,14 +2,14 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.context-menu'
 
-export const test: Test = async ({ Command, expect, Locator, Panel }) => {
+export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
   // arrange
   await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toBeVisible()
 
   // act
-  await Command.execute('Problems.handleContextMenu', 0, 0)
+  await Problems.handleContextMenu(0, 0)
 
   // assert
   const menu = Locator('.Menu')
