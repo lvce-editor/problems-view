@@ -1,17 +1,8 @@
 import type { FilteredProblem } from '../FilteredProblem/FilteredProblem.ts'
+import { getListItemType } from '../GetListItemType/GetListItemType.ts'
 import type { Problem } from '../Problem/Problem.ts'
 import { matchesFilterValue } from '../MatchesFilterValue/MatchesFilterValue.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
-
-const getListItemType = (listItemType: number, isCollapsed: boolean): number => {
-  if (listItemType === ProblemListItemType.Item) {
-    return ProblemListItemType.Item
-  }
-  if (isCollapsed) {
-    return ProblemListItemType.Collapsed
-  }
-  return ProblemListItemType.Expanded
-}
 
 export const filterProblems = (problems: readonly Problem[], collapsedUris: readonly string[], filterValue: string): readonly FilteredProblem[] => {
   const filterValueLower = filterValue.toLowerCase()
