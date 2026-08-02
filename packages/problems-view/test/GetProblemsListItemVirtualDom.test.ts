@@ -54,6 +54,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
       type: VirtualDomElements.Div,
     },
     {
+      alt: '',
       childCount: 0,
       className: ClassNames.FileIcon,
       role: AriaRoles.None,
@@ -123,6 +124,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
       type: VirtualDomElements.Div,
     },
     {
+      alt: '',
       childCount: 0,
       className: ClassNames.FileIcon,
       role: AriaRoles.None,
