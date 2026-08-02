@@ -107,7 +107,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),
     label,
   ]
-  if (filterValueLength) {
+  if (filterValueLength && messageMatchIndex >= 0) {
     const before = message.slice(0, messageMatchIndex)
     const middle = message.slice(messageMatchIndex, messageMatchIndex + filterValueLength)
     const after = message.slice(messageMatchIndex + filterValueLength)
