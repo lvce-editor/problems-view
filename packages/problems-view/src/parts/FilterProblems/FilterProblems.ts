@@ -1,6 +1,6 @@
 import type { FilteredProblem } from '../FilteredProblem/FilteredProblem.ts'
-import { getListItemType } from '../GetListItemType/GetListItemType.ts'
 import type { Problem } from '../Problem/Problem.ts'
+import { getListItemType } from '../GetListItemType/GetListItemType.ts'
 import { matchesFilterValue } from '../MatchesFilterValue/MatchesFilterValue.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 
