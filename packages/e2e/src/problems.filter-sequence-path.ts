@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-sequence-path'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const input = Locator('.Panel .InputBox')
   const values = ['src', 'src/', 'src/main', 'src/main.ts']
 

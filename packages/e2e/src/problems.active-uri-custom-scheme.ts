@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-custom-scheme'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const uri = 'custom-scheme:///workspace/source.ts'
 
   await Command.execute('Problems.handleActiveEditorChange', uri)

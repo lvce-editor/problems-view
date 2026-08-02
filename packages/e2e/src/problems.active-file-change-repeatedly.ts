@@ -16,7 +16,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await Main.openUri(firstUri)
   await Main.openUri(secondUri)
   await Main.openUri(thirdUri)
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
 
   await Command.execute('Problems.handleActiveEditorChange', firstUri)

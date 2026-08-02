@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-whitespace'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const filterValue = ' '.repeat(3)
 
   await Problems.handleFilterInput(filterValue)

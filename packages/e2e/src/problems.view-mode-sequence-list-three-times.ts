@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.view-mode-sequence-list-three-times'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const viewModes = ['list', 'list', 'list']
 
   for (const viewMode of viewModes) {

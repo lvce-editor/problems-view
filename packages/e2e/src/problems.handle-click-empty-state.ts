@@ -4,7 +4,7 @@ export const name = 'problems.handle-click-empty-state'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
   // arrange
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toBeVisible()
 

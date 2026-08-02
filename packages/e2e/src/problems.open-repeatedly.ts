@@ -3,8 +3,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.open-repeatedly'
 
 export const test: Test = async ({ expect, Locator, Panel }) => {
-  await Panel.open('Problems')
-  await Panel.open('Problems')
+  await Panel.openProblems()
+  await Panel.openProblems()
   await Panel.openProblems()
 
   const problemsViews = Locator('.Viewlet.Problems')

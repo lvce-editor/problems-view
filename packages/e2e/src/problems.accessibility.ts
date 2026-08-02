@@ -4,7 +4,7 @@ export const name = 'problems.accessibility'
 
 export const test: Test = async ({ expect, Locator, Panel }) => {
   // act
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   // assert
   const problemsView = Locator('.Viewlet.Problems')

@@ -4,7 +4,7 @@ export const name = 'problems.reopen'
 
 export const test: Test = async ({ expect, Locator, Output, Panel }) => {
   // arrange
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toBeVisible()
 

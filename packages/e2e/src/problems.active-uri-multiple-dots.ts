@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-multiple-dots'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const uri = 'memfs:///workspace/archive.test.spec.ts'
 
   await Command.execute('Problems.handleActiveEditorChange', uri)

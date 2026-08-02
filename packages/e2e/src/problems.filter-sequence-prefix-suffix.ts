@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-sequence-prefix-suffix'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const input = Locator('.Panel .InputBox')
   const values = ['error', 'pre-error', 'pre-error-post']
 

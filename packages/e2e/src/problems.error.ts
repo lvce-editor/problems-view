@@ -14,7 +14,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await Main.openUri(`${tmpDir}/file1.xyz`)
 
   // act
-  await Panel.open('Problems')
+  await Panel.openProblems()
 
   // assert
   const problemsView = Locator('.Problems')

@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.empty-state-sequence-click-blur'
 
 export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const actions = ['click', 'blur']
 
   const runAction = async (action: string): Promise<void> => {

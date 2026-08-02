@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-plus'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const uri = 'memfs:///workspace/file+name.ts'
 
   await Command.execute('Problems.handleActiveEditorChange', uri)

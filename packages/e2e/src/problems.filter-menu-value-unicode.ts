@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-menu-value-unicode'
 
 export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   await Problems.handleFilterInput('文件')
 
   await Command.execute('Problems.handleClickMoreFilters', 0, 0)

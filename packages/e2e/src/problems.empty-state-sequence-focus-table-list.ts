@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.empty-state-sequence-focus-table-list'
 
 export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const actions = ['focus', 'table', 'list']
 
   const runAction = async (action: string): Promise<void> => {

@@ -4,7 +4,7 @@ export const name = 'problems.filter-menu'
 
 export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
   // arrange
-  await Panel.open('Problems')
+  await Panel.openProblems()
   await Problems.show()
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toBeVisible()

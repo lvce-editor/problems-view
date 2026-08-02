@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.active-uri-sequence-extensions'
 
 export const test: Test = async ({ Command, expect, Locator, Panel }) => {
-  await Panel.open('Problems')
+  await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
   const uris = ['memfs:///workspace/main.js', 'memfs:///workspace/main.ts', 'memfs:///workspace/main.py']
 
