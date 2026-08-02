@@ -315,3 +315,31 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
   ]
   expect(dom).toEqual(expectedDom)
 })
+
+test('getProblemVirtualDom leaves message unchanged when filter matches source', () => {
+  const problem: VisibleProblem = {
+    ...baseProblem,
+    filterValueLength: 10,
+    icon: 'icon-ts',
+    isActive: false,
+    isCollapsed: false,
+    isEven: false,
+    listItemType: ProblemListItemType.Item,
+    messageMatchIndex: -1,
+    sourceMatchIndex: 0,
+  }
+  const dom = getProblemVirtualDom(problem)
+  const labelIndex = dom.findIndex((node) => node.className === ClassNames.ProblemLabel)
+  expect(dom.slice(labelIndex, labelIndex + 2)).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.ProblemLabel,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'Syntax error',
+      type: VirtualDomElements.Text,
+    },
+  ])
+})
