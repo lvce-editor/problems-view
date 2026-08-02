@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { EditorWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import { handleActiveEditorChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
+import { handleActiveEditorChange, handleDiagnosticsChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
 
 test('loads only diagnostics belonging to the newly active file', async () => {
   EditorWorker.registerMockRpc({
@@ -58,4 +58,33 @@ test('clears stale diagnostics when the new provider fails', async () => {
   expect(result.activeUri).toBe('file:///new.ts')
   expect(result.problems).toEqual([])
   expect(result.message).toBe('Error: provider failed')
+})
+
+test('refreshes problems when diagnostics for the active uri change', async () => {
+  using mockRpc = EditorWorker.registerMockRpc({
+    'Editor.getProblems': () => [{ message: 'updated', uri: 'file:///active.ts' }],
+  })
+  const state = {
+    ...createDefaultState(),
+    activeUri: 'file:///active.ts',
+    problems: [{ message: 'stale', uri: 'file:///active.ts' }] as any,
+  }
+
+  const result = await handleDiagnosticsChange(state, 'file:///active.ts')
+
+  expect(result).not.toBe(state)
+  expect(result.problems).toHaveLength(2)
+  expect(result.problems.every((problem) => problem.uri === 'file:///active.ts')).toBe(true)
+  expect(result.problems[1].message).toBe('updated')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
+})
+
+test('ignores diagnostics changes for an inactive uri', async () => {
+  using mockRpc = EditorWorker.registerMockRpc({
+    'Editor.getProblems': () => [],
+  })
+  const state = { ...createDefaultState(), activeUri: 'file:///active.ts' }
+
+  await expect(handleDiagnosticsChange(state, 'file:///inactive.ts')).resolves.toBe(state)
+  expect(mockRpc.invocations).toEqual([])
 })
