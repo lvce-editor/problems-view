@@ -19,13 +19,14 @@ const getSavedFilterValue = (savedState: any): string => {
   return ''
 }
 
-const isString = (value: unknown): boolean => {
+const isString = (value: unknown): value is string => {
   return typeof value === 'string'
 }
 
 const getSavedCollapsedUris = (savedState: any): readonly string[] => {
-  if (savedState && savedState.collapsedUris && Array.isArray(savedState.collapsedUris) && savedState.collapsedUris.every(isString)) {
-    return [...new Set(savedState.collapsedUris)]
+  const collapsedUris: unknown = savedState?.collapsedUris
+  if (Array.isArray(collapsedUris) && collapsedUris.every(isString)) {
+    return [...new Set(collapsedUris)]
   }
   return []
 }
