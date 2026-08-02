@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.active-file-change-repeatedly'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Panel, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const firstUri = `${tmpDir}/first.txt`
   const secondUri = `${tmpDir}/second.txt`
@@ -19,10 +19,10 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await Panel.openProblems()
   const problemsView = Locator('.Viewlet.Problems')
 
-  await Command.execute('Problems.handleActiveEditorChange', firstUri)
+  await Problems.handleActiveEditorChange(firstUri)
   await expect(problemsView).toHaveAttribute('data-active-uri', firstUri)
-  await Command.execute('Problems.handleActiveEditorChange', secondUri)
+  await Problems.handleActiveEditorChange(secondUri)
   await expect(problemsView).toHaveAttribute('data-active-uri', secondUri)
-  await Command.execute('Problems.handleActiveEditorChange', thirdUri)
+  await Problems.handleActiveEditorChange(thirdUri)
   await expect(problemsView).toHaveAttribute('data-active-uri', thirdUri)
 }

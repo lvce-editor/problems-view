@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.active-file-change'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Panel, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const firstUri = `${tmpDir}/first.txt`
   const secondUri = `${tmpDir}/second.txt`
@@ -15,7 +15,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await Main.openUri(secondUri)
   await Panel.openProblems()
 
-  await Command.execute('Problems.handleActiveEditorChange', firstUri)
+  await Problems.handleActiveEditorChange(firstUri)
 
   const problemsView = Locator('.Viewlet.Problems')
   await expect(problemsView).toHaveAttribute('data-active-uri', firstUri)

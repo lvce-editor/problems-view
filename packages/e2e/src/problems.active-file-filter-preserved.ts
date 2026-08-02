@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.active-file-filter-preserved'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const firstUri = `${tmpDir}/first.txt`
   const secondUri = `${tmpDir}/second.txt`
@@ -16,7 +16,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, P
   await Panel.open('Problems')
   await Problems.handleFilterInput('second.txt')
 
-  await Command.execute('Problems.handleActiveEditorChange', firstUri)
+  await Problems.handleActiveEditorChange(firstUri)
 
   const filterInput = Locator('.Panel .InputBox')
   const problemsView = Locator('.Viewlet.Problems')

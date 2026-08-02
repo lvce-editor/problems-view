@@ -4,7 +4,7 @@ export const name = 'problems.view-as-table'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, Extension, FileSystem, Locator, Main, Panel, Workspace }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')
@@ -23,7 +23,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await expect(secondProblem).toHaveText('error 1xyz [Ln 1, Col 1]')
 
   // act
-  await Command.execute('Problems.viewAsTable')
+  await Problems.viewAsTable()
 
   // assert
   const table = Locator('.ProblemsTable')
