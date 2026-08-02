@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-value-backslash'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.openProblems()
+  await Panel.open('Problems')
   const value = 'src\\main.ts'
 
   await Problems.handleFilterInput(value)

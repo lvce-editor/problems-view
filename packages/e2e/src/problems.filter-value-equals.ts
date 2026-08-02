@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-value-equals'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.openProblems()
+  await Panel.open('Problems')
   const value = 'code=42'
 
   await Problems.handleFilterInput(value)

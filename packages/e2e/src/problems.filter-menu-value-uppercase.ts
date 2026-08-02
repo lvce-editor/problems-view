@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-menu-value-uppercase'
 
 export const test: Test = async ({ Command, expect, Locator, Panel, Problems }) => {
-  await Panel.openProblems()
+  await Panel.open('Problems')
   await Problems.handleFilterInput('ERROR')
 
   await Command.execute('Problems.handleClickMoreFilters', 0, 0)

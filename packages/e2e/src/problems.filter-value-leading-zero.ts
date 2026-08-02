@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'problems.filter-value-leading-zero'
 
 export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
-  await Panel.openProblems()
+  await Panel.open('Problems')
   const value = '00042'
 
   await Problems.handleFilterInput(value)
