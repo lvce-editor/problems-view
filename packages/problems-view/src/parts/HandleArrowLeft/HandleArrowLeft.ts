@@ -9,7 +9,7 @@ const getArrowLeftNewFocusedIndex = (problems: readonly Problem[], collapsedUris
     if (problem.listItemType !== ProblemListItemType.Item) {
       return {
         index: i,
-        newCollapsedUris: [...collapsedUris, problem.uri],
+        newCollapsedUris: collapsedUris.includes(problem.uri) ? collapsedUris : [...collapsedUris, problem.uri],
       }
     }
   }

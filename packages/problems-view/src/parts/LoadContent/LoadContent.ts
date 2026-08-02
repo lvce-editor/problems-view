@@ -25,7 +25,7 @@ const isString = (value: unknown): boolean => {
 
 const getSavedCollapsedUris = (savedState: any): readonly string[] => {
   if (savedState && savedState.collapsedUris && Array.isArray(savedState.collapsedUris) && savedState.collapsedUris.every(isString)) {
-    return savedState.collapsedUris
+    return [...new Set(savedState.collapsedUris)]
   }
   return []
 }

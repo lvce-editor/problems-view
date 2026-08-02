@@ -1,6 +1,5 @@
 import type { Problem } from '../Problem/Problem.ts'
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
-import * as Arrays from '../Arrays/Arrays.ts'
 
 interface NewFocusedIndexResult {
   readonly index: number
@@ -13,7 +12,7 @@ const getArrowRightNewFocusedIndex = (
   focusedIndex: number,
 ): NewFocusedIndexResult => {
   const problem = problems[focusedIndex]
-  const newCollapsedUris = Arrays.removeElement(collapsedUris, problem.uri)
+  const newCollapsedUris = collapsedUris.includes(problem.uri) ? collapsedUris.filter((uri) => uri !== problem.uri) : collapsedUris
   return {
     index: focusedIndex,
     newCollapsedUris,

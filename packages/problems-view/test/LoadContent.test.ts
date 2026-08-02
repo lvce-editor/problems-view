@@ -113,6 +113,21 @@ test('loadContent with savedState containing collapsedUris', async () => {
   expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
 })
 
+test('loadContent removes duplicate collapsed uris from saved state', async () => {
+  using mockRpc = registerEditorWorker({
+    'Editor.getProblems': () => [],
+  })
+  const state: ProblemsState = createDefaultState()
+  const savedState = {
+    collapsedUris: ['file:///test1.ts', 'file:///test2.ts', 'file:///test1.ts'],
+  }
+
+  const result = await loadContent(state, savedState)
+
+  expect(result.collapsedUris).toEqual(['file:///test1.ts', 'file:///test2.ts'])
+  expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
+})
+
 test('loadContent with savedState containing all properties', async () => {
   registerEditorWorker({
     'Editor.getProblems': () => [],

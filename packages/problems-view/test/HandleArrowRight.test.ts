@@ -57,3 +57,12 @@ test('handleArrowRight removes uri from collapsedUris if present', () => {
   expect(newState.focusedIndex).toBe(1)
   expect(newState.collapsedUris).toEqual(['a', 'c'])
 })
+
+test('handleArrowRight removes duplicate collapsed uris from legacy state', () => {
+  const problems: Problem[] = [{ ...defaultProblem, listItemType: ProblemListItemType.Collapsed, uri: 'b' }]
+  const state: ProblemsState = { ...createDefaultState(), collapsedUris: ['b', 'a', 'b', 'b'], focusedIndex: 0, problems }
+
+  const newState = handleArrowRight(state)
+
+  expect(newState.collapsedUris).toEqual(['a'])
+})
