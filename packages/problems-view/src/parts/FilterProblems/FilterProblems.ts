@@ -6,6 +6,7 @@ import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType
 
 export const filterProblems = (problems: readonly Problem[], collapsedUris: readonly string[], filterValue: string): readonly FilteredProblem[] => {
   const filterValueLower = filterValue.toLowerCase()
+  const collapsedUriSet = new Set(collapsedUris)
   const filtered = []
   for (const problem of problems) {
     const uriMatchIndex = matchesFilterValue(problem.uri, filterValueLower)
@@ -14,7 +15,7 @@ export const filterProblems = (problems: readonly Problem[], collapsedUris: read
     if (uriMatchIndex === -1 && sourceMatchIndex === -1 && messageMatchIndex === -1) {
       continue
     }
-    const isCollapsed = collapsedUris.includes(problem.uri)
+    const isCollapsed = collapsedUriSet.has(problem.uri)
     if (isCollapsed && problem.listItemType === ProblemListItemType.Item) {
       continue
     }

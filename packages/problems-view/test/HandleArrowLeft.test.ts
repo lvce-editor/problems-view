@@ -56,3 +56,14 @@ test('handleArrowLeft collapses Collapsed type as well', () => {
   expect(newState.focusedIndex).toBe(1)
   expect(newState.collapsedUris).toContain('b')
 })
+
+test('handleArrowLeft does not add duplicate collapsed uris', () => {
+  const problems: Problem[] = [{ ...defaultProblem, listItemType: ProblemListItemType.Expanded, uri: 'a' }]
+  let state: ProblemsState = { ...CreateDefaultState.createDefaultState(), collapsedUris: [], focusedIndex: 0, problems }
+
+  state = HandleArrowLeft.handleArrowLeft(state)
+  state = HandleArrowLeft.handleArrowLeft(state)
+  state = HandleArrowLeft.handleArrowLeft(state)
+
+  expect(state.collapsedUris).toEqual(['a'])
+})
