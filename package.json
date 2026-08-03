@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@lvce-editor/eslint-config": "^18.0.0",
-    "@lvce-editor/shared-process": "^0.94.15",
-    "@lvce-editor/static-server": "^0.94.15",
+    "@lvce-editor/shared-process": "^0.97.0",
+    "@lvce-editor/static-server": "^0.97.0",
     "eslint": "^10.8.0",
     "prettier": "^3.9.6",
     "typescript": "^6.0.3"

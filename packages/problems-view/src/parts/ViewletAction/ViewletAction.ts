@@ -3,6 +3,7 @@ export interface ViewletAction {
   readonly command: string | number
   readonly icon?: string
   readonly id: string | number
+  readonly name?: string
   readonly placeholder?: string
   readonly type: number
   readonly value?: string
