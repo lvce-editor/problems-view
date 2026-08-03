@@ -26,7 +26,7 @@ export const getProblemsFilterVirtualDom = (action: ViewletAction): readonly Vir
       className: ClassNames.Filter,
       type: VirtualDomElements.Div,
     },
-    getInputBoxVirtualDom(InputName.Filter, action.command, action.placeholder || ''),
+    getInputBoxVirtualDom(InputName.Filter, action.command, action.placeholder || '', action.value),
     ...getFilterBadgeDom(action.badgeText),
     ...GetActionButtonVirtualDom.getActionButtonVirtualDom({
       command: 'more filters',

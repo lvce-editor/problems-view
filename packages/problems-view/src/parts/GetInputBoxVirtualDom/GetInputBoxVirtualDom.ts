@@ -2,7 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
-export const getInputBoxVirtualDom = (name: string, onInput: string | number, placeholder: string): VirtualDomNode => {
+export const getInputBoxVirtualDom = (name: string, onInput: string | number, placeholder: string, value?: string): VirtualDomNode => {
   return {
     ariaLabel: placeholder,
     autocapitalize: 'off',
@@ -14,5 +14,6 @@ export const getInputBoxVirtualDom = (name: string, onInput: string | number, pl
     placeholder,
     spellcheck: false,
     type: VirtualDomElements.Input,
+    ...(value && { value }),
   }
 }
