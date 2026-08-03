@@ -1,3 +1,4 @@
+import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Problem } from '../Problem/Problem.ts'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as Assert from '../Assert/Assert.ts'
@@ -7,6 +8,7 @@ import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const getVisibleProblems = (
   problems: readonly Problem[],
+  fileIconCache: FileIconCache,
   collapsedUris: readonly string[],
   focusedIndex: number,
   filterValue: string,
@@ -28,7 +30,7 @@ export const getVisibleProblems = (
     visibleItems.push({
       ...problem,
       filterValueLength,
-      icon: GetIcon.getIcon(problem.uri),
+      icon: GetIcon.getIcon(problem.uri, fileIconCache),
       isActive: i === focusedIndex,
       isEven: i % 2 === 0,
     })

@@ -8,6 +8,7 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     activeUri: '',
     collapsedUris: [],
     deltaY: 0,
+    fileIconCache: {},
     filteredProblems: [],
     filterValue: '',
     finalDeltaY: 0,

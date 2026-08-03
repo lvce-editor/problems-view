@@ -1,5 +1,6 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as GetActiveUri from '../GetActiveUri/GetActiveUri.ts'
+import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetProblems from '../GetProblems/GetProblems.ts'
 import * as GetSavedCollapsedUris from '../GetSavedCollapsedUris/GetSavedCollapsedUris.ts'
 import * as GetSavedFilterValue from '../GetSavedFilterValue/GetSavedFilterValue.ts'
@@ -8,7 +9,7 @@ import * as InputSource from '../InputSource/InputSource.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
-  const { workspaceUri } = state
+  const { fileIconCache: oldFileIconCache, workspaceUri } = state
   const activeUri = await GetActiveUri.getActiveUri()
   const { error, problems } = await GetProblems.getProblems(workspaceUri, activeUri)
   if (error) {
@@ -21,6 +22,7 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
     }
   }
   const message = ViewletProblemsStrings.getMessage(problems.length)
+  const fileIconCache = await GetFileIcons.getFileIcons(problems, oldFileIconCache)
   const viewMode = GetSavedViewMode.getSavedViewMode(savedState)
   const filterValue = GetSavedFilterValue.getSavedFilterValue(savedState)
   const collapsedUris = GetSavedCollapsedUris.getSavedCollapsedUris(savedState)
@@ -28,6 +30,7 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
     ...state,
     activeUri,
     collapsedUris,
+    fileIconCache,
     filteredProblems: problems,
     filterValue,
     inputSource: InputSource.Script,

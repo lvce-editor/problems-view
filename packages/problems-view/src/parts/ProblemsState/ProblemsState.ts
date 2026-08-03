@@ -1,9 +1,11 @@
+import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Problem } from '../Problem/Problem.ts'
 
 export interface ProblemsState {
   readonly activeUri: string
   readonly collapsedUris: readonly string[]
   readonly deltaY: number
+  readonly fileIconCache: FileIconCache
   readonly filteredProblems: readonly Problem[]
   readonly filterValue: string
   readonly finalDeltaY: number

@@ -24,7 +24,7 @@ test('isEqual returns true when problems arrays are the same reference', () => {
     },
   ]
   const oldState: ProblemsState = { ...createDefaultState(), problems }
-  const newState: ProblemsState = { ...createDefaultState(), problems }
+  const newState: ProblemsState = { ...oldState }
   expect(isEqual(oldState, newState)).toBe(true)
 })
 
@@ -73,7 +73,7 @@ test('isEqual returns false when problems arrays are different', () => {
 test('isEqual returns true when both states have the same empty problems array reference', () => {
   const emptyProblems: readonly Problem[] = []
   const oldState: ProblemsState = { ...createDefaultState(), problems: emptyProblems }
-  const newState: ProblemsState = { ...createDefaultState(), problems: emptyProblems }
+  const newState: ProblemsState = { ...oldState }
   expect(isEqual(oldState, newState)).toBe(true)
 })
 
@@ -81,5 +81,12 @@ test('isEqual returns false when the active uri changes', () => {
   const problems: readonly Problem[] = []
   const oldState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///old.ts', problems }
   const newState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///new.ts', problems }
+  expect(isEqual(oldState, newState)).toBe(false)
+})
+
+test('isEqual returns false when file icons change', () => {
+  const oldState = { ...createDefaultState(), fileIconCache: { 'file:///test.ts': '/icons/old.svg' } }
+  const newState = { ...oldState, fileIconCache: { 'file:///test.ts': '/icons/new.svg' } }
+
   expect(isEqual(oldState, newState)).toBe(false)
 })
