@@ -11,7 +11,7 @@ RendererWorker.registerMockRpc({
 })
 
 const registerEditorWorker = (
-  commands: Record<string, (...args: readonly any[]) => any>,
+  commands: Readonly<Record<string, (...args: readonly any[]) => any>>,
   activeUri = 'file:///test.ts',
 ): ReturnType<typeof EditorWorker.registerMockRpc> => {
   return EditorWorker.registerMockRpc({

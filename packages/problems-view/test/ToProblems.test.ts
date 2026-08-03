@@ -52,6 +52,8 @@ test('toProblems maps a single diagnostic to a header item and a problem item', 
   ])
 })
 
+type UriTestCase = Readonly<{ diagnosticUri: string; workspaceUri: string }>
+
 test.each([
   {
     diagnosticUri: '/workspace/packages/running-extensions-view/src/parts/DisableWorkspace/DisableWorkspace.ts',
@@ -61,7 +63,7 @@ test.each([
     diagnosticUri: 'file:///workspace/packages/running-extensions-view/src/parts/DisableWorkspace/DisableWorkspace.ts',
     workspaceUri: '/workspace',
   },
-])('toProblems normalizes file URIs when computing relative paths', ({ diagnosticUri, workspaceUri }) => {
+])('toProblems normalizes file URIs when computing relative paths', ({ diagnosticUri, workspaceUri }: UriTestCase) => {
   const diagnostics = [
     {
       code: 'TS2307',
