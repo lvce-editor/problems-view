@@ -1,7 +1,34 @@
 import { expect, test } from '@jest/globals'
+import { EventExpression } from '@lvce-editor/constants'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { renderEventListeners } from '../src/parts/RenderEventListeners/RenderEventListeners.ts'
 
 test('renderEventListeners should return an array of event listeners', () => {
   const result = renderEventListeners()
   expect(result).toBeDefined()
+})
+
+test('renderEventListeners registers the problems toolbar actions', () => {
+  const result = renderEventListeners()
+
+  expect(result).toEqual(
+    expect.arrayContaining([
+      {
+        name: DomEventListenerFunctions.HandleClickMoreFilters,
+        params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
+      },
+      {
+        name: DomEventListenerFunctions.HandleCollapseAll,
+        params: ['collapseAll'],
+      },
+      {
+        name: DomEventListenerFunctions.HandleViewAsList,
+        params: ['viewAsList'],
+      },
+      {
+        name: DomEventListenerFunctions.HandleViewAsTable,
+        params: ['viewAsTable'],
+      },
+    ]),
+  )
 })

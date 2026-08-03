@@ -50,6 +50,7 @@ test('getActions returns filter action when not small width', () => {
     badgeText: '',
     command: DomEventListenerFunctions.HandleFilterInput,
     id: 'Filter',
+    name: 'filter',
     placeholder: expect.any(String),
     type: ActionType.ProblemsFilter,
     value: '',
@@ -132,6 +133,7 @@ test('getActions sets filter value when input source is script', () => {
 
   const actions = getActions(state)
 
+  expect(actions[0].name).toBe('filter-test%20filter')
   expect(actions[0].value).toBe('test filter')
 })
 
@@ -144,6 +146,7 @@ test('getActions sets empty filter value when input source is user', () => {
 
   const actions = getActions(state)
 
+  expect(actions[0].name).toBe('filter')
   expect(actions[0].value).toBe('')
 })
 
