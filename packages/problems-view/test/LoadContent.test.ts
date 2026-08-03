@@ -289,7 +289,7 @@ test('loadContent with one problem', async () => {
   expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
 })
 
-test('loadContent with problems in multiple files only returns the active file', async () => {
+test('loadContent returns problems from every open file', async () => {
   using mockRpc = registerEditorWorker(
     {
       'Editor.getProblems': () => [
@@ -327,9 +327,9 @@ test('loadContent with problems in multiple files only returns the active file',
   const state: ProblemsState = createDefaultState()
   const savedState = {}
   const result = await loadContent(state, savedState)
-  expect(result.problems).toHaveLength(2)
-  expect(result.filteredProblems).toHaveLength(2)
-  expect(result.problems.every((problem) => problem.uri === 'file:///test2.ts')).toBe(true)
+  expect(result.problems).toHaveLength(6)
+  expect(result.filteredProblems).toHaveLength(6)
+  expect(new Set(result.problems.map((problem) => problem.uri))).toEqual(new Set(['file:///test1.ts', 'file:///test2.ts', 'file:///test3.ts']))
   expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
 })
 

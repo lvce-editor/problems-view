@@ -21,7 +21,7 @@ test('getProblems returns empty array for non-empty state', async () => {
   expect(result).toEqual({ error: '', problems: [] })
 })
 
-test('getProblems only returns diagnostics for the active file', async () => {
+test('getProblems returns cross-file diagnostics while a file is active', async () => {
   EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       { message: 'one', uri: 'file:///one.ts' },
@@ -29,8 +29,26 @@ test('getProblems only returns diagnostics for the active file', async () => {
     ],
   })
   const result = await getProblems('', 'file:///two.ts')
+  expect(result.problems).toHaveLength(4)
+  expect(new Set(result.problems.map((problem) => problem.uri))).toEqual(new Set(['file:///one.ts', 'file:///two.ts']))
+})
+
+test('getProblems removes duplicate diagnostics from multiple open editors', async () => {
+  const diagnostic = {
+    code: '',
+    columnIndex: 0,
+    message: 'Invalid config',
+    rowIndex: 1,
+    source: 'eslint',
+    type: 'error',
+    uri: 'file:///eslint.config.js',
+  }
+  EditorWorker.registerMockRpc({
+    'Editor.getProblems': () => [diagnostic, diagnostic],
+  })
+  const result = await getProblems('', 'file:///source.ts')
   expect(result.problems).toHaveLength(2)
-  expect(result.problems.every((problem) => problem.uri === 'file:///two.ts')).toBe(true)
+  expect(result.problems.every((problem) => problem.uri === diagnostic.uri)).toBe(true)
 })
 
 test('getProblems does not query diagnostics when there is no active file', async () => {

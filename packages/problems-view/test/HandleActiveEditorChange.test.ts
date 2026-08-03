@@ -3,7 +3,7 @@ import { EditorWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleActiveEditorChange, handleDiagnosticsChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
 
-test('loads only diagnostics belonging to the newly active file', async () => {
+test('loads cross-file diagnostics when the active file changes', async () => {
   EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [
       { message: 'stale', uri: 'file:///old.ts' },
@@ -12,8 +12,8 @@ test('loads only diagnostics belonging to the newly active file', async () => {
   })
   const result = await handleActiveEditorChange({ ...createDefaultState(), activeUri: 'file:///old.ts' }, 'file:///new.ts')
   expect(result.activeUri).toBe('file:///new.ts')
-  expect(result.problems).toHaveLength(2)
-  expect(result.problems.every((problem) => problem.uri === 'file:///new.ts')).toBe(true)
+  expect(result.problems).toHaveLength(4)
+  expect(new Set(result.problems.map((problem) => problem.uri))).toEqual(new Set(['file:///old.ts', 'file:///new.ts']))
   expect(result.message).toBe('Some problems have been detected in the workspace.')
 })
 
