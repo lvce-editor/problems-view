@@ -29,7 +29,23 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandleClickMoreFilters,
-      params: ['handleClickMoreFilters'],
+      params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
+    },
+    {
+      name: DomEventListenerFunctions.HandleClickButton,
+      params: ['handleClickButton', EventExpression.TargetName, EventExpression.ClientX, EventExpression.ClientY],
+    },
+    {
+      name: DomEventListenerFunctions.HandleCollapseAll,
+      params: ['collapseAll'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleViewAsList,
+      params: ['viewAsList'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleViewAsTable,
+      params: ['viewAsTable'],
     },
     {
       name: DomEventListenerFunctions.HandleWheel,

@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { ViewletAction } from '../src/parts/ViewletAction/ViewletAction.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getProblemsFilterVirtualDom } from '../src/parts/GetProblemsFilterVirtualDom/GetProblemsFilterVirtualDom.ts'
 import * as InputName from '../src/parts/InputName/InputName.ts'
 
@@ -35,7 +36,8 @@ test('getProblemsFilterVirtualDom returns correct dom structure without badge', 
     {
       childCount: 1,
       className: ClassNames.IconButton,
-      'data-command': 'more filters',
+      name: 'more filters',
+      onClick: DomEventListenerFunctions.HandleClickMoreFilters,
       title: 'more filters',
       type: VirtualDomElements.Button,
     },
@@ -91,7 +93,8 @@ test('getProblemsFilterVirtualDom returns correct dom structure with badge', () 
     {
       childCount: 1,
       className: ClassNames.IconButton,
-      'data-command': 'more filters',
+      name: 'more filters',
+      onClick: DomEventListenerFunctions.HandleClickMoreFilters,
       title: 'more filters',
       type: VirtualDomElements.Button,
     },

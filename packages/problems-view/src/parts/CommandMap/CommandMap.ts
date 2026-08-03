@@ -1,4 +1,5 @@
 import * as ViewletRegistry from '@lvce-editor/viewlet-registry'
+import { collapseAll } from '../CollapseAll/CollapseAll.ts'
 import * as CopyMessage from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
@@ -33,6 +34,7 @@ import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
 export const commandMap = {
+  'Problems.collapseAll': WrapCommand.wrapCommand(collapseAll),
   'Problems.copyMessage': WrapCommand.wrapCommand(CopyMessage.copyMessage),
   'Problems.create': Create.create,
   'Problems.diff2': Diff2.diff2,

@@ -1,6 +1,7 @@
 import { test, expect } from '@jest/globals'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getActionButtonVirtualDom } from '../src/parts/GetActionButtonVirtualDom/GetActionButtonVirtualDom.ts'
 
 test('getActionButtonVirtualDom returns correct dom for action', () => {
@@ -14,7 +15,8 @@ test('getActionButtonVirtualDom returns correct dom for action', () => {
   expect(result[0]).toEqual({
     childCount: 1,
     className: ClassNames.IconButton,
-    'data-command': 'testCommand',
+    name: 'testCommand',
+    onClick: DomEventListenerFunctions.HandleClickButton,
     title: 'Test Action',
     type: VirtualDomElements.Button,
   })
@@ -23,4 +25,15 @@ test('getActionButtonVirtualDom returns correct dom for action', () => {
     className: 'MaskIcon MaskIconTestIcon',
     type: VirtualDomElements.Div,
   })
+})
+
+test.each([
+  ['collapseAll', DomEventListenerFunctions.HandleCollapseAll],
+  ['more filters', DomEventListenerFunctions.HandleClickMoreFilters],
+  ['viewAsList', DomEventListenerFunctions.HandleViewAsList],
+  ['viewAsTable', DomEventListenerFunctions.HandleViewAsTable],
+])('getActionButtonVirtualDom maps %s to its direct click listener', (command, onClick) => {
+  const result = getActionButtonVirtualDom({ command, icon: 'TestIcon', id: command })
+
+  expect(result[0]).toMatchObject({ onClick })
 })
