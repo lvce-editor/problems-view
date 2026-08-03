@@ -76,6 +76,7 @@ test('getProblemsFilterVirtualDom returns correct dom structure with badge', () 
       placeholder: 'Filter problems',
       spellcheck: false,
       type: VirtualDomElements.Input,
+      value: 'test',
     },
     {
       childCount: 1,

@@ -42,7 +42,7 @@ export const getProblemsVirtualDom = (
         id: DomId.Filter,
         placeholder: ProblemStrings.filter(),
         type: ActionType.ProblemsFilter,
-        value: '',
+        value: filterValue,
       })
     : []
 
