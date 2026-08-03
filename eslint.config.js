@@ -11,7 +11,6 @@ export default defineConfig([
   ...config.recommendedActions,
   {
     rules: {
-      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       'e2e/no-inline-nth-in-expect': 'off',
       'e2e/prefer-import-meta-resolve': 'off',
       'sonarjs/assertions-in-tests': 'off',
