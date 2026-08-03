@@ -1,7 +1,11 @@
 import { expect, test } from '@jest/globals'
-import { EditorWorker } from '@lvce-editor/rpc-registry'
+import { EditorWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleActiveEditorChange, handleDiagnosticsChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
+
+RendererWorker.registerMockRpc({
+  'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
+})
 
 test('loads cross-file diagnostics when the active file changes', async () => {
   EditorWorker.registerMockRpc({
@@ -13,6 +17,10 @@ test('loads cross-file diagnostics when the active file changes', async () => {
   const result = await handleActiveEditorChange({ ...createDefaultState(), activeUri: 'file:///old.ts' }, 'file:///new.ts')
   expect(result.activeUri).toBe('file:///new.ts')
   expect(result.problems).toHaveLength(4)
+  expect(result.fileIconCache).toEqual({
+    'file:///new.ts': '/icons/new.ts.svg',
+    'file:///old.ts': '/icons/old.ts.svg',
+  })
   expect(new Set(result.problems.map((problem) => problem.uri))).toEqual(new Set(['file:///old.ts', 'file:///new.ts']))
   expect(result.message).toBe('Some problems have been detected in the workspace.')
 })

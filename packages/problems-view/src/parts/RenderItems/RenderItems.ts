@@ -8,6 +8,7 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
   const {
     activeUri,
     collapsedUris,
+    fileIconCache,
     filterValue,
     focusedIndex,
     inputSource,
@@ -22,7 +23,16 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     width,
   } = newState
   const problemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode)
-  const visible = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue, minLineY, maxLineY, viewMode)
+  const visible = GetVisibleProblems.getVisibleProblems(
+    problems,
+    fileIconCache,
+    collapsedUris,
+    focusedIndex,
+    filterValue,
+    minLineY,
+    maxLineY,
+    viewMode,
+  )
   const isSmall = width <= smallWidthBreakPoint
   const dom = GetProblemsVirtualDom.getProblemsVirtualDom(
     activeUri,

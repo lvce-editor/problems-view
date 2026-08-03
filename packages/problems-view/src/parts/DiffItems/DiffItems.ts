@@ -16,6 +16,7 @@ export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boole
   return (
     oldState.activeUri === newState.activeUri &&
     haveSameCollapsedUris(oldState, newState) &&
+    oldState.fileIconCache === newState.fileIconCache &&
     oldState.focusedIndex === newState.focusedIndex &&
     oldState.height === newState.height &&
     oldState.maxLineY === newState.maxLineY &&

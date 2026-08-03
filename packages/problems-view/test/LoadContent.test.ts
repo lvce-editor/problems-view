@@ -8,6 +8,7 @@ import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMod
 
 RendererWorker.registerMockRpc({
   'GetActiveEditor.getActiveEditorId': () => 1,
+  'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
 })
 
 const registerEditorWorker = (
