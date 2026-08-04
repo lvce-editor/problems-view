@@ -30,6 +30,7 @@ import { renderActions } from '../RenderActions/RenderActions.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
@@ -66,6 +67,7 @@ export const commandMap = {
   'Problems.resize': Resize.resize,
   'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
   'Problems.terminate': ViewletRegistry.terminate,
+  'Problems.toggleFileGroup': WrapCommand.wrapCommand(toggleFileGroup),
   'Problems.viewAsList': WrapCommand.wrapCommand(viewAsList),
   'Problems.viewAsTable': WrapCommand.wrapCommand(viewAsTable),
 }

@@ -1,6 +1,7 @@
 import { type VirtualDomNode, AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
@@ -53,6 +54,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     setSize,
     source,
     type,
+    uri,
   } = problem
   let className = ClassNames.Problem
   const indent = GetProblemIndent.getProblemIndent(listItemType)
@@ -77,7 +79,11 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
       GetFileIconVirtualDom.getFileIconVirtualDom(icon),
-      labelNode,
+      {
+        ...labelNode,
+        'data-uri': uri,
+        onClick: DomEventListenerFunctions.HandleFileNameClick,
+      },
       text(fileName),
       labelDetailNode,
       text(relativePath),
