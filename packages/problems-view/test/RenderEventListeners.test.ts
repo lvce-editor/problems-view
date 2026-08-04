@@ -18,6 +18,10 @@ test('renderEventListeners registers the problems toolbar actions', () => {
         params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
       },
       {
+        name: DomEventListenerFunctions.HandleFileNameClick,
+        params: ['toggleFileGroup', 'event.target.dataset.uri'],
+      },
+      {
         name: DomEventListenerFunctions.HandleCollapseAll,
         params: ['collapseAll'],
       },
