@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickAt } from '../src/parts/HandleClickAt/HandleClickAt.ts'
+import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
 test('handleClickAt with empty problems returns focusedIndex -1', () => {
   const state: ProblemsState = createDefaultState()
@@ -152,4 +153,49 @@ test('handleClickAt with multiple problems and click at middle item', () => {
   const result = handleClickAt(state, 50, 55)
 
   expect(result.focusedIndex).toBe(2)
+})
+
+test('handleClickAt collapses and expands a file group', () => {
+  const uri = 'file:///file1.ts'
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    itemHeight: 22,
+    problems: [
+      { listItemType: 1, uri },
+      { listItemType: 0, uri },
+    ] as any,
+    viewMode: ProblemsViewMode.List,
+    width: 800,
+    x: 0,
+    y: 0,
+  }
+
+  const collapsedState = handleClickAt(state, 50, 11)
+  const expandedState = handleClickAt(collapsedState, 50, 11)
+
+  expect(collapsedState.collapsedUris).toEqual([uri])
+  expect(collapsedState.focusedIndex).toBe(0)
+  expect(expandedState.collapsedUris).toEqual([])
+  expect(expandedState.focusedIndex).toBe(0)
+})
+
+test('handleClickAt does not collapse a diagnostic item', () => {
+  const uri = 'file:///file1.ts'
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    itemHeight: 22,
+    problems: [
+      { listItemType: 1, uri },
+      { listItemType: 0, uri },
+    ] as any,
+    viewMode: ProblemsViewMode.List,
+    width: 800,
+    x: 0,
+    y: 0,
+  }
+
+  const result = handleClickAt(state, 50, 33)
+
+  expect(result.collapsedUris).toBe(state.collapsedUris)
+  expect(result.focusedIndex).toBe(1)
 })
