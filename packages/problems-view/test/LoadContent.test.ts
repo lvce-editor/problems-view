@@ -9,6 +9,7 @@ import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMod
 RendererWorker.registerMockRpc({
   'GetActiveEditor.getActiveEditorId': () => 1,
   'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
+  'Workspace.getPath': () => 'file:///workspace',
 })
 
 const registerEditorWorker = (
@@ -42,7 +43,7 @@ test('loadContent returns a new state with expected properties', async () => {
   expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
 })
 
-test('loadContent preserves state properties', async () => {
+test('loadContent preserves state properties and refreshes the workspace uri', async () => {
   using mockRpc = registerEditorWorker({
     'Editor.getProblems': () => [],
   })
@@ -51,7 +52,7 @@ test('loadContent preserves state properties', async () => {
     focusedIndex: 5,
     height: 200,
     width: 100,
-    workspaceUri: 'file:///workspace',
+    workspaceUri: 'file:///stale-workspace',
   }
   const savedState = {}
   const result = await loadContent(state, savedState)

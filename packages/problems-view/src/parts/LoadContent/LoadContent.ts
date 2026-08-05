@@ -5,12 +5,13 @@ import * as GetProblems from '../GetProblems/GetProblems.ts'
 import * as GetSavedCollapsedUris from '../GetSavedCollapsedUris/GetSavedCollapsedUris.ts'
 import * as GetSavedFilterValue from '../GetSavedFilterValue/GetSavedFilterValue.ts'
 import * as GetSavedViewMode from '../GetSavedViewMode/GetSavedViewMode.ts'
+import * as GetWorkspacePath from '../GetWorkspacePath/GetWorkspacePath.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
-  const { fileIconCache: oldFileIconCache, workspaceUri } = state
-  const activeUri = await GetActiveUri.getActiveUri()
+  const { fileIconCache: oldFileIconCache } = state
+  const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspacePath.getWorkspacePath()])
   const { error, problems } = await GetProblems.getProblems(workspaceUri, activeUri)
   if (error) {
     return {
@@ -19,6 +20,7 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
       filteredProblems: [],
       message: error,
       problems: [],
+      workspaceUri,
     }
   }
   const message = ViewletProblemsStrings.getMessage(problems.length)
@@ -38,5 +40,6 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
     message,
     problems,
     viewMode,
+    workspaceUri,
   }
 }
