@@ -5,6 +5,10 @@ export const getActiveEditorId = (): Promise<number> => {
   return RendererWorker.getActiveEditorId()
 }
 
+export const openUri = (uri: string, focus: boolean, options: unknown): Promise<void> => {
+  return RendererWorker.openUri(uri, focus, options)
+}
+
 export const sendMessagePortToEditorWorker = (port: any, rpcId: number): Promise<void> => {
   return RendererWorker.sendMessagePortToEditorWorker(port, rpcId)
 }
