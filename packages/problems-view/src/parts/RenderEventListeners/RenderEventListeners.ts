@@ -60,6 +60,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       name: DomEventListenerFunctions.HandleScrollBarPointerDown,
       params: ['handleScrollBarClick', EventExpression.ClientY],
       preventDefault: true,
+      stopPropagation: true,
       trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarMove, DomEventListenerFunctions.HandleScrollBarPointerCaptureLost],
     } as DomEventListener,
     {

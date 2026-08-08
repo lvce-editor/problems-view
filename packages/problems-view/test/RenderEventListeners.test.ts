@@ -36,3 +36,19 @@ test('renderEventListeners registers the problems toolbar actions', () => {
     ]),
   )
 })
+
+test('renderEventListeners keeps scrollbar pointerdown from selecting a problem', () => {
+  const result = renderEventListeners()
+
+  expect(result).toEqual(
+    expect.arrayContaining([
+      {
+        name: DomEventListenerFunctions.HandleScrollBarPointerDown,
+        params: ['handleScrollBarClick', EventExpression.ClientY],
+        preventDefault: true,
+        stopPropagation: true,
+        trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarMove, DomEventListenerFunctions.HandleScrollBarPointerCaptureLost],
+      },
+    ]),
+  )
+})
