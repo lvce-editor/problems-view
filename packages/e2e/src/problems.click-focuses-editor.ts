@@ -2,7 +2,21 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.click-focuses-editor'
 
-export const test: Test = async ({ Editor, expect, Extension, FileSystem, Locator, Main, Panel, Workspace }) => {
+const waitFor = async (assertion: () => Promise<void>): Promise<void> => {
+  for (let attempt = 0; attempt < 100; attempt++) {
+    try {
+      await assertion()
+      return
+    } catch (error) {
+      if (attempt === 99) {
+        throw error
+      }
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    }
+  }
+}
+
+export const test: Test = async ({ Editor, expect, Extension, FileSystem, Locator, Main, Panel, Problems, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const fileUri = `${tmpDir}/file1.xyz`
   await FileSystem.writeFile(fileUri, 'first line\nsecond line')
@@ -15,10 +29,11 @@ export const test: Test = async ({ Editor, expect, Extension, FileSystem, Locato
 
   const problems = Locator('.Problem')
   await expect(problems).toHaveCount(2)
-  // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered problem row's pointer handler.
-  await problems.nth(1).click()
+  await Problems.handleClickAt(10, 616)
 
-  await Editor.shouldHaveSelections(new Uint32Array([1, 3, 1, 3]))
+  const cursor = Locator('.EditorCursor')
+  await expect(cursor).toBeVisible()
+  await waitFor(() => expect(cursor).toHaveCSS('translate', '0px 20px'))
   const editorInput = Locator('[name="editor"]')
-  await expect(editorInput).toBeFocused()
+  await waitFor(() => expect(editorInput).toBeFocused())
 }

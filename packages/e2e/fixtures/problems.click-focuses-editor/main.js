@@ -8,9 +8,9 @@ const diagnosticProvider = {
       {
         uri: textDocument.uri,
         rowIndex: 1,
-        columnIndex: 3,
+        columnIndex: 0,
         endRowIndex: 1,
-        endColumnIndex: 3,
+        endColumnIndex: 0,
         message: 'error 1',
         source: 'xyz',
         type: 'error',

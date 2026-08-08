@@ -7,7 +7,9 @@ import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemLi
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
 test('opens and focuses the clicked problem at its position', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'Editor.cursorSet': async () => {},
+    'Main.focus': async () => {},
     'Main.openUri': async () => {},
   })
   const state: ProblemsState = {
@@ -38,20 +40,15 @@ test('opens and focuses the clicked problem at its position', async () => {
   const result = await handleProblemClick(state, 50, 11)
 
   expect(result.focusedIndex).toBe(0)
-  expect(mockRpc.invocations).toEqual([
-    [
-      'Main.openUri',
-      {
-        focus: true,
-        selections: new Uint32Array([4, 7, 4, 7]),
-        uri: 'file:///workspace/test.ts',
-      },
-    ],
+  expect(rendererRpc.invocations).toEqual([
+    ['Main.openUri', { focus: true, uri: 'file:///workspace/test.ts' }],
+    ['Main.focus'],
+    ['Editor.cursorSet', 4, 7],
   ])
 })
 
 test('does not open a file when clicking a problem group', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
+  using rendererRpc = RendererWorker.registerMockRpc({
     'Main.openUri': async () => {},
   })
   const state: ProblemsState = {
@@ -82,5 +79,5 @@ test('does not open a file when clicking a problem group', async () => {
   const result = await handleProblemClick(state, 50, 11)
 
   expect(result.focusedIndex).toBe(0)
-  expect(mockRpc.invocations).toEqual([])
+  expect(rendererRpc.invocations).toEqual([])
 })

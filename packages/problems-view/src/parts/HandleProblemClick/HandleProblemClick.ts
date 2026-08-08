@@ -26,8 +26,8 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     return newState
   }
   const { columnIndex, rowIndex, uri } = problem
-  await RendererWorker.openUri(uri, true, {
-    selections: new Uint32Array([rowIndex, columnIndex, rowIndex, columnIndex]),
-  })
+  await RendererWorker.openUri(uri, true)
+  await RendererWorker.focusEditor()
+  await RendererWorker.setEditorCursor(rowIndex, columnIndex)
   return newState
 }
