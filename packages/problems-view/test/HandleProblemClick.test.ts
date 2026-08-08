@@ -1,9 +1,9 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleProblemClick } from '../src/parts/HandleProblemClick/HandleProblemClick.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
-import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 
 test('opens and focuses the clicked problem at its position', async () => {
