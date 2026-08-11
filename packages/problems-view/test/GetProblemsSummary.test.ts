@@ -31,7 +31,12 @@ test('returns the total problem count and active editor severity counts', async 
     uri: 'file:///active.ts',
   }
   using editorRpc = EditorWorker.registerMockRpc({
-    'Editor.getDiagnostics': () => [duplicate, duplicate, { ...duplicate, message: 'warning', type: 'warning' }, { ...duplicate, message: 'info', type: 'other' }],
+    'Editor.getDiagnostics': () => [
+      duplicate,
+      duplicate,
+      { ...duplicate, message: 'warning', type: 'warning' },
+      { ...duplicate, message: 'info', type: 'other' },
+    ],
     'Editor.getProblems': () => [duplicate, duplicate, { ...duplicate, message: 'cross-file warning', type: 'warning', uri: 'file:///other.ts' }],
   })
   await expect(getProblemsSummary()).resolves.toEqual({
