@@ -14,7 +14,7 @@ const getDiagnosticKey = (diagnostic: Diagnostic): string =>
     diagnostic.code,
   ])
 
-const getUniqueDiagnostics = (diagnostics: readonly Diagnostic[]): readonly Diagnostic[] => {
+export const getUniqueDiagnostics = (diagnostics: readonly Diagnostic[]): readonly Diagnostic[] => {
   const keys = new Set<string>()
   return diagnostics.filter((diagnostic) => {
     const key = getDiagnosticKey(diagnostic)
