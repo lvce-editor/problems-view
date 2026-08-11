@@ -18,11 +18,22 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     problems,
     scrollBarActive,
     scrollBarHeight,
+    showErrors,
+    showInfos,
+    showWarnings,
     smallWidthBreakPoint,
     viewMode,
     width,
   } = newState
-  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode)
+  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(
+    problems,
+    collapsedUris,
+    filterValue,
+    viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
+  )
   const visible = GetVisibleProblems.getVisibleProblems(
     problems,
     fileIconCache,
@@ -32,6 +43,9 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     minLineY,
     maxLineY,
     viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
   )
   const isSmall = width <= smallWidthBreakPoint
   const dom = GetProblemsVirtualDom.getProblemsVirtualDom(

@@ -10,7 +10,7 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
   if (focusedIndex < 0) {
     return newState
   }
-  const { collapsedUris, fileIconCache, filterValue, problems, viewMode } = newState
+  const { collapsedUris, fileIconCache, filterValue, problems, showErrors, showInfos, showWarnings, viewMode } = newState
   const visibleProblems = GetVisibleProblems.getVisibleProblems(
     problems,
     fileIconCache,
@@ -20,6 +20,9 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     focusedIndex,
     focusedIndex + 1,
     viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
   )
   const problem = visibleProblems[0]
   if (!problem || problem.listItemType !== ProblemListItemType.Item) {

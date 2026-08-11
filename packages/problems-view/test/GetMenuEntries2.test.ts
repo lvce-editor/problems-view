@@ -18,8 +18,11 @@ test('getMenuEntries2 returns filter menu entries for ProblemsFilter menuId', ()
 
   expect(result.length).toBe(3)
   expect(result[0].id).toBe('show-errors')
+  expect(result[0].command).toBe('Problems.toggleShowErrors')
   expect(result[1].id).toBe('show-warnings')
+  expect(result[1].command).toBe('Problems.toggleShowWarnings')
   expect(result[2].id).toBe('show-infos')
+  expect(result[2].command).toBe('Problems.toggleShowInfos')
 })
 
 test('getMenuEntries2 works with different state values', () => {

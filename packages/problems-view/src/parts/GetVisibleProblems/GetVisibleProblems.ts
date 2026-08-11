@@ -15,6 +15,9 @@ export const getVisibleProblems = (
   minLineY = 0,
   maxLineY = Infinity,
   viewMode = ProblemsViewMode.List,
+  showErrors = true,
+  showWarnings = true,
+  showInfos = true,
 ): readonly VisibleProblem[] => {
   Assert.array(problems)
   Assert.array(collapsedUris)
@@ -22,7 +25,7 @@ export const getVisibleProblems = (
   Assert.string(filterValue)
   const visibleItems = []
   const filterValueLength = filterValue.length
-  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue)
+  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue, showErrors, showWarnings, showInfos)
   const displayProblems = viewMode === ProblemsViewMode.Table ? filtered.filter((problem) => problem.message) : filtered
   const finalLineY = Math.min(maxLineY, displayProblems.length)
   for (let i = minLineY; i < finalLineY; i++) {

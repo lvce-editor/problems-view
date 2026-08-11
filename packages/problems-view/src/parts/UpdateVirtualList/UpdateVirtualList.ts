@@ -13,11 +13,14 @@ export const updateVirtualList = (state: ProblemsState, newDeltaY?: number): Pro
     itemHeight,
     minimumSliderSize,
     problems,
+    showErrors,
+    showInfos,
+    showWarnings,
     smallWidthBreakPoint,
     viewMode,
     width,
   } = state
-  const itemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode)
+  const itemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode, showErrors, showWarnings, showInfos)
   const listHeight = GetListHeight.getListHeight(height, width, smallWidthBreakPoint, viewMode)
   const contentHeight = itemCount * itemHeight
   const finalDeltaY = Math.max(contentHeight - listHeight, 0)

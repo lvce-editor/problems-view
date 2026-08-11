@@ -22,6 +22,9 @@ export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boole
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
     oldState.problems === newState.problems &&
+    oldState.showErrors === newState.showErrors &&
+    oldState.showInfos === newState.showInfos &&
+    oldState.showWarnings === newState.showWarnings &&
     oldState.filterValue === newState.filterValue &&
     oldState.message === newState.message &&
     oldState.scrollBarActive === newState.scrollBarActive &&

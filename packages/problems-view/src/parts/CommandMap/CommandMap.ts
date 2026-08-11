@@ -31,6 +31,9 @@ import { renderEventListeners } from '../RenderEventListeners/RenderEventListene
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
+import { toggleShowErrors } from '../ToggleShowErrors/ToggleShowErrors.ts'
+import { toggleShowInfos } from '../ToggleShowInfos/ToggleShowInfos.ts'
+import { toggleShowWarnings } from '../ToggleShowWarnings/ToggleShowWarnings.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
@@ -68,6 +71,9 @@ export const commandMap = {
   'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
   'Problems.terminate': ViewletRegistry.terminate,
   'Problems.toggleFileGroup': WrapCommand.wrapCommand(toggleFileGroup),
+  'Problems.toggleShowErrors': WrapCommand.wrapCommand(toggleShowErrors),
+  'Problems.toggleShowInfos': WrapCommand.wrapCommand(toggleShowInfos),
+  'Problems.toggleShowWarnings': WrapCommand.wrapCommand(toggleShowWarnings),
   'Problems.viewAsList': WrapCommand.wrapCommand(viewAsList),
   'Problems.viewAsTable': WrapCommand.wrapCommand(viewAsTable),
 }

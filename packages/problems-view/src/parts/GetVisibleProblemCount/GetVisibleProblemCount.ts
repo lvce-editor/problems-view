@@ -7,8 +7,11 @@ export const getVisibleProblemCount = (
   collapsedUris: readonly string[],
   filterValue: string,
   viewMode: number,
+  showErrors = true,
+  showWarnings = true,
+  showInfos = true,
 ): number => {
-  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue)
+  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue, showErrors, showWarnings, showInfos)
   if (viewMode !== ProblemsViewMode.Table) {
     return filtered.length
   }
