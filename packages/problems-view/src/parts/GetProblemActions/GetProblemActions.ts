@@ -10,7 +10,20 @@ import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
 export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
-  const { collapsedUris, fileIconCache, filterValue, focusedIndex, inputSource, problems, smallWidthBreakPoint, viewMode, width } = state
+  const {
+    collapsedUris,
+    fileIconCache,
+    filterValue,
+    focusedIndex,
+    inputSource,
+    problems,
+    showErrors,
+    showInfos,
+    showWarnings,
+    smallWidthBreakPoint,
+    viewMode,
+    width,
+  } = state
   const visibleCount = GetVisibleProblems.getVisibleProblems(
     problems,
     fileIconCache,
@@ -20,6 +33,9 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
     0,
     Infinity,
     viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
   ).length
   const problemsCount = problems.length
   const isSmall = width <= smallWidthBreakPoint

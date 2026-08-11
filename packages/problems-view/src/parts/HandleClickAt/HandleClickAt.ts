@@ -5,11 +5,33 @@ import * as GetListIndex from '../GetListIndex/GetListIndex.ts'
 import * as GetVisibleProblemCount from '../GetVisibleProblemCount/GetVisibleProblemCount.ts'
 
 export const handleClickAt = (state: ProblemsState, eventX: number, eventY: number): ProblemsState => {
-  const { collapsedUris, deltaY, filterValue, itemHeight, problems, smallWidthBreakPoint, viewMode, width, x, y } = state
+  const {
+    collapsedUris,
+    deltaY,
+    filterValue,
+    itemHeight,
+    problems,
+    showErrors,
+    showInfos,
+    showWarnings,
+    smallWidthBreakPoint,
+    viewMode,
+    width,
+    x,
+    y,
+  } = state
 
   // TODO use functional focus rendering
   // Focus.setFocus(FocusKey.Problems)
-  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode)
+  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(
+    problems,
+    collapsedUris,
+    filterValue,
+    viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
+  )
   if (problemCount === 0) {
     return focusIndex(state, -1)
   }

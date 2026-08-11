@@ -308,3 +308,101 @@ test('filterProblems handles multiple problems with different matches', () => {
   expect(result[0].uriMatchIndex).toBeGreaterThanOrEqual(0)
   expect(result[1].uriMatchIndex).toBeGreaterThanOrEqual(0)
 })
+
+test('filterProblems excludes errors and empty file groups when showErrors is false', () => {
+  const problems: readonly Problem[] = [
+    {
+      code: '',
+      columnIndex: 0,
+      count: 1,
+      fileName: 'error.ts',
+      level: 1,
+      listItemType: ProblemListItemType.Expanded,
+      message: '',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 0,
+      setSize: 1,
+      source: '',
+      type: '',
+      uri: '/path/to/error.ts',
+    },
+    {
+      code: 'TS1234',
+      columnIndex: 5,
+      count: 0,
+      fileName: 'error.ts',
+      level: 2,
+      listItemType: ProblemListItemType.Item,
+      message: 'Error in file',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 1,
+      setSize: 1,
+      source: 'TypeScript',
+      type: 'error',
+      uri: '/path/to/error.ts',
+    },
+    {
+      code: '',
+      columnIndex: 0,
+      count: 1,
+      fileName: 'warning.ts',
+      level: 1,
+      listItemType: ProblemListItemType.Expanded,
+      message: '',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 0,
+      setSize: 1,
+      source: '',
+      type: '',
+      uri: '/path/to/warning.ts',
+    },
+    {
+      code: 'TS5678',
+      columnIndex: 5,
+      count: 0,
+      fileName: 'warning.ts',
+      level: 2,
+      listItemType: ProblemListItemType.Item,
+      message: 'Warning in file',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 1,
+      setSize: 1,
+      source: 'TypeScript',
+      type: 'warning',
+      uri: '/path/to/warning.ts',
+    },
+  ]
+
+  const result = filterProblems(problems, [], '', false, true, true)
+
+  expect(result).toHaveLength(2)
+  expect(result.map((problem) => problem.uri)).toEqual(['/path/to/warning.ts', '/path/to/warning.ts'])
+})
+
+test('filterProblems treats non-error and non-warning diagnostics as infos', () => {
+  const problems: readonly Problem[] = [
+    {
+      code: 'TS1234',
+      columnIndex: 5,
+      count: 0,
+      fileName: 'info.ts',
+      level: 2,
+      listItemType: ProblemListItemType.Item,
+      message: 'Info in file',
+      posInSet: 1,
+      relativePath: '',
+      rowIndex: 1,
+      setSize: 1,
+      source: 'TypeScript',
+      type: 'info',
+      uri: '/path/to/info.ts',
+    },
+  ]
+
+  expect(filterProblems(problems, [], '', true, true, false)).toEqual([])
+  expect(filterProblems(problems, [], '', true, true, true)).toHaveLength(1)
+})

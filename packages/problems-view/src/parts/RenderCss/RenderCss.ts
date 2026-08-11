@@ -21,6 +21,9 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
     minLineY,
     problems,
     scrollBarHeight,
+    showErrors,
+    showInfos,
+    showWarnings,
     smallWidthBreakPoint,
     uid,
     viewMode,
@@ -35,6 +38,9 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
     minLineY,
     maxLineY,
     viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
   )
   const uniqueIndents = GetUniqueIndents.getUniqueIndents(visibleProblems)
   const listHeight = GetListHeight.getListHeight(height, width, smallWidthBreakPoint, viewMode)

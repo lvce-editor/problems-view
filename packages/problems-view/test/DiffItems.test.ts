@@ -90,3 +90,10 @@ test('isEqual returns false when file icons change', () => {
 
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual returns false when shown severities change', () => {
+  const oldState = createDefaultState()
+  const newState = { ...oldState, showErrors: false }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})
