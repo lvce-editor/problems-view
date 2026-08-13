@@ -60,5 +60,5 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     scrollBarActive,
     problemCount,
   )
-  return ['Viewlet.setDom2', dom]
+  return ['Viewlet.setDom2', newState.uid, dom]
 }
