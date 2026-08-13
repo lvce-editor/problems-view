@@ -1,11 +1,30 @@
-import { test, expect } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
+import { createMockRpc } from '@lvce-editor/rpc'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import { set } from '../src/parts/ProblemsStates/ProblemsStates.ts'
-import { render2 } from '../src/parts/Render2/Render2.ts'
+import * as DiffType from '../src/parts/DiffType/DiffType.ts'
+import * as ProblemsStates from '../src/parts/ProblemsStates/ProblemsStates.ts'
+import * as Render2 from '../src/parts/Render2/Render2.ts'
+import * as RendererProcess from '../src/parts/RendererProcess/RendererProcess.ts'
 
-test('render2 returns ViewletCommands array', () => {
-  const state = createDefaultState()
-  set(1, state, state)
-  const result = render2(1, [])
-  expect(Array.isArray(result)).toBe(true)
+test('render2 returns renderer commands when no direct renderer is connected', () => {
+  const uid = 1
+  const oldState = createDefaultState()
+  const newState = { ...oldState, filterValue: 'error', uid }
+  ProblemsStates.set(uid, oldState, newState)
+
+  expect(Render2.render2(uid, [DiffType.RenderFilterValue])).toEqual([['Viewlet.setValueByName', 'filter', 'error']])
+})
+
+test('render2 queues renderer commands and returns a lightweight commit marker', async () => {
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 17)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  const uid = 2
+  const oldState = createDefaultState()
+  const newState = { ...oldState, filterValue: 'error', uid }
+  ProblemsStates.set(uid, oldState, newState)
+
+  const result = await Render2.render2(uid, [DiffType.RenderFilterValue])
+
+  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.setValueByName', 'filter', 'error']])
+  expect(result).toEqual([['Viewlet.commitPending', uid, 17]])
 })

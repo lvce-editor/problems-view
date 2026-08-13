@@ -17,6 +17,7 @@ import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMor
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
+import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import { handleProblemClick } from '../HandleProblemClick/HandleProblemClick.ts'
 import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
@@ -60,6 +61,7 @@ export const commandMap = {
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
+  'Problems.handleMessagePort': HandleMessagePort.handleMessagePort,
   'Problems.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
