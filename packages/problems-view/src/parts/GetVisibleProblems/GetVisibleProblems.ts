@@ -25,7 +25,8 @@ export const getVisibleProblems = (
   Assert.string(filterValue)
   const visibleItems = []
   const filterValueLength = filterValue.length
-  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue, showErrors, showWarnings, showInfos)
+  const effectiveCollapsedUris = viewMode === ProblemsViewMode.Table ? [] : collapsedUris
+  const filtered = FilterProblems.filterProblems(problems, effectiveCollapsedUris, filterValue, showErrors, showWarnings, showInfos)
   const displayProblems = viewMode === ProblemsViewMode.Table ? filtered.filter((problem) => problem.message) : filtered
   const finalLineY = Math.min(maxLineY, displayProblems.length)
   for (let i = minLineY; i < finalLineY; i++) {

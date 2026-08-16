@@ -11,7 +11,8 @@ export const getVisibleProblemCount = (
   showWarnings = true,
   showInfos = true,
 ): number => {
-  const filtered = FilterProblems.filterProblems(problems, collapsedUris, filterValue, showErrors, showWarnings, showInfos)
+  const effectiveCollapsedUris = viewMode === ProblemsViewMode.Table ? [] : collapsedUris
+  const filtered = FilterProblems.filterProblems(problems, effectiveCollapsedUris, filterValue, showErrors, showWarnings, showInfos)
   if (viewMode !== ProblemsViewMode.Table) {
     return filtered.length
   }
