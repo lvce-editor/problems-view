@@ -39,6 +39,8 @@ import { toggleShowWarnings } from '../ToggleShowWarnings/ToggleShowWarnings.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
+const handleDirectMessagePort = (port: MessagePort): Promise<void> => HandleMessagePort.handleMessagePort(port, commandMap)
+
 export const commandMap = {
   'Problems.collapseAll': WrapCommand.wrapCommand(collapseAll),
   'Problems.copyMessage': WrapCommand.wrapCommand(CopyMessage.copyMessage),
@@ -61,7 +63,7 @@ export const commandMap = {
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
-  'Problems.handleMessagePort': HandleMessagePort.handleMessagePort,
+  'Problems.handleMessagePort': handleDirectMessagePort,
   'Problems.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
