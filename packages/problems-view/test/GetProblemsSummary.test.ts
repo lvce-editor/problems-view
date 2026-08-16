@@ -48,3 +48,32 @@ test('returns the total problem count and active editor severity counts', async 
   expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId']])
   expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
 })
+
+test('returns the total problem count when the active editor was disposed', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => 7,
+  })
+  const problem = {
+    code: '',
+    columnIndex: 0,
+    message: 'missing semicolon',
+    rowIndex: 0,
+    source: 'eslint',
+    type: 'error',
+    uri: 'file:///active.js',
+  }
+  using editorRpc = EditorWorker.registerMockRpc({
+    'Editor.getDiagnostics': () => {
+      throw new Error('editor 7 not found')
+    },
+    'Editor.getProblems': () => [problem],
+  })
+  await expect(getProblemsSummary()).resolves.toEqual({
+    errorCount: 0,
+    hasEditor: true,
+    problemCount: 1,
+    warningCount: 0,
+  })
+  expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId']])
+  expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
+})
