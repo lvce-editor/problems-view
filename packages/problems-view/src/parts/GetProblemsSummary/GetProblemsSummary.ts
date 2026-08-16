@@ -9,6 +9,14 @@ const countByType = (diagnostics: readonly Diagnostic[], type: string): number =
   return diagnostics.filter((diagnostic) => diagnostic.type === type).length
 }
 
+const getActiveDiagnostics = async (editorId: number): Promise<readonly Diagnostic[]> => {
+  try {
+    return await EditorWorker.getDiagnostics(editorId)
+  } catch {
+    return []
+  }
+}
+
 export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
   const editorId = await RendererWorker.getActiveEditorId()
   if (editorId === -1) {
@@ -19,7 +27,7 @@ export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
       warningCount: 0,
     }
   }
-  const [allDiagnostics, activeDiagnostics] = await Promise.all([EditorWorker.getProblems(), EditorWorker.getDiagnostics(editorId)])
+  const [allDiagnostics, activeDiagnostics] = await Promise.all([EditorWorker.getProblems(), getActiveDiagnostics(editorId)])
   const uniqueDiagnostics = getUniqueDiagnostics(allDiagnostics)
   const uniqueActiveDiagnostics = getUniqueDiagnostics(activeDiagnostics)
   return {
