@@ -85,6 +85,31 @@ test('updateVirtualList excludes group rows in table mode', () => {
   expect(newState.maxLineY).toBe(2)
 })
 
+test('updateVirtualList includes problems from collapsed list groups in table mode', () => {
+  const group = {
+    ...createProblem(0),
+    level: 1,
+    listItemType: 1,
+    message: '',
+  }
+  const firstProblem = { ...createProblem(1), uri: group.uri }
+  const secondProblem = { ...createProblem(2), uri: group.uri }
+  const state = {
+    ...createDefaultState(),
+    collapsedUris: [group.uri],
+    height: 42,
+    itemHeight: 20,
+    problems: [group, firstProblem, secondProblem],
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  }
+
+  const newState = updateVirtualList(state)
+
+  expect(newState.finalDeltaY).toBe(20)
+  expect(newState.maxLineY).toBe(2)
+})
+
 test('updateVirtualList accounts for the narrow-width filter', () => {
   const problems = Array.from({ length: 10 }, (_, index) => createProblem(index))
   const state = {
