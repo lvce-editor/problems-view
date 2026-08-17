@@ -39,7 +39,8 @@ import { toggleShowWarnings } from '../ToggleShowWarnings/ToggleShowWarnings.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 
-const handleDirectMessagePort = (port: MessagePort): Promise<void> => HandleMessagePort.handleMessagePort(port, commandMap)
+const handleDirectMessagePort = (port: MessagePort, setAsRendererProcess = true): Promise<void> =>
+  HandleMessagePort.handleMessagePort(port, commandMap, setAsRendererProcess)
 
 export const commandMap = {
   'Problems.collapseAll': WrapCommand.wrapCommand(collapseAll),
