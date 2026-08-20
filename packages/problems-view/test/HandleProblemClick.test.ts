@@ -81,3 +81,44 @@ test('does not open a file when clicking a problem group', async () => {
   expect(result.focusedIndex).toBe(0)
   expect(rendererRpc.invocations).toEqual([])
 })
+
+test('opens a related diagnostic target', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'Editor.cursorSet': async () => {},
+    'Main.focus': async () => {},
+    'Main.openUri': async () => {},
+  })
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    itemHeight: 22,
+    problems: [
+      {
+        code: '',
+        columnIndex: 2,
+        count: 0,
+        fileName: 'types.ts',
+        level: 3,
+        listItemType: ProblemListItemType.Item,
+        message: 'The expected type comes from here.',
+        posInSet: 1,
+        relativePath: '',
+        rowIndex: 1,
+        setSize: 1,
+        source: 'types.ts',
+        targetUri: 'file:///workspace/types.ts',
+        type: 'error',
+        uri: 'file:///workspace/main.ts',
+      },
+    ],
+    viewMode: ProblemsViewMode.List,
+    width: 800,
+  }
+
+  await handleProblemClick(state, 50, 11)
+
+  expect(rendererRpc.invocations).toEqual([
+    ['Main.openUri', { focus: true, uri: 'file:///workspace/types.ts' }],
+    ['Main.focus'],
+    ['Editor.cursorSet', 1, 2],
+  ])
+})

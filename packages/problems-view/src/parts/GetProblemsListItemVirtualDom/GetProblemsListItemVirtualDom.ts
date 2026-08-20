@@ -57,7 +57,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     uri,
   } = problem
   let className = ClassNames.Problem
-  const indent = GetProblemIndent.getProblemIndent(listItemType)
+  const indent = GetProblemIndent.getProblemIndent(listItemType, level)
   className = mergeClassNames(className, `Indent-${indent}`)
   if (isActive) {
     className = mergeClassNames(className, ClassNames.ProblemSelected)
