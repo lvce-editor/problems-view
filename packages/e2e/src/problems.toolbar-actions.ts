@@ -19,7 +19,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')
   await Workspace.setPath(tmpDir)
   // @ts-ignore
-  await Extension.addWebExtension(new URL('../fixtures/problems.one-problem', import.meta.url).toString())
+  await Extension.addWebExtension(import.meta.resolve('../fixtures/problems.one-problem'))
   await Main.openUri(`${tmpDir}/file1.xyz`)
   await Panel.openProblems()
 
@@ -53,8 +53,11 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered Problems action instead of its command API.
   await moreFilters.click()
   const menuItems = Locator('.MenuItem')
+  const showErrors = menuItems.nth(0)
+  const showWarnings = menuItems.nth(1)
+  const showInfos = menuItems.nth(2)
   await waitFor(() => expect(menuItems).toHaveCount(3))
-  await expect(menuItems.nth(0)).toHaveText('Show Errors')
-  await expect(menuItems.nth(1)).toHaveText('Show Warnings')
-  await expect(menuItems.nth(2)).toHaveText('Show Infos')
+  await expect(showErrors).toHaveText('Show Errors')
+  await expect(showWarnings).toHaveText('Show Warnings')
+  await expect(showInfos).toHaveText('Show Infos')
 }

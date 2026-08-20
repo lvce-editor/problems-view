@@ -12,14 +12,15 @@ export const test: Test = async ({ Editor, expect, Extension, FileSystem, Locato
   ])
   await Workspace.setPath(tmpDir)
   // @ts-ignore
-  await Extension.addWebExtension(new URL(`../fixtures/${name}`, import.meta.url).toString())
+  await Extension.addWebExtension(import.meta.resolve(`../fixtures/${name}`))
   await Main.openUri(mainUri)
   await Panel.openProblems()
 
   const problems = Locator('.Problem')
+  const relatedLocation = problems.nth(2)
   await expect(problems).toHaveCount(3)
-  await expect(problems.nth(2)).toContainText('The expected type is declared here')
-  await expect(problems.nth(2)).toContainText('types.xyz')
+  await expect(relatedLocation).toContainText('The expected type is declared here')
+  await expect(relatedLocation).toContainText('types.xyz')
 
   await Problems.handleClickAt(10, 638)
 

@@ -22,7 +22,7 @@ export const test: Test = async ({ Editor, expect, Extension, FileSystem, Locato
   await FileSystem.writeFile(fileUri, 'first line\nsecond line')
   await Workspace.setPath(tmpDir)
   // @ts-ignore
-  await Extension.addWebExtension(new URL(`../fixtures/${name}`, import.meta.url).toString())
+  await Extension.addWebExtension(import.meta.resolve(`../fixtures/${name}`))
   await Main.openUri(fileUri)
   await Editor.setCursor(0, 0)
   await Panel.openProblems()
