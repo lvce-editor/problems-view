@@ -6,5 +6,9 @@ export const getActiveUri = async (): Promise<string> => {
   if (editorId === -1) {
     return ''
   }
-  return EditorWorker.getUri(editorId)
+  try {
+    return await EditorWorker.getUri(editorId)
+  } catch {
+    return ''
+  }
 }

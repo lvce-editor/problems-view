@@ -28,6 +28,10 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleClickAt', 'event.clientX', 'event.clientY'],
     },
     {
+      name: DomEventListenerFunctions.HandleFileNameClick,
+      params: ['toggleFileGroup', 'event.target.dataset.uri'],
+    },
+    {
       name: DomEventListenerFunctions.HandleClickMoreFilters,
       params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
     },
@@ -56,6 +60,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       name: DomEventListenerFunctions.HandleScrollBarPointerDown,
       params: ['handleScrollBarClick', EventExpression.ClientY],
       preventDefault: true,
+      stopPropagation: true,
       trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarMove, DomEventListenerFunctions.HandleScrollBarPointerCaptureLost],
     } as DomEventListener,
     {

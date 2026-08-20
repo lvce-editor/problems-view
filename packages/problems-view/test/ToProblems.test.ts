@@ -164,3 +164,48 @@ test('toProblems increments relativeIndex and count for multiple diagnostics wit
   expect(itemProblems[1].posInSet).toBe(2)
   expect(itemProblems[2].posInSet).toBe(3)
 })
+
+test('toProblems adds related locations beneath their diagnostic without increasing the problem count', () => {
+  const diagnostics = [
+    {
+      code: 2322,
+      columnIndex: 8,
+      message: "Type 'number' is not assignable to type 'string'.",
+      relatedInformation: [
+        {
+          columnIndex: 2,
+          endColumnIndex: 6,
+          endRowIndex: 1,
+          message: "The expected type comes from property 'name'.",
+          rowIndex: 1,
+          uri: 'file:///workspace/types.ts',
+        },
+      ],
+      rowIndex: 4,
+      source: 'ts',
+      type: 'error',
+      uri: 'file:///workspace/main.ts',
+    },
+  ] as any
+
+  const problems = toProblems(diagnostics, 'file:///workspace')
+
+  expect(problems[0].count).toBe(1)
+  expect(problems[2]).toEqual({
+    code: '',
+    columnIndex: 2,
+    count: 0,
+    fileName: 'types.ts',
+    level: 3,
+    listItemType: 0,
+    message: "The expected type comes from property 'name'.",
+    posInSet: 1,
+    relativePath: '',
+    rowIndex: 1,
+    setSize: 1,
+    source: 'types.ts',
+    targetUri: 'file:///workspace/types.ts',
+    type: 'error',
+    uri: 'file:///workspace/main.ts',
+  })
+})

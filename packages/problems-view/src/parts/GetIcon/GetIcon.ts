@@ -1,8 +1,8 @@
-import * as IconTheme from '../IconTheme/IconTheme.ts'
+import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 
-export const getIcon = (uri: string): string => {
+export const getIcon = (uri: string, fileIconCache: FileIconCache): string => {
   if (!uri) {
     return ''
   }
-  return IconTheme.getFileNameIcon(uri)
+  return fileIconCache[uri] || ''
 }

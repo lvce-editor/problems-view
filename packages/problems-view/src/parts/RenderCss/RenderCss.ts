@@ -11,6 +11,7 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
   const {
     collapsedUris,
     deltaY,
+    fileIconCache,
     filterValue,
     finalDeltaY,
     focusedIndex,
@@ -20,12 +21,27 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
     minLineY,
     problems,
     scrollBarHeight,
+    showErrors,
+    showInfos,
+    showWarnings,
     smallWidthBreakPoint,
     uid,
     viewMode,
     width,
   } = newState
-  const visibleProblems = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue, minLineY, maxLineY, viewMode)
+  const visibleProblems = GetVisibleProblems.getVisibleProblems(
+    problems,
+    fileIconCache,
+    collapsedUris,
+    focusedIndex,
+    filterValue,
+    minLineY,
+    maxLineY,
+    viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
+  )
   const uniqueIndents = GetUniqueIndents.getUniqueIndents(visibleProblems)
   const listHeight = GetListHeight.getListHeight(height, width, smallWidthBreakPoint, viewMode)
   const scrollBarTop = GetScrollBarTop.getScrollBarTop(listHeight, finalDeltaY, deltaY, scrollBarHeight)

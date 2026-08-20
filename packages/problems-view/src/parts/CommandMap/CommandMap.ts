@@ -7,16 +7,18 @@ import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { getProblemsSummary } from '../GetProblemsSummary/GetProblemsSummary.ts'
 import { handleActiveEditorChange, handleDiagnosticsChange } from '../HandleActiveEditorChange/HandleActiveEditorChange.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
-import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
 import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
+import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
+import { handleProblemClick } from '../HandleProblemClick/HandleProblemClick.ts'
 import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
@@ -30,8 +32,15 @@ import { renderActions } from '../RenderActions/RenderActions.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
+import { toggleShowErrors } from '../ToggleShowErrors/ToggleShowErrors.ts'
+import { toggleShowInfos } from '../ToggleShowInfos/ToggleShowInfos.ts'
+import { toggleShowWarnings } from '../ToggleShowWarnings/ToggleShowWarnings.ts'
 import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
+
+const handleDirectMessagePort = (port: MessagePort, setAsRendererProcess = true): Promise<void> =>
+  HandleMessagePort.handleMessagePort(port, commandMap, setAsRendererProcess)
 
 export const commandMap = {
   'Problems.collapseAll': WrapCommand.wrapCommand(collapseAll),
@@ -43,17 +52,19 @@ export const commandMap = {
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'Problems.getMenuIds': getMenuIds,
+  'Problems.getProblemsSummary': getProblemsSummary,
   'Problems.handleActiveEditorChange': WrapCommand.wrapCommand(handleActiveEditorChange),
   'Problems.handleArrowLeft': WrapCommand.wrapCommand(HandleArrowLeft.handleArrowLeft),
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
-  'Problems.handleClickAt': WrapCommand.wrapCommand(handleClickAt),
+  'Problems.handleClickAt': WrapCommand.wrapCommand(handleProblemClick),
   'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),
   'Problems.handleIconThemeChange': WrapCommand.wrapCommand(handleIconThemeChange),
+  'Problems.handleMessagePort': handleDirectMessagePort,
   'Problems.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
@@ -66,6 +77,10 @@ export const commandMap = {
   'Problems.resize': Resize.resize,
   'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
   'Problems.terminate': ViewletRegistry.terminate,
+  'Problems.toggleFileGroup': WrapCommand.wrapCommand(toggleFileGroup),
+  'Problems.toggleShowErrors': WrapCommand.wrapCommand(toggleShowErrors),
+  'Problems.toggleShowInfos': WrapCommand.wrapCommand(toggleShowInfos),
+  'Problems.toggleShowWarnings': WrapCommand.wrapCommand(toggleShowWarnings),
   'Problems.viewAsList': WrapCommand.wrapCommand(viewAsList),
   'Problems.viewAsTable': WrapCommand.wrapCommand(viewAsTable),
 }

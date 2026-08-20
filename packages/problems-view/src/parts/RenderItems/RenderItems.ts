@@ -8,6 +8,7 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
   const {
     activeUri,
     collapsedUris,
+    fileIconCache,
     filterValue,
     focusedIndex,
     inputSource,
@@ -17,12 +18,35 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     problems,
     scrollBarActive,
     scrollBarHeight,
+    showErrors,
+    showInfos,
+    showWarnings,
     smallWidthBreakPoint,
     viewMode,
     width,
   } = newState
-  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, filterValue, viewMode)
-  const visible = GetVisibleProblems.getVisibleProblems(problems, collapsedUris, focusedIndex, filterValue, minLineY, maxLineY, viewMode)
+  const problemCount = GetVisibleProblemCount.getVisibleProblemCount(
+    problems,
+    collapsedUris,
+    filterValue,
+    viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
+  )
+  const visible = GetVisibleProblems.getVisibleProblems(
+    problems,
+    fileIconCache,
+    collapsedUris,
+    focusedIndex,
+    filterValue,
+    minLineY,
+    maxLineY,
+    viewMode,
+    showErrors,
+    showWarnings,
+    showInfos,
+  )
   const isSmall = width <= smallWidthBreakPoint
   const dom = GetProblemsVirtualDom.getProblemsVirtualDom(
     activeUri,
@@ -36,5 +60,5 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     scrollBarActive,
     problemCount,
   )
-  return ['Viewlet.setDom2', dom]
+  return ['Viewlet.setDom2', newState.uid, dom]
 }

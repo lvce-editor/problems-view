@@ -25,3 +25,17 @@ test('returns an empty uri when there is no active editor', async () => {
   expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId']])
   expect(editorRpc.invocations).toEqual([])
 })
+
+test('returns an empty uri when the active editor was disposed', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => 42,
+  })
+  using editorRpc = EditorWorker.registerMockRpc({
+    'Editor.getUri': () => {
+      throw new Error('editor 42 not found')
+    },
+  })
+  await expect(getActiveUri()).resolves.toBe('')
+  expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId']])
+  expect(editorRpc.invocations).toEqual([['Editor.getUri', 42]])
+})

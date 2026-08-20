@@ -7,6 +7,7 @@ export const createDefaultState = (): ProblemsState => {
     activeUri: '',
     collapsedUris: [],
     deltaY: 0,
+    fileIconCache: {},
     filteredProblems: [],
     filterValue: '',
     finalDeltaY: 0,

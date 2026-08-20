@@ -44,3 +44,10 @@ test('isEqual returns false when collapsed uris change', () => {
   const newState = { ...oldState, collapsedUris: ['file:///file.ts'] }
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual returns false when shown severities change', () => {
+  const oldState = createDefaultState()
+  const newState = { ...oldState, showErrors: false }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})

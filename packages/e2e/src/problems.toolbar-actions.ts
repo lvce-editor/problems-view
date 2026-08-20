@@ -43,6 +43,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await collapseAll.click()
   await waitFor(() => expect(problems).toHaveCount(1))
 
+  // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered Problems action after collapsing the list.
+  await viewAsTable.click()
+  await waitFor(() => expect(problemsTable).toBeVisible())
+  const tableRows = problemsTable.locator('.ProblemsTableBody .ProblemsTableRow')
+  await expect(tableRows).toHaveCount(1)
+
   const moreFilters = Locator('button[title="more filters"]')
   // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered Problems action instead of its command API.
   await moreFilters.click()

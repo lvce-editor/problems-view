@@ -11,6 +11,7 @@ export interface Problem {
   readonly rowIndex: number
   readonly setSize: number
   readonly source: string
+  readonly targetUri?: string
   readonly type: string
   readonly uri: string
 }

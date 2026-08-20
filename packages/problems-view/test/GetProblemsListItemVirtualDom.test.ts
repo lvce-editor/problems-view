@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getProblemVirtualDom } from '../src/parts/GetProblemsListItemVirtualDom/GetProblemsListItemVirtualDom.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 
@@ -64,6 +65,8 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
     {
       childCount: 1,
       className: ClassNames.Label,
+      'data-uri': '/path/to/file.ts',
+      onClick: DomEventListenerFunctions.HandleFileNameClick,
       type: VirtualDomElements.Span,
     },
     {
@@ -134,6 +137,8 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
     {
       childCount: 1,
       className: ClassNames.Label,
+      'data-uri': '/path/to/file.ts',
+      onClick: DomEventListenerFunctions.HandleFileNameClick,
       type: VirtualDomElements.Span,
     },
     {

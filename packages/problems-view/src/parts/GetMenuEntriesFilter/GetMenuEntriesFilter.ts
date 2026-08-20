@@ -7,19 +7,19 @@ export const getMenuEntriesFilter = (state: ProblemsState): readonly MenuEntry[]
   const { showErrors, showInfos, showWarnings } = state
   return [
     {
-      command: '-1',
+      command: 'Problems.toggleShowErrors',
       flags: showErrors ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'show-errors',
       label: ProblemStrings.showErrors(),
     },
     {
-      command: '-1',
+      command: 'Problems.toggleShowWarnings',
       flags: showWarnings ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'show-warnings',
       label: ProblemStrings.showWarnings(),
     },
     {
-      command: '-1',
+      command: 'Problems.toggleShowInfos',
       flags: showInfos ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'show-infos',
       label: ProblemStrings.showInfos(),

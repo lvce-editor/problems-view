@@ -18,6 +18,10 @@ test('renderEventListeners registers the problems toolbar actions', () => {
         params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
       },
       {
+        name: DomEventListenerFunctions.HandleFileNameClick,
+        params: ['toggleFileGroup', 'event.target.dataset.uri'],
+      },
+      {
         name: DomEventListenerFunctions.HandleCollapseAll,
         params: ['collapseAll'],
       },
@@ -28,6 +32,22 @@ test('renderEventListeners registers the problems toolbar actions', () => {
       {
         name: DomEventListenerFunctions.HandleViewAsTable,
         params: ['viewAsTable'],
+      },
+    ]),
+  )
+})
+
+test('renderEventListeners keeps scrollbar pointerdown from selecting a problem', () => {
+  const result = renderEventListeners()
+
+  expect(result).toEqual(
+    expect.arrayContaining([
+      {
+        name: DomEventListenerFunctions.HandleScrollBarPointerDown,
+        params: ['handleScrollBarClick', EventExpression.ClientY],
+        preventDefault: true,
+        stopPropagation: true,
+        trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarMove, DomEventListenerFunctions.HandleScrollBarPointerCaptureLost],
       },
     ]),
   )
