@@ -42,7 +42,7 @@ export const getProblems = async (workspaceUri: string, activeUri: string): Prom
     }
   } catch (error) {
     return {
-      error: `${error}`,
+      error: String(error),
       problems: [],
     }
   }
