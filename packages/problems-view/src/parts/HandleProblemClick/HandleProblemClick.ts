@@ -28,8 +28,8 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
   if (!problem || problem.listItemType !== ProblemListItemType.Item) {
     return newState
   }
-  const { columnIndex, rowIndex, uri } = problem
-  await RendererWorker.openUri(uri, true)
+  const { columnIndex, rowIndex, targetUri, uri } = problem
+  await RendererWorker.openUri(targetUri || uri, true)
   await RendererWorker.focusEditor()
   await RendererWorker.setEditorCursor(rowIndex, columnIndex)
   return newState
