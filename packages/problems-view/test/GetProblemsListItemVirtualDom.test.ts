@@ -170,6 +170,23 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
   expect(dom).toEqual(expectedDom)
 })
 
+test('getProblemVirtualDom does not render an empty file icon', () => {
+  const problem: VisibleProblem = {
+    ...baseProblem,
+    filterValueLength: 0,
+    icon: '',
+    isActive: false,
+    isCollapsed: true,
+    isEven: true,
+    listItemType: ProblemListItemType.Collapsed,
+  }
+
+  const dom = getProblemVirtualDom(problem)
+
+  expect(dom[0].childCount).toBe(4)
+  expect(dom.some((node) => node.className === ClassNames.FileIcon)).toBe(false)
+})
+
 test('getProblemVirtualDom returns correct dom for Item without filter highlight', () => {
   const problem: VisibleProblem = {
     ...baseProblem,

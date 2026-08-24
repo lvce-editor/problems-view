@@ -63,6 +63,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     className = mergeClassNames(className, ClassNames.ProblemSelected)
   }
   if (listItemType === ProblemListItemType.Expanded || listItemType === ProblemListItemType.Collapsed) {
+    const fileIconDom = icon ? [GetFileIconVirtualDom.getFileIconVirtualDom(icon)] : []
     return [
       {
         ariaExpanded: !isCollapsed,
@@ -70,7 +71,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ariaPosInSet: posInSet,
         ariaSelected: isActive,
         ariaSetSize: setSize,
-        childCount: 5,
+        childCount: 4 + fileIconDom.length,
         className,
         role: AriaRoles.TreeItem,
         type: VirtualDomElements.Div,
@@ -78,7 +79,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       listItemType === ProblemListItemType.Collapsed
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
-      GetFileIconVirtualDom.getFileIconVirtualDom(icon),
+      ...fileIconDom,
       {
         ...labelNode,
         'data-uri': uri,
