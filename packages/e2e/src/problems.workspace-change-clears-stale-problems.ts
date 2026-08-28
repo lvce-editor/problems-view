@@ -17,11 +17,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await Main.openUri(oldFile)
   await Panel.openProblems()
 
+  const problems = Locator('.Problem')
   const problemsView = Locator('.Viewlet.Problems')
-  await expect(Locator('.Problem')).toHaveCount(2)
+  await expect(problems).toHaveCount(2)
 
   await Workspace.setPath(newWorkspace)
 
   await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
-  await expect(Locator('.Problem')).toHaveCount(0)
+  await expect(problems).toHaveCount(0)
 }

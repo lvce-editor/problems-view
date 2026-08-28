@@ -1,8 +1,9 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import * as ProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
-export const handleWorkspaceChange = (state: ProblemsState, workspaceUri: string): ProblemsState => {
-  if (workspaceUri === state.workspaceUri) {
+export const handleWorkspaceChange = (state: ProblemsState, newWorkspaceUri: string): ProblemsState => {
+  const { workspaceUri } = state
+  if (newWorkspaceUri === workspaceUri) {
     return state
   }
   return {
@@ -22,6 +23,6 @@ export const handleWorkspaceChange = (state: ProblemsState, workspaceUri: string
     problems: [],
     scrollBarActive: false,
     scrollBarHeight: 0,
-    workspaceUri,
+    workspaceUri: newWorkspaceUri,
   }
 }
