@@ -9,6 +9,7 @@ import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import { getProblemsSummary } from '../GetProblemsSummary/GetProblemsSummary.ts'
 import { handleActiveEditorChange, handleDiagnosticsChange } from '../HandleActiveEditorChange/HandleActiveEditorChange.ts'
+import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
@@ -69,6 +70,7 @@ export const commandMap = {
   'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'Problems.handleWheel': WrapCommand.wrapCommand(handleWheel),
+  'Problems.handleWorkspaceChange': WrapCommand.wrapCommand(handleWorkspaceChange),
   'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
