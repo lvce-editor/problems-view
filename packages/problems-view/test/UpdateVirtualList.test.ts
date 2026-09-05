@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 import { updateVirtualList } from '../src/parts/UpdateVirtualList/UpdateVirtualList.ts'
 
 const createProblem = (index: number): Problem => ({
@@ -17,7 +18,7 @@ const createProblem = (index: number): Problem => ({
   rowIndex: index,
   setSize: 100,
   source: 'test',
-  type: 'error',
+  type: ProblemType.Error,
   uri: `file:///file-${index}.ts`,
 })
 

@@ -1,6 +1,8 @@
 import type { Diagnostic, RelatedDiagnosticInformation } from '../Diagnostic/Diagnostic.ts'
 import type { Problem } from '../Problem/Problem.ts'
+import { getProblemType } from '../GetProblemType/GetProblemType.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../ProblemType/ProblemType.ts'
 
 const leadingSlashesRegex = /^\/+/
 const trailingSlashRegex = /\/$/
@@ -21,7 +23,7 @@ const toProblem = (diagnostic: Diagnostic, index: number): DeepMutable<Problem> 
     rowIndex: rowIndex || 0,
     setSize: 1,
     source: source || '',
-    type: type || 'error',
+    type: getProblemType(type),
     uri,
   }
 }
@@ -70,7 +72,7 @@ const toRelatedProblem = (
     setSize,
     source: getFileName(relatedInformation.uri),
     targetUri: relatedInformation.uri,
-    type: diagnostic.type || 'error',
+    type: getProblemType(diagnostic.type),
     uri: diagnostic.uri,
   }
 }
@@ -92,7 +94,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
     rowIndex: 0,
     setSize: 0,
     source: '',
-    type: '',
+    type: ProblemType.None,
     uri: '',
   }
   let relativeIndex = 0
@@ -115,7 +117,7 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
         rowIndex: 0,
         setSize: 123,
         source: '',
-        type: '',
+        type: ProblemType.None,
         uri: diagnostic.uri,
       }
       problems.push(problem)

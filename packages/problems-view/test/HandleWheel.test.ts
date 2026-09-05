@@ -3,6 +3,7 @@ import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWheel } from '../src/parts/HandleWheel/HandleWheel.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 import { updateVirtualList } from '../src/parts/UpdateVirtualList/UpdateVirtualList.ts'
 
 const problem = {
@@ -18,7 +19,7 @@ const problem = {
   rowIndex: 1,
   setSize: 1,
   source: 'test',
-  type: 'error',
+  type: ProblemType.Error,
   uri: 'file:///file.ts',
 } satisfies Problem
 

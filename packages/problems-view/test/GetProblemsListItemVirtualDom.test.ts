@@ -5,6 +5,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getProblemVirtualDom } from '../src/parts/GetProblemsListItemVirtualDom/GetProblemsListItemVirtualDom.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActive' | 'icon' | 'filterValueLength'> = {
   code: 'TS100',
@@ -21,7 +22,7 @@ const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActi
   setSize: 1,
   source: 'TypeScript',
   sourceMatchIndex: -1,
-  type: 'error',
+  type: ProblemType.Error,
   uri: '/path/to/file.ts',
   uriMatchIndex: -1,
 }

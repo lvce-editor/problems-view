@@ -5,6 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleProblemClick } from '../src/parts/HandleProblemClick/HandleProblemClick.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('opens and focuses the clicked problem at its position', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
@@ -29,7 +30,7 @@ test('opens and focuses the clicked problem at its position', async () => {
         rowIndex: 4,
         setSize: 1,
         source: 'test',
-        type: 'error',
+        type: ProblemType.Error,
         uri: 'file:///workspace/test.ts',
       },
     ],
@@ -68,7 +69,7 @@ test('does not open a file when clicking a problem group', async () => {
         rowIndex: 0,
         setSize: 1,
         source: '',
-        type: '',
+        type: ProblemType.None,
         uri: 'file:///workspace/test.ts',
       },
     ],
@@ -106,7 +107,7 @@ test('opens a related diagnostic target', async () => {
         setSize: 1,
         source: 'types.ts',
         targetUri: 'file:///workspace/types.ts',
-        type: 'error',
+        type: ProblemType.Error,
         uri: 'file:///workspace/main.ts',
       },
     ],

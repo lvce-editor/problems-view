@@ -3,6 +3,7 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getProblemsTableBodyVirtualDom } from '../src/parts/GetProblemsTableBodyVirtualDom/GetProblemsTableBodyVirtualDom.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('getProblemsTableBodyVirtualDom returns correct dom structure with empty problems', () => {
   const problems: readonly VisibleProblem[] = []
@@ -39,7 +40,7 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with problems
       setSize: 1,
       source: 'TypeScript',
       sourceMatchIndex: -1,
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/test/file.ts',
       uriMatchIndex: -1,
     },

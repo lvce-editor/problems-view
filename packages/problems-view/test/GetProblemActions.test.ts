@@ -8,6 +8,7 @@ import { getActions } from '../src/parts/GetProblemActions/GetProblemActions.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import * as MaskIcon from '../src/parts/MaskIcon/MaskIcon.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const createMockState = (overrides: Partial<ProblemsState> = {}): ProblemsState => {
   return {
@@ -30,7 +31,7 @@ const createMockProblem = (): Problem => {
     rowIndex: 1,
     setSize: 1,
     source: 'TypeScript',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'test.ts',
   }
 }

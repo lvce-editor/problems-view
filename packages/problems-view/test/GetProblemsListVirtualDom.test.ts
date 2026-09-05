@@ -4,6 +4,7 @@ import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getProblemsListVirtualDom } from '../src/parts/GetProblemsListVirtualDom/GetProblemsListVirtualDom.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('getProblemsListVirtualDom with empty problems array', () => {
   const problems: readonly VisibleProblem[] = []
@@ -40,7 +41,7 @@ test('getProblemsListVirtualDom with single problem', () => {
     setSize: 1,
     source: 'TypeScript',
     sourceMatchIndex: 0,
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test.ts',
     uriMatchIndex: 0,
   }
@@ -79,7 +80,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     setSize: 2,
     source: 'TypeScript',
     sourceMatchIndex: 0,
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test1.ts',
     uriMatchIndex: 0,
   }
@@ -104,7 +105,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     setSize: 2,
     source: 'ESLint',
     sourceMatchIndex: 0,
-    type: 'warning',
+    type: ProblemType.Warning,
     uri: 'file:///test2.ts',
     uriMatchIndex: 0,
   }

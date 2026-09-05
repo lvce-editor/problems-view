@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 import { renderCss } from '../src/parts/RenderCss/RenderCss.ts'
 
 const createProblem = (listItemType: number, uri: string): Problem => {
@@ -18,7 +19,7 @@ const createProblem = (listItemType: number, uri: string): Problem => {
     rowIndex: 1,
     setSize: 1,
     source: '',
-    type: 'error',
+    type: ProblemType.Error,
     uri,
   }
 }
