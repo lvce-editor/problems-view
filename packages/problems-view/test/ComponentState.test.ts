@@ -37,7 +37,7 @@ test('sets the full component state and renders the changed filter', async () =>
 test.each([null, [], 'invalid', 1])('rejects invalid component state %p without changing state', async (value: unknown) => {
   const before = ProblemsStates.get(uid)
 
-  await expect(commandMap['Problems.setComponentState'](uid, value as unknown as ProblemsState)).rejects.toThrow('Problems state must be an object')
+  await expect(commandMap['Problems.setComponentState'](uid, value as ProblemsState)).rejects.toThrow('Problems state must be an object')
 
   expect(ProblemsStates.get(uid)).toEqual(before)
 })
