@@ -26,7 +26,7 @@ export const getUniqueDiagnostics = (diagnostics: readonly Diagnostic[]): readon
   })
 }
 
-export const getProblems = async (workspaceUri: string, activeUri: string): Promise<ProblemsResult> => {
+export const getProblems = async (activeUri: string): Promise<ProblemsResult> => {
   if (!activeUri) {
     return {
       error: '',
@@ -35,7 +35,7 @@ export const getProblems = async (workspaceUri: string, activeUri: string): Prom
   }
   try {
     const diagnostics = getUniqueDiagnostics(await EditorWorker.getProblems())
-    const problems = toProblems(diagnostics, workspaceUri)
+    const problems = toProblems(diagnostics)
     return {
       error: '',
       problems,

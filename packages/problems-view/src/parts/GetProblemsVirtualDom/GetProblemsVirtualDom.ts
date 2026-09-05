@@ -24,6 +24,7 @@ export const getProblemsVirtualDom = (
   scrollBarHeight = 0,
   scrollBarActive = false,
   problemCount = problems.length,
+  workspaceUri = '',
 ): readonly VirtualDomNode[] => {
   const baseDom = {
     childCount: isSmall ? 2 : 1,
@@ -49,7 +50,7 @@ export const getProblemsVirtualDom = (
       })
     : []
 
-  const itemsDom = GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue, message, problemCount)
+  const itemsDom = GetProblemsItemsVirtualDom.getProblemsVirtualDom(viewMode, problems, filterValue, message, problemCount, workspaceUri)
   const scrollBarDom = GetScrollBarVirtualDom.getScrollBarVirtualDom(scrollBarHeight, scrollBarActive)
   const contentClassName =
     viewMode === ProblemsViewMode.Table ? mergeClassNames(ClassNames.ProblemsContent, ClassNames.ProblemsContentTable) : ClassNames.ProblemsContent

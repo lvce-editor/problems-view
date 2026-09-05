@@ -5,8 +5,8 @@ import * as InputSource from '../InputSource/InputSource.ts'
 import * as ProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 const refreshProblems = async (state: ProblemsState, activeUri: string): Promise<ProblemsState> => {
-  const { fileIconCache, workspaceUri } = state
-  const { error, problems } = await GetProblems.getProblems(workspaceUri, activeUri)
+  const { fileIconCache } = state
+  const { error, problems } = await GetProblems.getProblems(activeUri)
   const newFileIconCache = await GetFileIcons.getFileIcons(problems, fileIconCache)
   return {
     ...state,

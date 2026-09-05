@@ -15,7 +15,6 @@ const createProblem = (listItemType: number, uri: string): Problem => {
     listItemType,
     message: 'message',
     posInSet: 1,
-    relativePath: 'file.ts',
     rowIndex: 1,
     setSize: 1,
     source: '',

@@ -15,7 +15,6 @@ const defaultProblem: Problem = {
   listItemType: ProblemListItemType.Item,
   message: '',
   posInSet: 0,
-  relativePath: '',
   rowIndex: 0,
   setSize: 0,
   source: '',

@@ -4,7 +4,6 @@ export interface Diagnostic {
   readonly listItemType: number
   readonly message: string
   readonly relatedInformation?: readonly RelatedDiagnosticInformation[]
-  readonly relativePath: string
   readonly rowIndex: number
   readonly source: string
   readonly type: string

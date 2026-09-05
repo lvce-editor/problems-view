@@ -27,7 +27,6 @@ const createMockProblem = (): Problem => {
     listItemType: 1,
     message: 'Test error',
     posInSet: 1,
-    relativePath: 'test.ts',
     rowIndex: 1,
     setSize: 1,
     source: 'TypeScript',

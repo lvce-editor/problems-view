@@ -35,7 +35,6 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with problems
       message: 'Test error message',
       messageMatchIndex: -1,
       posInSet: 1,
-      relativePath: 'file.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',

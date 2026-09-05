@@ -17,7 +17,6 @@ const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActi
   message: 'Syntax error',
   messageMatchIndex: -1,
   posInSet: 1,
-  relativePath: 'file.ts',
   rowIndex: 10,
   setSize: 1,
   source: 'TypeScript',
@@ -82,7 +81,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
     },
     {
       childCount: 0,
-      text: 'file.ts',
+      text: 'path/to',
       type: 12,
     },
     {
@@ -154,7 +153,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
     },
     {
       childCount: 0,
-      text: 'file.ts',
+      text: 'path/to',
       type: 12,
     },
     {
@@ -198,7 +197,6 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
     isCollapsed: false,
     isEven: false,
     listItemType: ProblemListItemType.Item,
-    relativePath: '/path/to',
   }
   const dom = getProblemVirtualDom(problem)
   const expectedDom = [

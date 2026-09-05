@@ -14,7 +14,6 @@ const createProblem = (index: number): Problem => ({
   listItemType: 0,
   message: `problem ${index}`,
   posInSet: index + 1,
-  relativePath: `file-${index}.ts`,
   rowIndex: index,
   setSize: 100,
   source: 'test',

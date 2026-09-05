@@ -13,7 +13,6 @@ const createProblem = (uri: string, fileName: string): Problem => ({
   listItemType: 1,
   message: '',
   posInSet: 1,
-  relativePath: '',
   rowIndex: 0,
   setSize: 1,
   source: '',

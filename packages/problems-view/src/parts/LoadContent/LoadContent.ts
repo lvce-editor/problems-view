@@ -12,7 +12,7 @@ import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
   const { fileIconCache: oldFileIconCache } = state
   const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspacePath.getWorkspacePath()])
-  const { error, problems } = await GetProblems.getProblems(workspaceUri, activeUri)
+  const { error, problems } = await GetProblems.getProblems(activeUri)
   if (error) {
     return {
       ...state,
