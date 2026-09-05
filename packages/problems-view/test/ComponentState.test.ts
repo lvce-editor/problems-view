@@ -19,7 +19,7 @@ test('gets the current worker state instead of the last rendered state', () => {
   const newState = { ...oldState, filterValue: 'current filter' }
   ProblemsStates.set(uid, oldState, newState)
 
-  expect(commandMap['Problems.getComponentState'](uid)).toBe(newState)
+  expect(commandMap['Problems.getComponentState'](uid)).toEqual(newState)
 })
 
 test('sets the full component state and renders the changed filter', async () => {
@@ -29,7 +29,7 @@ test('sets the full component state and renders the changed filter', async () =>
   await commandMap['Problems.setComponentState'](uid, newState)
 
   expect(ProblemsStates.get(uid)).toMatchObject({ newState, oldState })
-  expect(commandMap['Problems.getComponentState'](uid)).toBe(newState)
+  expect(commandMap['Problems.getComponentState'](uid)).toEqual(newState)
   const commands = await render2(uid, diff2(uid))
   expect(commands).toContainEqual(['Viewlet.setValueByName', uid, 'filter-live%20filter', 'live filter'])
 })
