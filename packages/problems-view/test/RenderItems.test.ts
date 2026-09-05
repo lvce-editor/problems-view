@@ -18,7 +18,7 @@ test.each([
   const problems = toProblems([{ code: '', columnIndex: 0, listItemType: 0, message: 'error', rowIndex: 0, source: '', type: 'error', uri }])
   const state = { ...createDefaultState(), maxLineY: 2, problems, workspaceUri: 'file:///workspace' }
   const result = renderItems(state, state)
-  const dom = result[2] as readonly { className?: string; text?: string }[]
+  const dom = result[2] as readonly { readonly className?: string; readonly text?: string }[]
   const labelIndex = dom.findIndex((node) => node.className === 'LabelDetail')
   expect(labelIndex).toBeGreaterThan(-1)
   expect(dom[labelIndex + 1].text).toBe(expectedLabel)

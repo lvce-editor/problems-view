@@ -14,7 +14,9 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
 
   const problems = Locator('.Problem')
   await expect(problems).toHaveCount(2)
-  await expect(problems.nth(0).locator('.Label')).toHaveText('file1.xyz')
-  await expect(problems.nth(0).locator('.LabelDetail')).toHaveText('src/nested')
-  await expect(problems.nth(1)).toHaveText('error 1xyz [Ln 1, Col 1]')
+  const header = problems.nth(0)
+  const problem = problems.nth(1)
+  await expect(header.locator('.Label')).toHaveText('file1.xyz')
+  await expect(header.locator('.LabelDetail')).toHaveText('src/nested')
+  await expect(problem).toHaveText('error 1xyz [Ln 1, Col 1]')
 }
