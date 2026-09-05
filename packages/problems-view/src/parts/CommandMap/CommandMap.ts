@@ -4,6 +4,7 @@ import * as CopyMessage from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
+import { getComponentState } from '../GetComponentState/GetComponentState.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
@@ -33,6 +34,7 @@ import { renderActions } from '../RenderActions/RenderActions.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import * as Resize from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { setComponentState } from '../SetComponentState/SetComponentState.ts'
 import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
 import { toggleShowErrors } from '../ToggleShowErrors/ToggleShowErrors.ts'
 import { toggleShowInfos } from '../ToggleShowInfos/ToggleShowInfos.ts'
@@ -50,6 +52,7 @@ export const commandMap = {
   'Problems.diff2': Diff2.diff2,
   'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
   'Problems.getCommandIds': getCommandIds,
+  'Problems.getComponentState': getComponentState,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'Problems.getMenuIds': getMenuIds,
@@ -78,6 +81,7 @@ export const commandMap = {
   'Problems.renderEventListeners': renderEventListeners,
   'Problems.resize': Resize.resize,
   'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
+  'Problems.setComponentState': setComponentState,
   'Problems.terminate': ViewletRegistry.terminate,
   'Problems.toggleFileGroup': WrapCommand.wrapCommand(toggleFileGroup),
   'Problems.toggleShowErrors': WrapCommand.wrapCommand(toggleShowErrors),
