@@ -1,15 +1,15 @@
 import type { FilteredProblem } from '../FilteredProblem/FilteredProblem.ts'
 import type { Problem } from '../Problem/Problem.ts'
-import * as DiagnosticType from '../DiagnosticType/DiagnosticType.ts'
 import { getListItemType } from '../GetListItemType/GetListItemType.ts'
 import { matchesFilterValue } from '../MatchesFilterValue/MatchesFilterValue.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../ProblemType/ProblemType.ts'
 
 const matchesSeverity = (problem: Problem, showErrors: boolean, showWarnings: boolean, showInfos: boolean): boolean => {
   switch (problem.type) {
-    case DiagnosticType.Error:
+    case ProblemType.Error:
       return showErrors
-    case DiagnosticType.Warning:
+    case ProblemType.Warning:
       return showWarnings
     default:
       return showInfos

@@ -3,6 +3,7 @@ import type { Problem } from '../src/parts/Problem/Problem.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('isEqual returns true when problems arrays are the same reference', () => {
   const problems: readonly Problem[] = [
@@ -19,7 +20,7 @@ test('isEqual returns true when problems arrays are the same reference', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'test',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'test.ts',
     },
   ]
@@ -43,7 +44,7 @@ test('isEqual returns false when problems arrays are different', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'old',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'old.ts',
     },
   ]
@@ -61,7 +62,7 @@ test('isEqual returns false when problems arrays are different', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'new',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'new.ts',
     },
   ]

@@ -3,6 +3,7 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { copyMessage } from '../src/parts/CopyMessage/CopyMessage.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('copyMessage should copy the focused problem message to clipboard', async () => {
   const mockProblem: Problem = {
@@ -18,7 +19,7 @@ test('copyMessage should copy the focused problem message to clipboard', async (
     rowIndex: 5,
     setSize: 1,
     source: 'TypeScript',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test.ts',
   }
 
@@ -48,7 +49,7 @@ test('copyMessage should copy message from different problem index', async () =>
     rowIndex: 5,
     setSize: 1,
     source: 'TypeScript',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test1.ts',
   }
 
@@ -65,7 +66,7 @@ test('copyMessage should copy message from different problem index', async () =>
     rowIndex: 10,
     setSize: 1,
     source: 'TypeScript',
-    type: 'warning',
+    type: ProblemType.Warning,
     uri: 'file:///test2.ts',
   }
 

@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { filterProblems } from '../src/parts/FilterProblems/FilterProblems.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('filterProblems returns empty array when no problems match filter', () => {
   const problems: readonly Problem[] = [
@@ -18,7 +19,7 @@ test('filterProblems returns empty array when no problems match filter', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -45,7 +46,7 @@ test('filterProblems returns all problems when filter is empty', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -76,7 +77,7 @@ test('filterProblems matches by uri', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -106,7 +107,7 @@ test('filterProblems matches by source', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -136,7 +137,7 @@ test('filterProblems matches by message', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -166,7 +167,7 @@ test('filterProblems matches case insensitive', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/FILE.ts',
     },
   ]
@@ -194,7 +195,7 @@ test('filterProblems excludes collapsed items when listItemType is Item', () => 
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -221,7 +222,7 @@ test('filterProblems includes collapsed items when listItemType is not Item', ()
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -250,7 +251,7 @@ test('filterProblems sets correct listItemType for non-collapsed items', () => {
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file.ts',
     },
   ]
@@ -279,7 +280,7 @@ test('filterProblems handles multiple problems with different matches', () => {
       rowIndex: 1,
       setSize: 2,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/file1.ts',
     },
     {
@@ -295,7 +296,7 @@ test('filterProblems handles multiple problems with different matches', () => {
       rowIndex: 2,
       setSize: 2,
       source: 'ESLint',
-      type: 'warning',
+      type: ProblemType.Warning,
       uri: '/path/to/file2.ts',
     },
   ]
@@ -324,7 +325,7 @@ test('filterProblems excludes errors and empty file groups when showErrors is fa
       rowIndex: 0,
       setSize: 1,
       source: '',
-      type: '',
+      type: ProblemType.None,
       uri: '/path/to/error.ts',
     },
     {
@@ -340,7 +341,7 @@ test('filterProblems excludes errors and empty file groups when showErrors is fa
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/path/to/error.ts',
     },
     {
@@ -356,7 +357,7 @@ test('filterProblems excludes errors and empty file groups when showErrors is fa
       rowIndex: 0,
       setSize: 1,
       source: '',
-      type: '',
+      type: ProblemType.None,
       uri: '/path/to/warning.ts',
     },
     {
@@ -372,7 +373,7 @@ test('filterProblems excludes errors and empty file groups when showErrors is fa
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'warning',
+      type: ProblemType.Warning,
       uri: '/path/to/warning.ts',
     },
   ]
@@ -398,7 +399,7 @@ test('filterProblems treats non-error and non-warning diagnostics as infos', () 
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
-      type: 'info',
+      type: ProblemType.Info,
       uri: '/path/to/info.ts',
     },
   ]

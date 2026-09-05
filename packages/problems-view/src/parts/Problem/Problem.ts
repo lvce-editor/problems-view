@@ -12,6 +12,6 @@ export interface Problem {
   readonly setSize: number
   readonly source: string
   readonly targetUri?: string
-  readonly type: string
+  readonly type: number
   readonly uri: string
 }

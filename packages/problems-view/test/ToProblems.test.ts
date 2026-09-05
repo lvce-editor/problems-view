@@ -1,4 +1,5 @@
 import { test, expect } from '@jest/globals'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 import { toProblems } from '../src/parts/ToProblems/ToProblems.ts'
 
 test('toProblems maps a single diagnostic to a header item and a problem item', () => {
@@ -30,7 +31,7 @@ test('toProblems maps a single diagnostic to a header item and a problem item', 
       rowIndex: 0,
       setSize: 123,
       source: '',
-      type: '',
+      type: ProblemType.None,
       uri: 'file:///workspace/file.ts',
     },
     {
@@ -46,7 +47,7 @@ test('toProblems maps a single diagnostic to a header item and a problem item', 
       rowIndex: 1,
       setSize: 1,
       source: 'src',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'file:///workspace/file.ts',
     },
   ])
@@ -112,7 +113,7 @@ test('toProblems falls back to default item values for missing diagnostic fields
     rowIndex: 0,
     setSize: 1,
     source: '',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///workspace/defaults.ts',
   })
 })
@@ -205,7 +206,45 @@ test('toProblems adds related locations beneath their diagnostic without increas
     setSize: 1,
     source: 'types.ts',
     targetUri: 'file:///workspace/types.ts',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///workspace/main.ts',
   })
+})
+
+test.each([
+  ['error', ProblemType.Error],
+  ['warning', ProblemType.Warning],
+  ['spelling', ProblemType.Spelling],
+  ['info', ProblemType.Info],
+  ['other', ProblemType.Other],
+  ['unknown', ProblemType.Other],
+  ['', ProblemType.Error],
+])('toProblems converts %s to a numeric type for diagnostics and related locations', (type, expectedType) => {
+  const diagnostic = {
+    code: '',
+    columnIndex: 0,
+    listItemType: 0,
+    message: 'problem',
+    relatedInformation: [
+      {
+        columnIndex: 0,
+        endColumnIndex: 1,
+        endRowIndex: 0,
+        message: 'related problem',
+        rowIndex: 0,
+        uri: 'file:///workspace/related.ts',
+      },
+    ],
+    relativePath: '',
+    rowIndex: 0,
+    source: 'test',
+    type,
+    uri: 'file:///workspace/main.ts',
+  }
+
+  const problems = toProblems([diagnostic])
+
+  expect(problems.map((problem) => problem.type)).toEqual([ProblemType.None, expectedType, expectedType])
+  expect(problems.every((problem) => typeof problem.type === 'number')).toBe(true)
+  expect(diagnostic.type).toBe(type)
 })
