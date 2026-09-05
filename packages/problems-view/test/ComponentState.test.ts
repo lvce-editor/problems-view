@@ -34,7 +34,7 @@ test('sets the full component state and renders the changed filter', async () =>
   expect(commands).toContainEqual(['Viewlet.setValueByName', uid, 'filter-live%20filter', 'live filter'])
 })
 
-test.each([null, [], 'invalid', 1])('rejects invalid component state %p without changing state', async (value) => {
+test.each([null, [], 'invalid', 1])('rejects invalid component state %p without changing state', async (value: unknown) => {
   const before = ProblemsStates.get(uid)
 
   await expect(commandMap['Problems.setComponentState'](uid, value as unknown as ProblemsState)).rejects.toThrow('Problems state must be an object')
