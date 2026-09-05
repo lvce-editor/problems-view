@@ -2,10 +2,6 @@ import type { Diagnostic, RelatedDiagnosticInformation } from '../Diagnostic/Dia
 import type { Problem } from '../Problem/Problem.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 
-const leadingSlashesRegex = /^\/+/
-const trailingSlashRegex = /\/$/
-const windowsDrivePathRegex = /^\/[a-z]:\//i
-
 const toProblem = (diagnostic: Diagnostic, index: number): DeepMutable<Problem> => {
   const { code, columnIndex, message, rowIndex, source, type, uri } = diagnostic
   return {
@@ -17,32 +13,12 @@ const toProblem = (diagnostic: Diagnostic, index: number): DeepMutable<Problem> 
     listItemType: ProblemListItemType.Item,
     message: message || '',
     posInSet: index,
-    relativePath: '',
     rowIndex: rowIndex || 0,
     setSize: 1,
     source: source || '',
     type: type || 'error',
     uri,
   }
-}
-
-const normalizeFileUri = (uri: string): string => {
-  const normalizedUri = uri.startsWith('file://') ? uri.slice('file://'.length) : uri
-  return windowsDrivePathRegex.test(normalizedUri) ? normalizedUri.slice(1) : normalizedUri
-}
-
-const getRelativeParentUri = (uri: string, workspaceUri: string): string => {
-  const normalizedUri = normalizeFileUri(uri)
-  const normalizedWorkspaceUri = normalizeFileUri(workspaceUri).replace(trailingSlashRegex, '')
-  const slashIndex = normalizedUri.lastIndexOf('/')
-  const parentUri = normalizedUri.slice(0, slashIndex)
-  if (parentUri === normalizedWorkspaceUri) {
-    return ''
-  }
-  if (normalizedWorkspaceUri && parentUri.startsWith(`${normalizedWorkspaceUri}/`)) {
-    return parentUri.slice(normalizedWorkspaceUri.length + 1)
-  }
-  return parentUri.replace(leadingSlashesRegex, '')
 }
 
 const getFileName = (uri: string): string => {
@@ -65,7 +41,6 @@ const toRelatedProblem = (
     listItemType: ProblemListItemType.Item,
     message: relatedInformation.message || '',
     posInSet: index,
-    relativePath: '',
     rowIndex: relatedInformation.rowIndex || 0,
     setSize,
     source: getFileName(relatedInformation.uri),
@@ -77,7 +52,7 @@ const toRelatedProblem = (
 
 type DeepMutable<T> = { -readonly [P in keyof T]: DeepMutable<T[P]> }
 
-export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''): readonly Problem[] => {
+export const toProblems = (diagnostics: readonly Diagnostic[]): readonly Problem[] => {
   const problems: DeepMutable<Problem>[] = []
   let problem: DeepMutable<Problem> = {
     code: '',
@@ -88,7 +63,6 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
     listItemType: 0,
     message: '',
     posInSet: 0,
-    relativePath: '',
     rowIndex: 0,
     setSize: 0,
     source: '',
@@ -111,7 +85,6 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
         listItemType: ProblemListItemType.Expanded,
         message: '',
         posInSet: relativeIndex,
-        relativePath: '',
         rowIndex: 0,
         setSize: 123,
         source: '',
@@ -127,13 +100,8 @@ export const toProblems = (diagnostics: readonly Diagnostic[], workspaceUri = ''
     }
   }
   for (const problem of problems) {
-    // TODO maybe rename property, this should be the relative path of the parent folder of the file
-    // @ts-ignore
     const displayUri = problem.targetUri || problem.uri
-    problem.relativePath = getRelativeParentUri(displayUri, workspaceUri)
-    // @ts-ignore
     problem.fileName = getFileName(displayUri)
-    // problem.uri = problem.uri // TODO
   }
   return problems
 }

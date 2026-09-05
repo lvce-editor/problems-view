@@ -21,7 +21,6 @@ test('isEqual returns false when problems change', () => {
         listItemType: 0,
         message: 'message',
         posInSet: 1,
-        relativePath: 'file.ts',
         rowIndex: 1,
         setSize: 1,
         source: '',

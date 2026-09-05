@@ -4,7 +4,7 @@ import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetProblemsListItemVirtualDom from '../GetProblemsListItemVirtualDom/GetProblemsListItemVirtualDom.ts'
 
-export const getProblemsListVirtualDom = (problems: readonly VisibleProblem[]): readonly VirtualDomNode[] => {
+export const getProblemsListVirtualDom = (problems: readonly VisibleProblem[], workspaceUri = ''): readonly VirtualDomNode[] => {
   const dom = [
     {
       ariaLabel: 'Problems Tree', // TODO use i18n string
@@ -13,7 +13,7 @@ export const getProblemsListVirtualDom = (problems: readonly VisibleProblem[]): 
       role: AriaRoles.Tree,
       type: VirtualDomElements.Div,
     },
-    ...problems.flatMap(GetProblemsListItemVirtualDom.getProblemVirtualDom),
+    ...problems.flatMap((problem) => GetProblemsListItemVirtualDom.getProblemVirtualDom(problem, workspaceUri)),
   ]
   return dom
 }

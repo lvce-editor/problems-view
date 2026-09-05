@@ -24,6 +24,7 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     smallWidthBreakPoint,
     viewMode,
     width,
+    workspaceUri,
   } = newState
   const problemCount = GetVisibleProblemCount.getVisibleProblemCount(
     problems,
@@ -59,6 +60,7 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
     scrollBarHeight,
     scrollBarActive,
     problemCount,
+    workspaceUri,
   )
   return ['Viewlet.setDom2', newState.uid, dom]
 }

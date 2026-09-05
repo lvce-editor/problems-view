@@ -8,6 +8,7 @@ import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirt
 import * as GetProblemIndent from '../GetProblemIndent/GetProblemIndent.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
+import * as GetRelativeParentUri from '../GetRelativeParentUri/GetRelativeParentUri.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
@@ -35,7 +36,7 @@ const problemAtNode: VirtualDomNode = {
   type: VirtualDomElements.Span,
 }
 
-export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
+export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = ''): readonly VirtualDomNode[] => {
   const {
     code,
     columnIndex,
@@ -49,7 +50,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     message,
     messageMatchIndex,
     posInSet,
-    relativePath,
     rowIndex,
     setSize,
     source,
@@ -87,7 +87,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       },
       text(fileName),
       labelDetailNode,
-      text(relativePath),
+      text(GetRelativeParentUri.getRelativeParentUri(uri, workspaceUri)),
       ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.ProblemBadge, problem.count),
     ]
   }

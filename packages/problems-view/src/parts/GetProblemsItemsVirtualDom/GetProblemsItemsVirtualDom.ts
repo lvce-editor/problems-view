@@ -20,6 +20,7 @@ export const getProblemsVirtualDom = (
   filterValue: string,
   message: string,
   problemCount = problems.length,
+  workspaceUri = '',
 ): readonly VirtualDomNode[] => {
   if (problemCount === 0 && message) {
     return [messageNode, text(message)]
@@ -33,5 +34,5 @@ export const getProblemsVirtualDom = (
   if (viewMode === ProblemsViewMode.Table) {
     return GetProblemsTableVirtualDom.getProblemsTableVirtualDom(problems)
   }
-  return GetProblemsListVirtualDom.getProblemsListVirtualDom(problems)
+  return GetProblemsListVirtualDom.getProblemsListVirtualDom(problems, workspaceUri)
 }

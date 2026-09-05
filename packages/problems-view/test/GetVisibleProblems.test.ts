@@ -13,7 +13,6 @@ const createProblem = (listItemType: number, message: string): Problem => ({
   listItemType,
   message,
   posInSet: 1,
-  relativePath: 'file.ts',
   rowIndex: 1,
   setSize: 1,
   source: 'test',
