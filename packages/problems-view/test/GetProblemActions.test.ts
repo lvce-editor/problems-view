@@ -94,9 +94,10 @@ test('getActions returns viewAsList button when in table mode', () => {
 
   expect(actions).toHaveLength(2)
   expect(actions[1]).toEqual({
-    command: 'viewAsList',
+    command: DomEventListenerFunctions.HandleViewAsList,
     icon: MaskIcon.ListTree,
     id: expect.any(String),
+    name: 'viewAsList',
     type: ActionType.Button,
   })
 })
@@ -111,15 +112,17 @@ test('getActions returns collapseAll and viewAsTable buttons when in list mode',
 
   expect(actions).toHaveLength(3)
   expect(actions[1]).toEqual({
-    command: 'collapseAll',
+    command: DomEventListenerFunctions.HandleCollapseAll,
     icon: MaskIcon.CollapseAll,
     id: expect.any(String),
+    name: 'collapseAll',
     type: ActionType.Button,
   })
   expect(actions[2]).toEqual({
-    command: 'viewAsTable',
+    command: DomEventListenerFunctions.HandleViewAsTable,
     icon: MaskIcon.ListFlat,
     id: expect.any(String),
+    name: 'viewAsTable',
     type: ActionType.Button,
   })
 })

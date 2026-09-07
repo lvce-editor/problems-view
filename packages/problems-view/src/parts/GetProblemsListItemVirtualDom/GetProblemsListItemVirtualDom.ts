@@ -1,11 +1,11 @@
-import { type VirtualDomNode, AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { type VirtualDomNode, AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
-import * as GetProblemIndent from '../GetProblemIndent/GetProblemIndent.ts'
+import * as GetProblemClassName from '../GetProblemClassName/GetProblemClassName.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
 import * as GetRelativeParentUri from '../GetRelativeParentUri/GetRelativeParentUri.ts'
@@ -56,12 +56,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
     type,
     uri,
   } = problem
-  let className = ClassNames.Problem
-  const indent = GetProblemIndent.getProblemIndent(listItemType, level)
-  className = mergeClassNames(className, `Indent-${indent}`)
-  if (isActive) {
-    className = mergeClassNames(className, ClassNames.ProblemSelected)
-  }
+  const className = GetProblemClassName.getProblemClassName(listItemType, level, isActive)
   if (listItemType === ProblemListItemType.Expanded || listItemType === ProblemListItemType.Collapsed) {
     const fileIconDom = icon ? [GetFileIconVirtualDom.getFileIconVirtualDom(icon)] : []
     return [
@@ -97,10 +92,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
     className: ClassNames.ProblemLabel,
     type: VirtualDomElements.Div,
   }
-  /**
-   * @type {any}
-   */
-  const dom = [
+  const dom: VirtualDomNode[] = [
     {
       ariaLevel: level,
       ariaPosInSet: posInSet,

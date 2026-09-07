@@ -11,5 +11,4 @@ export const HandleScrollBarPointerDown = 10
 export const HandleCollapseAll = 11
 export const HandleViewAsList = 12
 export const HandleViewAsTable = 13
-export const HandleClickButton = 14
 export const HandleFileNameClick = 15

@@ -13,7 +13,6 @@ import { handleActiveEditorChange, handleDiagnosticsChange } from '../HandleActi
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
-import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
 import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
@@ -25,7 +24,6 @@ import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarCli
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
-import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import { getCommandIds } from '../ProblemsStates/ProblemsStates.ts'
@@ -62,7 +60,6 @@ export const commandMap = {
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleProblemClick),
-  'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),
@@ -74,7 +71,6 @@ export const commandMap = {
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'Problems.handleWheel': WrapCommand.wrapCommand(handleWheel),
   'Problems.handleWorkspaceChange': WrapCommand.wrapCommand(handleWorkspaceChange),
-  'Problems.initialize': Initialize.initialize,
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
   'Problems.renderActions': renderActions,

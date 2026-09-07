@@ -6,7 +6,6 @@ import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts
 
 export const renderItems = (oldState: ProblemsState, newState: ProblemsState): ViewletCommand => {
   const {
-    activeUri,
     collapsedUris,
     fileIconCache,
     filterValue,
@@ -49,7 +48,6 @@ export const renderItems = (oldState: ProblemsState, newState: ProblemsState): V
   )
   const isSmall = width <= smallWidthBreakPoint
   const dom = GetProblemsVirtualDom.getProblemsVirtualDom(
-    activeUri,
     viewMode,
     visible,
     filterValue,

@@ -20,9 +20,9 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Pro
   const problemsView = Locator('.Viewlet.Problems')
 
   await Problems.handleActiveEditorChange(firstUri)
-  await expect(problemsView).toHaveAttribute('data-active-uri', firstUri)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
   await Problems.handleActiveEditorChange(secondUri)
-  await expect(problemsView).toHaveAttribute('data-active-uri', secondUri)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
   await Problems.handleActiveEditorChange(thirdUri)
-  await expect(problemsView).toHaveAttribute('data-active-uri', thirdUri)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
 }

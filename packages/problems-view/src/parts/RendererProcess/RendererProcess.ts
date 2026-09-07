@@ -10,7 +10,7 @@ export const isConnected = (): boolean => {
   return connected
 }
 
-export const invoke = (method: string, ...params: readonly unknown[]): Promise<any> => {
+export const invoke = (method: string, ...params: readonly unknown[]): Promise<unknown> => {
   return RendererProcessRegistry.invoke(method, ...params)
 }
 

@@ -14,7 +14,7 @@ export interface ProblemsState {
   readonly height: number
   readonly inputSource: number
   readonly itemHeight: number
-  readonly listItems: readonly any[]
+  readonly listItems: readonly unknown[]
   readonly maxLineY: number
   readonly message: string
   readonly minimumSliderSize: number

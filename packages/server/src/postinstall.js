@@ -33,6 +33,8 @@ const rendererProcessPath = join(nodeModulesPath, '@lvce-editor', 'renderer-proc
 const rendererProcessStaticPath = join(serverStaticPath, commitHash, 'packages', 'renderer-process', 'dist', 'rendererProcessMain.js')
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
+// Older renderer bundles still invoke the removed Problems initializer.
+let newContent = content.replace(/^  await invoke[\w$]*\(ipc, 'Problems\.initialize'\);\r?\n/gm, '')
 
 const remoteUrl = getRemoteUrl(workerPath)
 if (!content.includes('// const problemsViewWorkerUrl = ')) {
@@ -40,7 +42,9 @@ if (!content.includes('// const problemsViewWorkerUrl = ')) {
   const replacement = `// const problemsViewWorkerUrl = \`\${assetDir}/packages/problems-view/dist/problemsViewWorkerMain.js\`
 const problemsViewWorkerUrl = \`${remoteUrl}\``
 
-  const newContent = content.replace(occurrence, replacement)
+  newContent = newContent.replace(occurrence, replacement)
+}
+if (newContent !== content) {
   await writeFile(rendererWorkerMainPath, newContent)
 }
 

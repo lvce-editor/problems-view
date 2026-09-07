@@ -18,5 +18,5 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Pro
   await Problems.handleActiveEditorChange(firstUri)
 
   const problemsView = Locator('.Viewlet.Problems')
-  await expect(problemsView).toHaveAttribute('data-active-uri', firstUri)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
 }

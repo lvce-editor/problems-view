@@ -6,17 +6,18 @@ import { getActionButtonVirtualDom } from '../src/parts/GetActionButtonVirtualDo
 
 test('getActionButtonVirtualDom returns correct dom for action', () => {
   const action = {
-    command: 'testCommand',
+    command: DomEventListenerFunctions.HandleCollapseAll,
     icon: 'TestIcon',
     id: 'Test Action',
+    name: 'collapseAll',
   }
   const result = getActionButtonVirtualDom(action)
   expect(result).toHaveLength(2)
   expect(result[0]).toEqual({
     childCount: 1,
     className: ClassNames.IconButton,
-    name: 'testCommand',
-    onClick: DomEventListenerFunctions.HandleClickButton,
+    name: 'collapseAll',
+    onClick: DomEventListenerFunctions.HandleCollapseAll,
     title: 'Test Action',
     type: VirtualDomElements.Button,
   })
@@ -25,15 +26,4 @@ test('getActionButtonVirtualDom returns correct dom for action', () => {
     className: 'MaskIcon MaskIconTestIcon',
     type: VirtualDomElements.Div,
   })
-})
-
-test.each([
-  ['collapseAll', DomEventListenerFunctions.HandleCollapseAll],
-  ['more filters', DomEventListenerFunctions.HandleClickMoreFilters],
-  ['viewAsList', DomEventListenerFunctions.HandleViewAsList],
-  ['viewAsTable', DomEventListenerFunctions.HandleViewAsTable],
-])('getActionButtonVirtualDom maps %s to its direct click listener', (command, onClick) => {
-  const result = getActionButtonVirtualDom({ command, icon: 'TestIcon', id: command })
-
-  expect(result[0]).toMatchObject({ onClick })
 })

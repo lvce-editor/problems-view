@@ -75,11 +75,11 @@ test('isEqual returns true when both states have the same empty problems array r
   expect(isEqual(oldState, newState)).toBe(true)
 })
 
-test('isEqual returns false when the active uri changes', () => {
+test('isEqual returns true when only the active uri changes', () => {
   const problems: readonly Problem[] = []
   const oldState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///old.ts', problems }
-  const newState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///new.ts', problems }
-  expect(isEqual(oldState, newState)).toBe(false)
+  const newState: ProblemsState = { ...oldState, activeUri: 'file:///new.ts' }
+  expect(isEqual(oldState, newState)).toBe(true)
 })
 
 test('isEqual returns false when file icons change', () => {
@@ -92,6 +92,20 @@ test('isEqual returns false when file icons change', () => {
 test('isEqual returns false when shown severities change', () => {
   const oldState = createDefaultState()
   const newState = { ...oldState, showErrors: false }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})
+
+test('isEqual returns true when collapsed uris have equal contents', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///a.ts'] }
+
+  expect(isEqual(oldState, newState)).toBe(true)
+})
+
+test('isEqual returns false when collapsed uris change', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///b.ts'] }
 
   expect(isEqual(oldState, newState)).toBe(false)
 })

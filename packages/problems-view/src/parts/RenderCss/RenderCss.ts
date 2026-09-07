@@ -47,32 +47,8 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
   const scrollBarTop = GetScrollBarTop.getScrollBarTop(listHeight, finalDeltaY, deltaY, scrollBarHeight)
   const itemOffset = itemHeight > 0 ? -(deltaY % itemHeight) : 0
   const rules = [
-    `.Problems {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-}
-.ProblemsContent {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  position: relative;
-}
-.ProblemsList {
-  contain: strict;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-}
-.ProblemsTableBody {
-  overflow: hidden;
-}
-.ProblemsTableRow {
+    `.ProblemsTableRow {
   height: ${itemHeight}px;
-}
-.ProblemsContentTable > .ScrollBar {
-  top: 22px;
 }
 .Problems .ScrollBarThumb {
   height: ${scrollBarHeight}px;

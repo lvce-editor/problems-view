@@ -3,11 +3,12 @@ import { AriaRoles, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetProblemsListItemVirtualDom from '../GetProblemsListItemVirtualDom/GetProblemsListItemVirtualDom.ts'
+import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const getProblemsListVirtualDom = (problems: readonly VisibleProblem[], workspaceUri = ''): readonly VirtualDomNode[] => {
   const dom = [
     {
-      ariaLabel: 'Problems Tree', // TODO use i18n string
+      ariaLabel: ProblemStrings.problemsTree(),
       childCount: problems.length,
       className: ClassNames.ProblemsList,
       role: AriaRoles.Tree,

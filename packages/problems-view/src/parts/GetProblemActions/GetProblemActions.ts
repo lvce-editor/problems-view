@@ -53,23 +53,26 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
   }
   if (viewMode === ProblemsViewMode.Table) {
     actions.push({
-      command: 'viewAsList',
+      command: DomEventListenerFunctions.HandleViewAsList,
       icon: MaskIcon.ListTree,
       id: ProblemStrings.viewAsList(),
+      name: 'viewAsList',
       type: ActionType.Button,
     })
   } else {
     actions.push(
       {
-        command: 'collapseAll',
+        command: DomEventListenerFunctions.HandleCollapseAll,
         icon: MaskIcon.CollapseAll,
         id: ProblemStrings.collapseAll(),
+        name: 'collapseAll',
         type: ActionType.Button,
       },
       {
-        command: 'viewAsTable',
+        command: DomEventListenerFunctions.HandleViewAsTable,
         icon: MaskIcon.ListFlat,
         id: ProblemStrings.viewAsTable(),
+        name: 'viewAsTable',
         type: ActionType.Button,
       },
     )
