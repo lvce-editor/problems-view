@@ -95,3 +95,17 @@ test('isEqual returns false when shown severities change', () => {
 
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual returns true when collapsed uris have equal contents', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///a.ts'] }
+
+  expect(isEqual(oldState, newState)).toBe(true)
+})
+
+test('isEqual returns false when collapsed uris change', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///b.ts'] }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})
