@@ -51,3 +51,17 @@ if (newContent !== content) {
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
 await copyFile(rendererProcessPath, rendererProcessStaticPath)
+
+const indexHtmlPath = join(serverStaticPath, 'index.html')
+const indexHtml = await readFile(indexHtmlPath, 'utf8')
+const config = {
+  rendererWorkerUrl: `/${commitHash}/packages/renderer-worker/dist/rendererWorkerMain.js`,
+  editorWorkerUrl: `/${commitHash}/packages/editor-worker/dist/editorWorkerMain.js`,
+  syntaxHighlightingWorkerUrl: `/${commitHash}/packages/syntax-highlighting-worker/dist/syntaxHighlightingWorkerMain.js`,
+}
+const configElement = `<script id="Config" type="application/json">${JSON.stringify(config)}</script>`
+const configRegex = /<script id="Config" type="application\/json">[\s\S]*?<\/script>/g
+const newIndexHtml = indexHtml.includes('id="Config"')
+  ? indexHtml.replace(configRegex, configElement)
+  : indexHtml.replace('</head>', `${configElement}\n</head>`)
+await writeFile(indexHtmlPath, newIndexHtml)
