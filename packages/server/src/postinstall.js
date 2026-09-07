@@ -29,6 +29,8 @@ const commitHash = dirents.find(isCommitHash) || ''
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
 const testWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
+const rendererProcessPath = join(nodeModulesPath, '@lvce-editor', 'renderer-process', 'dist', 'rendererProcessMain.js')
+const rendererProcessStaticPath = join(serverStaticPath, commitHash, 'packages', 'renderer-process', 'dist', 'rendererProcessMain.js')
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 
@@ -43,3 +45,5 @@ const problemsViewWorkerUrl = \`${remoteUrl}\``
 }
 
 await copyFile(testWorkerPath, testWorkerStaticPath)
+
+await copyFile(rendererProcessPath, rendererProcessStaticPath)
