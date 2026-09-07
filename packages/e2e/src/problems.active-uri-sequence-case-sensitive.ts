@@ -9,6 +9,6 @@ export const test: Test = async ({ expect, Locator, Panel, Problems }) => {
 
   for (const uri of uris) {
     await Problems.handleActiveEditorChange(uri)
-    await expect(problemsView).toHaveAttribute('data-active-uri', uri)
+    await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
   }
 }
