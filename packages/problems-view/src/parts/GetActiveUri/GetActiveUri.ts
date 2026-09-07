@@ -1,5 +1,4 @@
-import { EditorWorker } from '@lvce-editor/rpc-registry'
-import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
+import { EditorWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 
 export const getActiveUri = async (): Promise<string> => {
   const editorId = await RendererWorker.getActiveEditorId()

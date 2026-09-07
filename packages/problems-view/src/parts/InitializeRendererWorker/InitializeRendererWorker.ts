@@ -1,6 +1,6 @@
 import { WebWorkerRpcClient } from '@lvce-editor/rpc'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import * as CommandMapRef from '../CommandMapRef/CommandMapRef.ts'
-import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
 export const initializeRendererWorker = async (): Promise<void> => {
   const rpc = await WebWorkerRpcClient.create({
