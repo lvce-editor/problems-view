@@ -9,8 +9,6 @@ import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('opens and focuses the clicked problem at its position', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
-    'Editor.cursorSet': async () => {},
-    'Main.focus': async () => {},
     'Main.openUri': async () => {},
   })
   const state: ProblemsState = {
@@ -41,9 +39,7 @@ test('opens and focuses the clicked problem at its position', async () => {
 
   expect(result.focusedIndex).toBe(0)
   expect(rendererRpc.invocations).toEqual([
-    ['Main.openUri', { focus: true, uri: 'file:///workspace/test.ts' }],
-    ['Main.focus'],
-    ['Editor.cursorSet', 4, 7],
+    ['Main.openUri', { initialCursorPosition: { columnIndex: 7, rowIndex: 4 }, shouldFocus: true, uri: 'file:///workspace/test.ts' }],
   ])
 })
 
@@ -83,8 +79,6 @@ test('does not open a file when clicking a problem group', async () => {
 
 test('opens a related diagnostic target', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
-    'Editor.cursorSet': async () => {},
-    'Main.focus': async () => {},
     'Main.openUri': async () => {},
   })
   const state: ProblemsState = {
@@ -115,8 +109,6 @@ test('opens a related diagnostic target', async () => {
   await handleProblemClick(state, 50, 11)
 
   expect(rendererRpc.invocations).toEqual([
-    ['Main.openUri', { focus: true, uri: 'file:///workspace/types.ts' }],
-    ['Main.focus'],
-    ['Editor.cursorSet', 1, 2],
+    ['Main.openUri', { initialCursorPosition: { columnIndex: 2, rowIndex: 1 }, shouldFocus: true, uri: 'file:///workspace/types.ts' }],
   ])
 })
