@@ -4,6 +4,9 @@ import * as ClipBoard from '../ClipBoard/ClipBoard.ts'
 export const copyMessage = async (state: ProblemsState): Promise<ProblemsState> => {
   const { focusedIndex, problems } = state
   const problem = problems[focusedIndex]
+  if (!problem) {
+    return state
+  }
   await ClipBoard.writeText(problem.message)
   return state
 }
