@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { EventExpression } from '@lvce-editor/constants'
+import { EventExpression } from '@lvce-editor/virtual-dom-worker'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { renderEventListeners } from '../src/parts/RenderEventListeners/RenderEventListeners.ts'
 

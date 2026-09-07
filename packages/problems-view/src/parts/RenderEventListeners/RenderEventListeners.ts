@@ -1,5 +1,5 @@
 import type { DomEventListener } from '@lvce-editor/virtual-dom-worker'
-import { EventExpression } from '@lvce-editor/constants'
+import { EventExpression } from '@lvce-editor/virtual-dom-worker'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 
@@ -11,13 +11,13 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandleContextMenu,
-      params: ['handleContextMenu', 'event.clientX', 'event.clientY'],
+      params: ['handleContextMenu', EventExpression.ClientX, EventExpression.ClientY],
       preventDefault: true,
     },
     {
       name: DomEventListenerFunctions.HandleFilterInput,
       // @ts-ignore
-      params: ['handleFilterInput', 'event.target.value', InputSource.User],
+      params: ['handleFilterInput', EventExpression.TargetValue, InputSource.User],
     },
     {
       name: DomEventListenerFunctions.HandleClearFilterClick,
@@ -25,7 +25,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandlePointerDown,
-      params: ['handleClickAt', 'event.clientX', 'event.clientY'],
+      params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandleFileNameClick,
