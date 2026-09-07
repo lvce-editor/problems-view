@@ -3,7 +3,7 @@ import type { ProblemsSummary } from '../ProblemsSummary/ProblemsSummary.ts'
 import { countByType } from '../CountByType/CountByType.ts'
 import * as DiagnosticType from '../DiagnosticType/DiagnosticType.ts'
 import { getActiveDiagnostics } from '../GetActiveDiagnostics/GetActiveDiagnostics.ts'
-import { getUniqueDiagnostics } from '../GetProblems/GetProblems.ts'
+import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
 export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
