@@ -1,6 +1,6 @@
+import { EditorWorker } from '@lvce-editor/rpc-registry'
 import type { Diagnostic } from '../Diagnostic/Diagnostic.ts'
 import type { ProblemsResult } from '../ProblemsResult/ProblemsResult.ts'
-import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import { toProblems } from '../ToProblems/ToProblems.ts'
 
 const getDiagnosticKey = (diagnostic: Diagnostic): string =>
