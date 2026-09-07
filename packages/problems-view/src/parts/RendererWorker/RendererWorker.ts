@@ -17,7 +17,7 @@ export const setEditorCursor = async (rowIndex: number, columnIndex: number): Pr
   await RendererWorker.invoke('Editor.cursorSet', rowIndex, columnIndex)
 }
 
-export const sendMessagePortToEditorWorker = (port: any, rpcId: number): Promise<void> => {
+export const sendMessagePortToEditorWorker = (port: MessagePort, rpcId: number): Promise<void> => {
   return RendererWorker.sendMessagePortToEditorWorker(port, rpcId)
 }
 

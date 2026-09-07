@@ -9,7 +9,7 @@ import * as GetWorkspacePath from '../GetWorkspacePath/GetWorkspacePath.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
-export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
+export const loadContent = async (state: ProblemsState, savedState: unknown): Promise<ProblemsState> => {
   const { fileIconCache: oldFileIconCache } = state
   const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspacePath.getWorkspacePath()])
   const { error, problems } = await GetProblems.getProblems(activeUri)
