@@ -5,10 +5,10 @@ import * as ActionType from '../ActionType/ActionType.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as DomId from '../DomId/DomId.ts'
-import * as GetFilterInputName from '../GetFilterInputName/GetFilterInputName.ts'
 import * as GetProblemsFilterVirtualDom from '../GetProblemsFilterVirtualDom/GetProblemsFilterVirtualDom.ts'
 import * as GetProblemsItemsVirtualDom from '../GetProblemsItemsVirtualDom/GetProblemsItemsVirtualDom.ts'
 import * as GetScrollBarVirtualDom from '../GetScrollBarVirtualDom/GetScrollBarVirtualDom.ts'
+import * as InputName from '../InputName/InputName.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 import * as TabIndex from '../TabIndex/TabIndex.ts'
@@ -18,7 +18,6 @@ export const getProblemsVirtualDom = (
   viewMode: number,
   problems: readonly VisibleProblem[],
   filterValue: string,
-  inputSource: number,
   isSmall: boolean,
   message: string,
   scrollBarHeight = 0,
@@ -43,7 +42,7 @@ export const getProblemsVirtualDom = (
         badgeText: '',
         command: DomEventListenerFunctions.HandleFilterInput,
         id: DomId.Filter,
-        name: GetFilterInputName.getFilterInputName(inputSource, filterValue),
+        name: InputName.ProblemsInput,
         placeholder: ProblemStrings.filter(),
         type: ActionType.ProblemsFilter,
         value: filterValue,

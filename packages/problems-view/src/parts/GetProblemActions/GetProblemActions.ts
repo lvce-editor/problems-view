@@ -2,8 +2,8 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import type { ViewletAction } from '../ViewletAction/ViewletAction.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetFilterInputName from '../GetFilterInputName/GetFilterInputName.ts'
 import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
+import * as InputName from '../InputName/InputName.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
@@ -45,7 +45,7 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
       badgeText: visibleCount === problemsCount ? '' : ProblemStrings.showingOf(visibleCount, problemsCount),
       command: DomEventListenerFunctions.HandleFilterInput,
       id: 'Filter',
-      name: GetFilterInputName.getFilterInputName(inputSource, filterValue),
+      name: InputName.ProblemsInput,
       placeholder: ProblemStrings.filter(),
       type: ActionType.ProblemsFilter,
       value: inputSource === InputSource.Script ? filterValue : '',
