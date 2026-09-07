@@ -11,8 +11,8 @@ test.each(['file:///workspace', 'file:///C:/workspace', 'file:///workspace%20wit
       'Workspace.getUri': () => workspaceUri,
     })
     using editorRpc = EditorWorker.registerMockRpc({
-      'Editor.getUri': () => 'file:///workspace/file.ts',
       'Editor.getProblems': () => [],
+      'Editor.getUri': () => 'file:///workspace/file.ts',
     })
 
     const result = await loadContent(createDefaultState(), {})
@@ -29,10 +29,10 @@ test('loadContent preserves the workspace URI when loading diagnostics fails', a
     'Workspace.getUri': () => 'memfs:///workspace',
   })
   using editorRpc = EditorWorker.registerMockRpc({
-    'Editor.getUri': () => 'file:///workspace/file.ts',
     'Editor.getProblems': () => {
       throw new Error('Failed to get problems')
     },
+    'Editor.getUri': () => 'file:///workspace/file.ts',
   })
 
   const result = await loadContent(createDefaultState(), {})
