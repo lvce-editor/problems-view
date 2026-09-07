@@ -7,7 +7,7 @@ export const test: Test = async ({ expect, Locator, Panel }) => {
 
   const input = Locator('.Panel .InputBox')
   await expect(input).toBeVisible()
-  await expect(input).toHaveAttribute('name', 'filter')
+  await expect(input).toHaveAttribute('name', 'ProblemsInput')
   await expect(input).toHaveAttribute('placeholder', 'Filter')
   await expect(input).toHaveAttribute('spellcheck', 'false')
   await expect(input).toHaveAttribute('autocapitalize', 'off')
