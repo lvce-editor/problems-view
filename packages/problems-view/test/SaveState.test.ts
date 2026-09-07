@@ -50,7 +50,7 @@ test('saveState should preserve all other state properties but only return the r
     height: 400,
     inputSource: InputSource.Script,
     itemHeight: 30,
-    listItems: [{ id: '1' } as any],
+    listItems: [{ id: '1' }],
     maxLineY: 20,
     message: 'some message',
     minLineY: 10,

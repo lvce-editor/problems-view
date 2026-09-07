@@ -92,10 +92,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
     className: ClassNames.ProblemLabel,
     type: VirtualDomElements.Div,
   }
-  /**
-   * @type {any}
-   */
-  const dom = [
+  const dom: VirtualDomNode[] = [
     {
       ariaLevel: level,
       ariaPosInSet: posInSet,
