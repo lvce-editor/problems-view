@@ -29,8 +29,10 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     return newState
   }
   const { columnIndex, rowIndex, targetUri, uri } = problem
-  await RendererWorker.openUri(targetUri || uri, true)
-  await RendererWorker.focusEditor()
-  await RendererWorker.setEditorCursor(rowIndex, columnIndex)
+  await RendererWorker.openUri({
+    initialCursorPosition: { columnIndex, rowIndex },
+    shouldFocus: true,
+    uri: targetUri || uri,
+  })
   return newState
 }

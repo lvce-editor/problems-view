@@ -1,20 +1,13 @@
 import type { Rpc } from '@lvce-editor/rpc'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { OpenUriOptions } from '../OpenUriOptions/OpenUriOptions.ts'
 
 export const getActiveEditorId = (): Promise<number> => {
   return RendererWorker.getActiveEditorId()
 }
 
-export const focusEditor = async (): Promise<void> => {
-  await RendererWorker.invoke('Main.focus')
-}
-
-export const openUri = (uri: string, focus: boolean): Promise<void> => {
-  return RendererWorker.openUri(uri, focus)
-}
-
-export const setEditorCursor = async (rowIndex: number, columnIndex: number): Promise<void> => {
-  await RendererWorker.invoke('Editor.cursorSet', rowIndex, columnIndex)
+export const openUri = async (options: OpenUriOptions): Promise<void> => {
+  await RendererWorker.invoke('Main.openUri', options)
 }
 
 export const sendMessagePortToEditorWorker = (port: any, rpcId: number): Promise<void> => {
