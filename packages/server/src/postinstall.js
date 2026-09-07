@@ -50,7 +50,11 @@ if (newContent !== content) {
 
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
-await copyFile(rendererProcessPath, rendererProcessStaticPath)
+const rendererProcessContent = await readFile(rendererProcessPath, 'utf8')
+const staticRendererProcessContent = rendererProcessContent
+  .replace('const platform = getPlatform();', 'const platform = Remote;')
+  .replace('const assetDir = getAssetDir();', `const assetDir = '/${commitHash}';`)
+await writeFile(rendererProcessStaticPath, staticRendererProcessContent)
 
 const indexHtmlPath = join(serverStaticPath, 'index.html')
 const indexHtml = await readFile(indexHtmlPath, 'utf8')
