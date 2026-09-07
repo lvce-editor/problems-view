@@ -13,7 +13,6 @@ import { handleActiveEditorChange, handleDiagnosticsChange } from '../HandleActi
 import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
-import { handleClickButton } from '../HandleClickButton/HandleClickButton.ts'
 import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
@@ -62,7 +61,6 @@ export const commandMap = {
   'Problems.handleArrowRight': WrapCommand.wrapCommand(HandleArrowRight.handleArrowRight),
   'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleProblemClick),
-  'Problems.handleClickButton': WrapCommand.wrapCommand(handleClickButton),
   'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),

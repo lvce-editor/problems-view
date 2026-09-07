@@ -36,10 +36,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
-      name: DomEventListenerFunctions.HandleClickButton,
-      params: ['handleClickButton', EventExpression.TargetName, EventExpression.ClientX, EventExpression.ClientY],
-    },
-    {
       name: DomEventListenerFunctions.HandleCollapseAll,
       params: ['collapseAll'],
     },
