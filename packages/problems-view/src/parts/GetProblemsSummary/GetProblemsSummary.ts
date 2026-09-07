@@ -3,7 +3,7 @@ import type { Diagnostic } from '../Diagnostic/Diagnostic.ts'
 import type { ProblemsSummary } from '../ProblemsSummary/ProblemsSummary.ts'
 import * as DiagnosticType from '../DiagnosticType/DiagnosticType.ts'
 import { getDiagnostics } from '../GetDiagnostics/GetDiagnostics.ts'
-import { getUniqueDiagnostics } from '../GetProblems/GetProblems.ts'
+import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
 const countByType = (diagnostics: readonly Diagnostic[], type: string): number => {
