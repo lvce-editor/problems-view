@@ -1,22 +1,10 @@
 import { EditorWorker } from '@lvce-editor/rpc-registry'
-import type { Diagnostic } from '../Diagnostic/Diagnostic.ts'
 import type { ProblemsSummary } from '../ProblemsSummary/ProblemsSummary.ts'
+import { countByType } from '../CountByType/CountByType.ts'
 import * as DiagnosticType from '../DiagnosticType/DiagnosticType.ts'
-import { getDiagnostics } from '../GetDiagnostics/GetDiagnostics.ts'
+import { getActiveDiagnostics } from '../GetActiveDiagnostics/GetActiveDiagnostics.ts'
 import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
-
-const countByType = (diagnostics: readonly Diagnostic[], type: string): number => {
-  return diagnostics.filter((diagnostic) => diagnostic.type === type).length
-}
-
-const getActiveDiagnostics = async (editorId: number): Promise<readonly Diagnostic[]> => {
-  try {
-    return await getDiagnostics(editorId)
-  } catch {
-    return []
-  }
-}
 
 export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
   const editorId = await RendererWorker.getActiveEditorId()
