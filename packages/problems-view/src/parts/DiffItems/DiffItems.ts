@@ -3,7 +3,6 @@ import { haveSameCollapsedUris } from '../HaveSameCollapsedUris/HaveSameCollapse
 
 export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boolean => {
   return (
-    oldState.activeUri === newState.activeUri &&
     haveSameCollapsedUris(oldState, newState) &&
     oldState.fileIconCache === newState.fileIconCache &&
     oldState.focusedIndex === newState.focusedIndex &&
