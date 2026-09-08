@@ -48,4 +48,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await expect(fixedDivider).toHaveCSS('pointer-events', 'none')
   const codeDivider = Locator('.ProblemsTableDivider1')
   await expect(codeDivider).toHaveCSS('cursor', 'col-resize')
+  await expect(codeDivider).toBeVisible()
+  await expect(tableBody).toBeVisible()
+  await expect(problemsView).toHaveCSS('display', 'flex')
 }

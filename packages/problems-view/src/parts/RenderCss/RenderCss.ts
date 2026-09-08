@@ -54,7 +54,20 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
     return `.Problems .ProblemsTableDivider${index} { left: ${left}px; }`
   })
   const rules = [
-    `.Problems .ProblemsTable {
+    `.Problems:has(.ProblemsContentTable) {
+  display: flex;
+  flex-direction: column;
+}
+.Problems .ProblemsContentTable {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+.Problems .ProblemsContentTable > .ScrollBar {
+  top: 22px;
+}
+.Problems .ProblemsTable {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -81,6 +94,7 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
   background: transparent;
 }
 .Problems .ProblemsTableBody {
+  overflow: hidden;
   flex: 1;
   min-height: 0;
 }
