@@ -24,7 +24,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['clearFilter'],
     },
     {
-      name: DomEventListenerFunctions.HandlePointerDown,
+      name: DomEventListenerFunctions.HandleClick,
       params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {

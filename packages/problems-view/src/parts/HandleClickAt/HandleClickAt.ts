@@ -21,8 +21,6 @@ export const handleClickAt = (state: ProblemsState, eventX: number, eventY: numb
     y,
   } = state
 
-  // TODO use functional focus rendering
-  // Focus.setFocus(FocusKey.Problems)
   const problemCount = GetVisibleProblemCount.getVisibleProblemCount(
     problems,
     collapsedUris,

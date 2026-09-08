@@ -17,6 +17,7 @@ const buildE2eExtension = async (extensionName: string): Promise<void> => {
 
 export const buildE2eExtensions = async (): Promise<void> => {
   await buildE2eExtension('problems.click-focuses-editor')
+  await buildE2eExtension('problems.click-highlight-switch')
   await buildE2eExtension('problems.enable-diagnostics')
   await buildE2eExtension('problems.numeric-types')
   await buildE2eExtension('problems.one-problem')

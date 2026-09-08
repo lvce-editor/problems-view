@@ -1,7 +1,6 @@
 import { type VirtualDomNode, AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
@@ -69,6 +68,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
         childCount: 4 + fileIconDom.length,
         className,
         role: AriaRoles.TreeItem,
+        tabIndex: isActive ? 0 : -1,
         type: VirtualDomElements.Div,
       },
       listItemType === ProblemListItemType.Collapsed
@@ -78,7 +78,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
       {
         ...labelNode,
         'data-uri': uri,
-        onClick: DomEventListenerFunctions.HandleFileNameClick,
       },
       text(fileName),
       labelDetailNode,
@@ -101,6 +100,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
       childCount: 3,
       className,
       role: AriaRoles.TreeItem,
+      tabIndex: isActive ? 0 : -1,
       type: VirtualDomElements.Div,
     },
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),
