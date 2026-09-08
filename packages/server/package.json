@@ -11,6 +11,7 @@
     "dev": "node ../../node_modules/@lvce-editor/server/bin/server.js --test-path=../e2e"
   },
   "dependencies": {
+    "@lvce-editor/editor-worker": "19.60.0",
     "@lvce-editor/main-area-worker": "9.62.0",
     "@lvce-editor/server": "0.113.12"
   }

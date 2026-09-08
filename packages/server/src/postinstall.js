@@ -15,6 +15,8 @@ const nodeModulesPath = join(root, 'node_modules')
 
 const workerPath = join(root, '.tmp', 'dist', 'dist', 'problemsViewWorkerMain.js')
 
+const editorWorkerPath = join(nodeModulesPath, '@lvce-editor', 'editor-worker', 'dist', 'editorWorkerMain.js')
+
 const mainAreaWorkerPath = join(nodeModulesPath, '@lvce-editor', 'main-area-worker', 'dist', 'mainAreaWorkerMain.js')
 
 const testWorkerPath = join(nodeModulesPath, '@lvce-editor', 'test-worker', 'dist', 'testWorkerMain.js')
@@ -29,6 +31,8 @@ const isCommitHash = (dirent) => {
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
+
+const editorWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'editor-worker', 'dist', 'editorWorkerMain.js')
 
 const mainAreaWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'main-area-worker', 'dist', 'mainAreaWorkerMain.js')
 
@@ -52,6 +56,7 @@ if (newContent !== content) {
   await writeFile(rendererWorkerMainPath, newContent)
 }
 
+await copyFile(editorWorkerPath, editorWorkerStaticPath)
 await copyFile(mainAreaWorkerPath, mainAreaWorkerStaticPath)
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
