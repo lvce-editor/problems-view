@@ -11,4 +11,6 @@ export const HandleScrollBarPointerDown = 10
 export const HandleCollapseAll = 11
 export const HandleViewAsList = 12
 export const HandleViewAsTable = 13
-export const HandleFileNameClick = 15
+export const HandleColumnResizeStart = 16
+export const HandleColumnResizeMove = 17
+export const HandleColumnResizeEnd = 18

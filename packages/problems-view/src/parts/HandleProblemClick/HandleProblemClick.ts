@@ -4,6 +4,7 @@ import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
+import { updateVirtualList } from '../UpdateVirtualList/UpdateVirtualList.ts'
 
 export const handleProblemClick = async (state: ProblemsState, eventX: number, eventY: number): Promise<ProblemsState> => {
   const newState = handleClickAt(state, eventX, eventY)
@@ -30,7 +31,7 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     return newState
   }
   if (problem.listItemType !== ProblemListItemType.Item) {
-    return toggleFileGroup(newState, problem.uri)
+    return updateVirtualList(toggleFileGroup(newState, problem.uri))
   }
   const { columnIndex, rowIndex, targetUri, uri } = problem
   await RendererWorker.openUri({

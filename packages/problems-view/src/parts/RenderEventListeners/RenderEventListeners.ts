@@ -6,6 +6,21 @@ import * as InputSource from '../InputSource/InputSource.ts'
 export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
     {
+      name: DomEventListenerFunctions.HandleColumnResizeStart,
+      params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX, 'event.target.parentNode.clientWidth'],
+      preventDefault: true,
+      stopPropagation: true,
+      trackPointerEvents: [DomEventListenerFunctions.HandleColumnResizeMove, DomEventListenerFunctions.HandleColumnResizeEnd],
+    } as DomEventListener,
+    {
+      name: DomEventListenerFunctions.HandleColumnResizeMove,
+      params: ['handleColumnResizeMove', EventExpression.ClientX],
+    },
+    {
+      name: DomEventListenerFunctions.HandleColumnResizeEnd,
+      params: ['handleColumnResizeEnd'],
+    },
+    {
       name: DomEventListenerFunctions.HandleBlur,
       params: ['handleBlur'],
     },
@@ -26,10 +41,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     {
       name: DomEventListenerFunctions.HandleClick,
       params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY],
-    },
-    {
-      name: DomEventListenerFunctions.HandleFileNameClick,
-      params: ['toggleFileGroup', 'event.target.dataset.uri'],
     },
     {
       name: DomEventListenerFunctions.HandleClickMoreFilters,
