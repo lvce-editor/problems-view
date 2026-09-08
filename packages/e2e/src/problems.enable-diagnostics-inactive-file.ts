@@ -5,8 +5,8 @@ export const name = 'problems.enable-diagnostics-inactive-file'
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Settings, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.setFiles([
-    { uri: `${tmpDir}/file1.js`, content: 'content 1' },
-    { uri: `${tmpDir}/active.txt`, content: 'plain text' },
+    { content: 'content 1', uri: `${tmpDir}/file1.js` },
+    { content: 'plain text', uri: `${tmpDir}/active.txt` },
   ])
   await Workspace.setPath(tmpDir)
   await Extension.addWebExtension(import.meta.resolve('../fixtures/problems.enable-diagnostics'))
