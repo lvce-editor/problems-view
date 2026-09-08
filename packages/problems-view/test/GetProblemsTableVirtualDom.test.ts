@@ -5,6 +5,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getProblemsTableBodyVirtualDom } from '../src/parts/GetProblemsTableBodyVirtualDom/GetProblemsTableBodyVirtualDom.ts'
 import { getProblemsTableHeaderVirtualDom } from '../src/parts/GetProblemsTableHeaderVirtualDom/GetProblemsTableHeaderVirtualDom.ts'
 import { getProblemsTableVirtualDom } from '../src/parts/GetProblemsTableVirtualDom/GetProblemsTableVirtualDom.ts'
+import { getTableDividersVirtualDom } from '../src/parts/GetTableDividersVirtualDom/GetTableDividersVirtualDom.ts'
 import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('getProblemsTableVirtualDom returns correct dom structure with empty problems', () => {
@@ -12,7 +13,7 @@ test('getProblemsTableVirtualDom returns correct dom structure with empty proble
   const dom = getProblemsTableVirtualDom(problems)
 
   expect(dom[0]).toEqual({
-    childCount: 2,
+    childCount: 6,
     className: ClassNames.ProblemsTable,
     type: VirtualDomElements.Div,
   })
@@ -20,9 +21,9 @@ test('getProblemsTableVirtualDom returns correct dom structure with empty proble
   const headerDom = getProblemsTableHeaderVirtualDom()
   const bodyDom = getProblemsTableBodyVirtualDom(problems)
 
-  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length)
+  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length + 4)
   expect(dom.slice(1, 1 + headerDom.length)).toEqual(headerDom)
-  expect(dom.slice(1 + headerDom.length)).toEqual(bodyDom)
+  expect(dom.slice(1 + headerDom.length)).toEqual([...bodyDom, ...getTableDividersVirtualDom()])
 })
 
 test('getProblemsTableVirtualDom returns correct dom structure with problems', () => {
@@ -54,7 +55,7 @@ test('getProblemsTableVirtualDom returns correct dom structure with problems', (
   const dom = getProblemsTableVirtualDom(problems)
 
   expect(dom[0]).toEqual({
-    childCount: 2,
+    childCount: 6,
     className: ClassNames.ProblemsTable,
     type: VirtualDomElements.Div,
   })
@@ -62,9 +63,9 @@ test('getProblemsTableVirtualDom returns correct dom structure with problems', (
   const headerDom = getProblemsTableHeaderVirtualDom()
   const bodyDom = getProblemsTableBodyVirtualDom(problems)
 
-  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length)
+  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length + 4)
   expect(dom.slice(1, 1 + headerDom.length)).toEqual(headerDom)
-  expect(dom.slice(1 + headerDom.length)).toEqual(bodyDom)
+  expect(dom.slice(1 + headerDom.length)).toEqual([...bodyDom, ...getTableDividersVirtualDom()])
 })
 
 test('getProblemsTableVirtualDom returns correct dom structure with multiple problems', () => {
@@ -119,7 +120,7 @@ test('getProblemsTableVirtualDom returns correct dom structure with multiple pro
   const dom = getProblemsTableVirtualDom(problems)
 
   expect(dom[0]).toEqual({
-    childCount: 2,
+    childCount: 6,
     className: ClassNames.ProblemsTable,
     type: VirtualDomElements.Div,
   })
@@ -127,7 +128,7 @@ test('getProblemsTableVirtualDom returns correct dom structure with multiple pro
   const headerDom = getProblemsTableHeaderVirtualDom()
   const bodyDom = getProblemsTableBodyVirtualDom(problems)
 
-  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length)
+  expect(dom.length).toBe(1 + headerDom.length + bodyDom.length + 4)
   expect(dom.slice(1, 1 + headerDom.length)).toEqual(headerDom)
-  expect(dom.slice(1 + headerDom.length)).toEqual(bodyDom)
+  expect(dom.slice(1 + headerDom.length)).toEqual([...bodyDom, ...getTableDividersVirtualDom()])
 })

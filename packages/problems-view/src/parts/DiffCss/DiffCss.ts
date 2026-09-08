@@ -2,6 +2,7 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 
 export const isEqual = (oldState: ProblemsState, newState: ProblemsState): boolean => {
   return (
+    oldState.columnWidths === newState.columnWidths &&
     oldState.collapsedUris === newState.collapsedUris &&
     oldState.deltaY === newState.deltaY &&
     oldState.filterValue === newState.filterValue &&

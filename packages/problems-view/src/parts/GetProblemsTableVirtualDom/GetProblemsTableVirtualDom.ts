@@ -4,9 +4,10 @@ import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetProblemsTableBodyVirtualDom from '../GetProblemsTableBodyVirtualDom/GetProblemsTableBodyVirtualDom.ts'
 import * as GetProblemsTableHeaderVirtualDom from '../GetProblemsTableHeaderVirtualDom/GetProblemsTableHeaderVirtualDom.ts'
+import { getTableDividersVirtualDom } from '../GetTableDividersVirtualDom/GetTableDividersVirtualDom.ts'
 
 const tableNode: VirtualDomNode = {
-  childCount: 2,
+  childCount: 6,
   className: ClassNames.ProblemsTable,
   type: VirtualDomElements.Div,
 }
@@ -16,6 +17,7 @@ export const getProblemsTableVirtualDom = (problems: readonly VisibleProblem[]):
     tableNode,
     ...GetProblemsTableHeaderVirtualDom.getProblemsTableHeaderVirtualDom(),
     ...GetProblemsTableBodyVirtualDom.getProblemsTableBodyVirtualDom(problems),
+    ...getTableDividersVirtualDom(),
   ]
   return dom
 }
