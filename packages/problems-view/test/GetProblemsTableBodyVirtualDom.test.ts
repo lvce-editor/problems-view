@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getProblemsTableBodyVirtualDom } from '../src/parts/GetProblemsTableBodyVirtualDom/GetProblemsTableBodyVirtualDom.ts'
@@ -12,6 +12,8 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with empty pr
     {
       childCount: 0,
       className: ClassNames.ProblemsTableBody,
+      onClick: 5,
+      role: AriaRoles.Group,
       type: VirtualDomElements.Div,
     },
   ]
@@ -49,6 +51,8 @@ test('getProblemsTableBodyVirtualDom returns correct dom structure with problems
   expect(dom[0]).toEqual({
     childCount: 1,
     className: ClassNames.ProblemsTableBody,
+    onClick: 5,
+    role: AriaRoles.Group,
     type: VirtualDomElements.Div,
   })
 

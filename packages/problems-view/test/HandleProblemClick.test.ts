@@ -8,7 +8,7 @@ import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemLi
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
-test('opens and focuses the clicked problem at its position', async () => {
+test('reveals and highlights the clicked problem without focusing the editor', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
     'Main.openUri': async () => {},
   })
@@ -40,7 +40,10 @@ test('opens and focuses the clicked problem at its position', async () => {
 
   expect(result.focusedIndex).toBe(0)
   expect(rendererRpc.invocations).toEqual([
-    ['Main.openUri', { initialCursorPosition: { columnIndex: 7, rowIndex: 4 }, shouldFocus: true, uri: 'file:///workspace/test.ts' }],
+    [
+      'Main.openUri',
+      { initialCursorPosition: { columnIndex: 7, highlightProblem: true, rowIndex: 4 }, shouldFocus: false, uri: 'file:///workspace/test.ts' },
+    ],
   ])
 })
 
@@ -75,6 +78,10 @@ test('does not open a file when clicking a problem group', async () => {
   const result = await handleProblemClick(state, 50, 11)
 
   expect(result.focusedIndex).toBe(0)
+  expect(result.collapsedUris).toEqual(['file:///workspace/test.ts'])
+  const expanded = await handleProblemClick(result, 50, 11)
+  expect(expanded.collapsedUris).toEqual([])
+  expect(expanded.focusedIndex).toBe(0)
   expect(rendererRpc.invocations).toEqual([])
 })
 
@@ -110,7 +117,10 @@ test('opens a related diagnostic target', async () => {
   await handleProblemClick(state, 50, 11)
 
   expect(rendererRpc.invocations).toEqual([
-    ['Main.openUri', { initialCursorPosition: { columnIndex: 2, rowIndex: 1 }, shouldFocus: true, uri: 'file:///workspace/types.ts' }],
+    [
+      'Main.openUri',
+      { initialCursorPosition: { columnIndex: 2, highlightProblem: true, rowIndex: 1 }, shouldFocus: false, uri: 'file:///workspace/types.ts' },
+    ],
   ])
 })
 

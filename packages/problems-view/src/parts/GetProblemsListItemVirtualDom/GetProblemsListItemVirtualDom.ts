@@ -68,6 +68,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
         childCount: 4 + fileIconDom.length,
         className,
         role: AriaRoles.TreeItem,
+        tabIndex: isActive ? 0 : -1,
         type: VirtualDomElements.Div,
       },
       listItemType === ProblemListItemType.Collapsed
@@ -99,6 +100,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
       childCount: 3,
       className,
       role: AriaRoles.TreeItem,
+      tabIndex: isActive ? 0 : -1,
       type: VirtualDomElements.Div,
     },
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),

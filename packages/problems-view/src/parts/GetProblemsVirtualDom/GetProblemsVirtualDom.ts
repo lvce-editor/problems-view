@@ -29,7 +29,6 @@ export const getProblemsVirtualDom = (
     className: mergeClassNames(ClassNames.Viewlet, ClassNames.Problems),
     onBlur: DomEventListenerFunctions.HandleBlur,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
-    onPointerDown: DomEventListenerFunctions.HandlePointerDown,
     onWheel: DomEventListenerFunctions.HandleWheel,
     tabIndex: TabIndex.Focusable,
     type: VirtualDomElements.Div,

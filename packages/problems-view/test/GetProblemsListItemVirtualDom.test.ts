@@ -46,6 +46,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
       childCount: 5,
       className: `${ClassNames.Problem} Indent-1rem ${ClassNames.ProblemSelected}`,
       role: AriaRoles.TreeItem,
+      tabIndex: 0,
       type: VirtualDomElements.Div,
     },
     {
@@ -117,6 +118,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
       childCount: 5,
       className: `${ClassNames.Problem} Indent-1rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {
@@ -205,6 +207,7 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
       childCount: 3,
       className: `${ClassNames.Problem} Indent-2rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {
@@ -283,6 +286,7 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
       childCount: 3,
       className: `${ClassNames.Problem} Indent-2rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {

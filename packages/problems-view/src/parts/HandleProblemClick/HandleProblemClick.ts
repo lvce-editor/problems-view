@@ -35,8 +35,8 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
   }
   const { columnIndex, rowIndex, targetUri, uri } = problem
   await RendererWorker.openUri({
-    initialCursorPosition: { columnIndex, rowIndex },
-    shouldFocus: true,
+    initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
+    shouldFocus: false,
     uri: targetUri || uri,
   })
   return newState

@@ -15,6 +15,7 @@ test('getProblemsListVirtualDom with empty problems array', () => {
     ariaLabel: 'Problems Tree',
     childCount: 0,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })
@@ -53,6 +54,7 @@ test('getProblemsListVirtualDom with single problem', () => {
     ariaLabel: 'Problems Tree',
     childCount: 1,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })
@@ -115,6 +117,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     ariaLabel: 'Problems Tree',
     childCount: 2,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })
