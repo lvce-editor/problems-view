@@ -6,6 +6,21 @@ import * as InputSource from '../InputSource/InputSource.ts'
 export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
     {
+      name: DomEventListenerFunctions.HandleColumnResizeStart,
+      params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX],
+      preventDefault: true,
+      stopPropagation: true,
+      trackPointerEvents: [DomEventListenerFunctions.HandleColumnResizeMove, DomEventListenerFunctions.HandleColumnResizeEnd],
+    } as DomEventListener,
+    {
+      name: DomEventListenerFunctions.HandleColumnResizeMove,
+      params: ['handleColumnResizeMove', EventExpression.ClientX],
+    },
+    {
+      name: DomEventListenerFunctions.HandleColumnResizeEnd,
+      params: ['handleColumnResizeEnd'],
+    },
+    {
       name: DomEventListenerFunctions.HandleBlur,
       params: ['handleBlur'],
     },

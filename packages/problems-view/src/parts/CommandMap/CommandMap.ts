@@ -14,6 +14,7 @@ import * as HandleArrowLeft from '../HandleArrowLeft/HandleArrowLeft.ts'
 import * as HandleArrowRight from '../HandleArrowRight/HandleArrowRight.ts'
 import * as HandleBlur from '../HandleBlur/HandleBlur.ts'
 import { handleClickMoreFilters } from '../HandleClickMoreFilters/HandleClickMoreFilters.ts'
+import { handleColumnResizeStart, handleColumnResizeMove, handleColumnResizeEnd } from '../HandleColumnResize/HandleColumnResize.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFilterInput from '../HandleFilterInput/HandleFilterInput.ts'
 import { handleIconThemeChange } from '../HandleIconThemeChange/HandleIconThemeChange.ts'
@@ -61,6 +62,9 @@ export const commandMap = {
   'Problems.handleBlur': WrapCommand.wrapCommand(HandleBlur.handleBlur),
   'Problems.handleClickAt': WrapCommand.wrapCommand(handleProblemClick),
   'Problems.handleClickMoreFilters': WrapCommand.wrapCommand(handleClickMoreFilters),
+  'Problems.handleColumnResizeEnd': WrapCommand.wrapCommand(handleColumnResizeEnd),
+  'Problems.handleColumnResizeMove': WrapCommand.wrapCommand(handleColumnResizeMove),
+  'Problems.handleColumnResizeStart': WrapCommand.wrapCommand(handleColumnResizeStart),
   'Problems.handleContextMenu': WrapCommand.wrapCommand(handleContextMenu),
   'Problems.handleDiagnosticsChange': WrapCommand.wrapCommand(handleDiagnosticsChange),
   'Problems.handleFilterInput': WrapCommand.wrapCommand(HandleFilterInput.handleFilterInput),

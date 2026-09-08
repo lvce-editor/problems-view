@@ -6,6 +6,7 @@ export const createDefaultState = (): ProblemsState => {
   const state: ProblemsState = {
     activeUri: '',
     collapsedUris: [],
+    columnWidths: [0.13, 0.52, 0.27, 0.08],
     deltaY: 0,
     fileIconCache: {},
     filteredProblems: [],
@@ -22,6 +23,9 @@ export const createDefaultState = (): ProblemsState => {
     minimumSliderSize: 20,
     minLineY: 0,
     problems: [],
+    resizeStartWidths: [],
+    resizeStartX: 0,
+    resizingColumn: 0,
     scrollBarActive: false,
     scrollBarHeight: 0,
     showErrors: true,
