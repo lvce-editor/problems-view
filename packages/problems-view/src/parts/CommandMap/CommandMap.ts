@@ -79,7 +79,7 @@ export const commandMap = {
   'Problems.render2': Render2.render2,
   'Problems.renderActions': renderActions,
   'Problems.renderEventListeners': renderEventListeners,
-  'Problems.resize': Resize.resize,
+  'Problems.resize': WrapCommand.wrapCommand(Resize.resize),
   'Problems.saveState': WrapCommand.wrapGetter(SaveState.saveState),
   'Problems.setComponentState': setComponentState,
   'Problems.terminate': ViewletRegistry.terminate,

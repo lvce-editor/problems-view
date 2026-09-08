@@ -58,7 +58,7 @@ test('column resizing captures the pointer without opening a problem', () => {
     expect.arrayContaining([
       {
         name: DomEventListenerFunctions.HandleColumnResizeStart,
-        params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX],
+        params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX, 'event.target.parentNode.clientWidth'],
         preventDefault: true,
         stopPropagation: true,
         trackPointerEvents: [DomEventListenerFunctions.HandleColumnResizeMove, DomEventListenerFunctions.HandleColumnResizeEnd],

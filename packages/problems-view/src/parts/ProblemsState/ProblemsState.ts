@@ -21,6 +21,7 @@ export interface ProblemsState {
   readonly minimumSliderSize: number
   readonly minLineY: number
   readonly problems: readonly Problem[]
+  readonly resizeStartWidth: number
   readonly resizeStartWidths: readonly number[]
   readonly resizeStartX: number
   readonly resizingColumn: number

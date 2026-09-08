@@ -1,14 +1,15 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import { iconColumnWidth } from '../GetTableColumnWidths/GetTableColumnWidths.ts'
 
-export const handleColumnResizeStart = (state: ProblemsState, name: string, clientX: number): ProblemsState => {
-  const { columnWidths } = state
+export const handleColumnResizeStart = (state: ProblemsState, name: string, clientX: number, tableWidth?: number): ProblemsState => {
+  const { columnWidths, width } = state
   const column = Number(name)
   if (!Number.isSafeInteger(column) || column < 1 || column > 3) {
     return state
   }
   return {
     ...state,
+    resizeStartWidth: tableWidth ?? width,
     resizeStartWidths: columnWidths,
     resizeStartX: clientX,
     resizingColumn: column,
@@ -16,8 +17,8 @@ export const handleColumnResizeStart = (state: ProblemsState, name: string, clie
 }
 
 export const handleColumnResizeMove = (state: ProblemsState, clientX: number): ProblemsState => {
-  const { resizeStartWidths, resizeStartX, resizingColumn, width } = state
-  const availableWidth = width - iconColumnWidth
+  const { resizeStartWidth, resizeStartWidths, resizeStartX, resizingColumn } = state
+  const availableWidth = resizeStartWidth - iconColumnWidth
   if (!resizingColumn || availableWidth <= 0) {
     return state
   }

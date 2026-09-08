@@ -24,6 +24,7 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     minimumSliderSize: 20,
     minLineY: 0,
     problems: [],
+    resizeStartWidth: 0,
     resizeStartWidths: [],
     resizeStartX: 0,
     resizingColumn: 0,

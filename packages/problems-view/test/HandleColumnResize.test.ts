@@ -61,3 +61,10 @@ test('keeps the severity column fixed and scales the other columns with the pane
   expect(getTableColumnWidths(530, [0.2, 0.4, 0.3, 0.1])).toEqual([30, 100, 200, 150, 50])
   expect(getTableColumnWidths(0, [0.2, 0.4, 0.3, 0.1])).toEqual([30, 0, 0, 0, 0])
 })
+
+test('uses the measured table width when a layout notification has not arrived yet', () => {
+  const state = handleColumnResizeStart(createState(), '1', 100, 530)
+  const moved = handleColumnResizeMove(state, 150)
+  expect(moved.columnWidths[0]).toBeCloseTo(0.3)
+  expect(moved.columnWidths[1]).toBeCloseTo(0.3)
+})

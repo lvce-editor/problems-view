@@ -4,7 +4,7 @@ import type { ViewletCommand } from '../ViewletCommand/ViewletCommand.ts'
 import * as GetIndentRule from '../GetIndentRule/GetIndentRule.ts'
 import * as GetListHeight from '../GetListHeight/GetListHeight.ts'
 import * as GetScrollBarTop from '../GetScrollBarTop/GetScrollBarTop.ts'
-import { getTableColumnWidths } from '../GetTableColumnWidths/GetTableColumnWidths.ts'
+import { iconColumnWidth } from '../GetTableColumnWidths/GetTableColumnWidths.ts'
 import * as GetUniqueIndents from '../GetUniqueIndents/GetUniqueIndents.ts'
 import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
 
@@ -48,10 +48,10 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
   const listHeight = GetListHeight.getListHeight(height, width, smallWidthBreakPoint, viewMode)
   const scrollBarTop = GetScrollBarTop.getScrollBarTop(listHeight, finalDeltaY, deltaY, scrollBarHeight)
   const itemOffset = itemHeight > 0 ? -(deltaY % itemHeight) : 0
-  const widths = getTableColumnWidths(width, columnWidths)
-  const dividerRules = widths.slice(0, -1).map((_, index) => {
-    const left = widths.slice(0, index + 1).reduce((sum, value) => sum + value, 0)
-    return `.Problems .ProblemsTableDivider${index} { left: ${left}px; }`
+  const widths = [`${iconColumnWidth}px`, ...columnWidths.map((fraction) => `calc((100% - ${iconColumnWidth}px) * ${fraction})`)]
+  const dividerRules = [0, 1, 2, 3].map((index) => {
+    const fraction = columnWidths.slice(0, index).reduce((sum, value) => sum + value, 0)
+    return `.Problems .ProblemsTableDivider${index} { left: calc(${iconColumnWidth}px + (100% - ${iconColumnWidth}px) * ${fraction}); }`
   })
   const rules = [
     `.Problems:has(.ProblemsContentTable) {
@@ -76,7 +76,7 @@ export const renderCss = (oldState: ProblemsState, newState: ProblemsState): Vie
 }
 .Problems .ProblemsTableRow {
   display: grid;
-  grid-template-columns: ${widths.map((value) => `${value}px`).join(' ')};
+  grid-template-columns: ${widths.join(' ')};
   gap: 0;
   align-items: center;
 }

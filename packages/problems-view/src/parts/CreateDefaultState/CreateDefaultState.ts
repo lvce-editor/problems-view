@@ -23,6 +23,7 @@ export const createDefaultState = (): ProblemsState => {
     minimumSliderSize: 20,
     minLineY: 0,
     problems: [],
+    resizeStartWidth: 0,
     resizeStartWidths: [],
     resizeStartX: 0,
     resizingColumn: 0,

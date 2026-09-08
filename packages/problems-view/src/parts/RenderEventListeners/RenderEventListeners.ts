@@ -7,7 +7,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
     {
       name: DomEventListenerFunctions.HandleColumnResizeStart,
-      params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX],
+      params: ['handleColumnResizeStart', 'event.target.dataset.column', EventExpression.ClientX, 'event.target.parentNode.clientWidth'],
       preventDefault: true,
       stopPropagation: true,
       trackPointerEvents: [DomEventListenerFunctions.HandleColumnResizeMove, DomEventListenerFunctions.HandleColumnResizeEnd],
