@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { getVisibleProblems } from '../src/parts/GetVisibleProblems/GetVisibleProblems.ts'
 import { handleProblemClick } from '../src/parts/HandleProblemClick/HandleProblemClick.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
@@ -111,4 +112,46 @@ test('opens a related diagnostic target', async () => {
   expect(rendererRpc.invocations).toEqual([
     ['Main.openUri', { initialCursorPosition: { columnIndex: 2, rowIndex: 1 }, shouldFocus: true, uri: 'file:///workspace/types.ts' }],
   ])
+})
+
+test('clicking a file group collapses and expands its diagnostics', async () => {
+  const group = {
+    code: '',
+    columnIndex: 0,
+    count: 1,
+    fileName: 'eslint.config.js',
+    level: 1,
+    listItemType: ProblemListItemType.Expanded,
+    message: '',
+    posInSet: 1,
+    rowIndex: 0,
+    setSize: 1,
+    source: '',
+    type: ProblemType.None,
+    uri: 'file:///workspace/eslint.config.js',
+  }
+  const diagnostic = {
+    ...group,
+    level: 2,
+    listItemType: ProblemListItemType.Item,
+    message: 'ESLint configuration error: Failed to fetch',
+    type: ProblemType.Error,
+  }
+  const state: ProblemsState = {
+    ...createDefaultState(),
+    height: 200,
+    problems: [group, diagnostic],
+    viewMode: ProblemsViewMode.List,
+    width: 800,
+  }
+
+  const collapsed = await handleProblemClick(state, 50, 11)
+  expect(collapsed.collapsedUris).toEqual([group.uri])
+  expect(getVisibleProblems(collapsed.problems, {}, collapsed.collapsedUris, 0, '', 0, Infinity, collapsed.viewMode)).toHaveLength(1)
+  expect(collapsed.maxLineY).toBe(1)
+
+  const expanded = await handleProblemClick(collapsed, 50, 11)
+  expect(expanded.collapsedUris).toEqual([])
+  expect(getVisibleProblems(expanded.problems, {}, expanded.collapsedUris, 0, '', 0, Infinity, expanded.viewMode)).toHaveLength(2)
+  expect(expanded.maxLineY).toBe(2)
 })
