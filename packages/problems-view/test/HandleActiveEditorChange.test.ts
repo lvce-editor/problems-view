@@ -87,12 +87,18 @@ test('refreshes problems when diagnostics for the active uri change', async () =
   expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
-test('ignores diagnostics changes for an inactive uri', async () => {
+test('refreshes workspace diagnostics without changing the active uri or filter', async () => {
   using mockRpc = EditorWorker.registerMockRpc({
-    'Editor.getProblems': () => [],
+    'Editor.getProblems': () => [{ message: 'updated', uri: 'file:///inactive.ts' }],
   })
-  const state = { ...createDefaultState(), activeUri: 'file:///active.ts' }
+  const state = { ...createDefaultState(), activeUri: 'file:///active.ts', filterValue: 'updated' }
 
-  await expect(handleDiagnosticsChange(state, 'file:///inactive.ts')).resolves.toBe(state)
-  expect(mockRpc.invocations).toEqual([])
+  const result = await handleDiagnosticsChange(state, 'file:///inactive.ts')
+
+  expect(result.activeUri).toBe(state.activeUri)
+  expect(result.filterValue).toBe(state.filterValue)
+  expect(result.problems).toHaveLength(2)
+  expect(result.problems[1].message).toBe('updated')
+  expect(result.message).toBe('Some problems have been detected in the workspace.')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })

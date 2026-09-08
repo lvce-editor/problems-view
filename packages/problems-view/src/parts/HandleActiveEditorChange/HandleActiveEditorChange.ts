@@ -28,10 +28,7 @@ export const handleActiveEditorChange = async (state: ProblemsState, activeUri: 
   return refreshProblems(state, activeUri)
 }
 
-export const handleDiagnosticsChange = async (state: ProblemsState, uri: string): Promise<ProblemsState> => {
+export const handleDiagnosticsChange = async (state: ProblemsState, _uri: string): Promise<ProblemsState> => {
   const { activeUri } = state
-  if (uri !== activeUri) {
-    return state
-  }
-  return refreshProblems(state, uri)
+  return refreshProblems(state, activeUri)
 }
