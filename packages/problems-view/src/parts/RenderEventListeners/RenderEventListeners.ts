@@ -28,10 +28,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
-      name: DomEventListenerFunctions.HandleFileNameClick,
-      params: ['toggleFileGroup', 'event.target.dataset.uri'],
-    },
-    {
       name: DomEventListenerFunctions.HandleClickMoreFilters,
       params: ['handleClickMoreFilters', EventExpression.ClientX, EventExpression.ClientY],
     },

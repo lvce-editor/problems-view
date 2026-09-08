@@ -1,7 +1,6 @@
 import { type VirtualDomNode, AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
@@ -78,7 +77,6 @@ export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = '')
       {
         ...labelNode,
         'data-uri': uri,
-        onClick: DomEventListenerFunctions.HandleFileNameClick,
       },
       text(fileName),
       labelDetailNode,

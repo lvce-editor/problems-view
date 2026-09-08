@@ -23,8 +23,22 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered filename action instead of its command API.
   await fileName.click()
   await expect(problems).toHaveCount(1)
+  await expect(fileGroup).toHaveAttribute('aria-expanded', 'false')
+  await expect(fileGroup.locator('.MaskIconChevronRight')).toBeVisible()
 
   // eslint-disable-next-line e2e/no-direct-click -- This regression test must exercise the rendered filename action instead of its command API.
   await fileName.click()
   await expect(problems).toHaveCount(2)
+  await expect(fileGroup).toHaveAttribute('aria-expanded', 'true')
+
+  // eslint-disable-next-line e2e/no-direct-click -- Exercise the group chevron through the DOM.
+  await fileGroup.locator('.Chevron').click()
+  await expect(problems).toHaveCount(1)
+  await expect(fileGroup).toHaveAttribute('aria-expanded', 'false')
+
+  // eslint-disable-next-line e2e/no-direct-click -- Exercise the group row outside the filename through the DOM.
+  await fileGroup.locator('.ProblemBadge').click()
+  await expect(problems).toHaveCount(2)
+  await expect(fileGroup).toHaveAttribute('aria-expanded', 'true')
+  await expect(fileGroup.locator('.MaskIconChevronDown')).toBeVisible()
 }
