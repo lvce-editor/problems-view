@@ -5,7 +5,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { diff2 } from '../src/parts/Diff2/Diff2.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import * as ProblemsStates from '../src/parts/ProblemsStates/ProblemsStates.ts'
+import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 import { render2 } from '../src/parts/Render2/Render2.ts'
+import { toProblems } from '../src/parts/ToProblems/ToProblems.ts'
 
 const uid = 42
 
@@ -20,6 +22,24 @@ test('gets the current worker state instead of the last rendered state', () => {
   ProblemsStates.set(uid, oldState, newState)
 
   expect(commandMap['Problems.getComponentState'](uid)).toEqual(newState)
+})
+
+test('gets the current virtual DOM from the component state', () => {
+  const dom = commandMap['Problems.getComponentDom'](uid)
+
+  expect(dom).toEqual(expect.arrayContaining([expect.objectContaining({ className: 'Viewlet Problems' })]))
+})
+
+test('gets the populated virtual DOM from the component state', () => {
+  const { oldState } = ProblemsStates.get(uid)
+  const problems = toProblems([
+    { code: '', columnIndex: 0, listItemType: 0, message: 'problem', rowIndex: 0, source: '', type: 'error', uri: 'file:///workspace/file.ts' },
+  ])
+  ProblemsStates.set(uid, oldState, { ...oldState, maxLineY: 2, problems, viewMode: ProblemsViewMode.List })
+
+  const dom = commandMap['Problems.getComponentDom'](uid)
+
+  expect(dom).toEqual(expect.arrayContaining([expect.objectContaining({ className: 'ProblemsList' })]))
 })
 
 test('sets the full component state and renders the changed filter', async () => {

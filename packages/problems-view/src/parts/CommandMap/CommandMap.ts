@@ -4,6 +4,7 @@ import * as CopyMessage from '../CopyMessage/CopyMessage.ts'
 import * as Create from '../Create/Create.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
+import { getComponentDom } from '../GetComponentDom/GetComponentDom.ts'
 import { getComponentState } from '../GetComponentState/GetComponentState.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
@@ -44,6 +45,8 @@ import { viewAsTable } from '../ViewAsTable/ViewAsTable.ts'
 const handleDirectMessagePort = (port: MessagePort, setAsRendererProcess = true): Promise<void> =>
   HandleMessagePort.handleMessagePort(port, commandMap, setAsRendererProcess)
 
+const getComponentDomForUid = (uid: number): ReturnType<typeof getComponentDom> => getComponentDom(WrapCommand.get(uid).newState)
+
 export const commandMap = {
   'Problems.collapseAll': WrapCommand.wrapCommand(collapseAll),
   'Problems.copyMessage': WrapCommand.wrapCommand(CopyMessage.copyMessage),
@@ -51,6 +54,7 @@ export const commandMap = {
   'Problems.diff2': Diff2.diff2,
   'Problems.focusIndex': WrapCommand.wrapCommand(FocusIndex.focusIndex),
   'Problems.getCommandIds': getCommandIds,
+  'Problems.getComponentDom': getComponentDomForUid,
   'Problems.getComponentState': getComponentState,
   'Problems.getKeyBindings': GetKeyBindings.getKeyBindings,
   'Problems.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
