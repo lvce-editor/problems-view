@@ -1,13 +1,18 @@
 import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
+import * as GetActiveUri from '../GetActiveUri/GetActiveUri.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetProblems from '../GetProblems/GetProblems.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
+import * as ProblemsRequest from '../ProblemsRequest/ProblemsRequest.ts'
 import * as ProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
-const refreshProblems = async (state: ProblemsState, activeUri: string): Promise<ProblemsState> => {
-  const { fileIconCache } = state
+const refreshProblems = async (state: ProblemsState, activeUri: string, request: number): Promise<ProblemsState> => {
+  const { fileIconCache, uid } = state
   const { error, problems } = await GetProblems.getProblems(activeUri)
   const newFileIconCache = await GetFileIcons.getFileIcons(problems, fileIconCache)
+  if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
+    return state
+  }
   return {
     ...state,
     activeUri,
@@ -25,10 +30,14 @@ export const handleActiveEditorChange = async (state: ProblemsState, activeUri: 
   if (activeUri === oldActiveUri) {
     return state
   }
-  return refreshProblems(state, activeUri)
+  const { uid } = state
+  const request = ProblemsRequest.startProblemsRequest(uid)
+  return refreshProblems(state, activeUri, request)
 }
 
 export const handleDiagnosticsChange = async (state: ProblemsState, _uri: string): Promise<ProblemsState> => {
-  const { activeUri } = state
-  return refreshProblems(state, activeUri)
+  const { activeUri: currentActiveUri, uid } = state
+  const request = ProblemsRequest.startProblemsRequest(uid)
+  const activeUri = currentActiveUri || (await GetActiveUri.getActiveUri())
+  return refreshProblems(state, activeUri, request)
 }
