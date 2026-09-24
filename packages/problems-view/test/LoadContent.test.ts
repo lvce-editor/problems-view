@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import { EditorWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { handleDiagnosticsChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
@@ -41,6 +42,34 @@ test('loadContent returns a new state with expected properties', async () => {
   })
   expect(result).not.toBe(state)
   expect(mockRpc.invocations).toEqual([['Editor.getUri', 1], ['Editor.getProblems']])
+})
+
+test('a diagnostics refresh is not overwritten by an older initial load', async () => {
+  const initialRequestStarted = Promise.withResolvers<void>()
+  const initialProblems = Promise.withResolvers<readonly Readonly<{ message: string; uri: string }>[]>()
+  let requestCount = 0
+  using mockRpc = registerEditorWorker({
+    'Editor.getProblems': async () => {
+      requestCount++
+      if (requestCount === 1) {
+        initialRequestStarted.resolve()
+        return await initialProblems.promise
+      }
+      return [{ message: 'current', uri: 'file:///test.ts' }]
+    },
+  })
+  const state = createDefaultState()
+  const initialLoad = loadContent(state, {})
+  await initialRequestStarted.promise
+
+  const refresh = await handleDiagnosticsChange(state, 'file:///test.ts')
+  initialProblems.resolve([])
+  const loaded = await initialLoad
+
+  expect(refresh.problems).toHaveLength(2)
+  expect(refresh.problems[1].message).toBe('current')
+  expect(loaded).toBe(state)
+  expect(mockRpc.invocations.filter(([command]) => command === 'Editor.getProblems')).toHaveLength(2)
 })
 
 test('loadContent preserves state properties and refreshes the workspace uri', async () => {
