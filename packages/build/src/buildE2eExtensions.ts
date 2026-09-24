@@ -21,5 +21,6 @@ export const buildE2eExtensions = async (): Promise<void> => {
   await buildE2eExtension('problems.enable-diagnostics')
   await buildE2eExtension('problems.numeric-types')
   await buildE2eExtension('problems.one-problem')
+  await buildE2eExtension('problems.two-problems')
   await buildE2eExtension('problems.related-location')
 }
