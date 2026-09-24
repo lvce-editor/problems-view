@@ -7,6 +7,7 @@ import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctio
 import { getActions } from '../src/parts/GetProblemActions/GetProblemActions.ts'
 import * as InputSource from '../src/parts/InputSource/InputSource.ts'
 import * as MaskIcon from '../src/parts/MaskIcon/MaskIcon.ts'
+import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
 import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
@@ -17,14 +18,14 @@ const createMockState = (overrides: Partial<ProblemsState> = {}): ProblemsState 
   }
 }
 
-const createMockProblem = (): Problem => {
+const createMockProblem = (overrides: Partial<Problem> = {}): Problem => {
   return {
     code: 'TS1234',
     columnIndex: 1,
     count: 1,
     fileName: '',
     level: 1,
-    listItemType: 1,
+    listItemType: ProblemListItemType.Item,
     message: 'Test error',
     posInSet: 1,
     rowIndex: 1,
@@ -32,7 +33,12 @@ const createMockProblem = (): Problem => {
     source: 'TypeScript',
     type: ProblemType.Error,
     uri: 'test.ts',
+    ...overrides,
   }
+}
+
+const getFilterBadgeText = (state: ProblemsState): string => {
+  return getActions(state)[0].badgeText as string
 }
 
 test('getActions returns filter action when not small width', () => {
@@ -82,6 +88,80 @@ test('getActions shows badge text when filtered problems differ from total', () 
 
   expect(actions[0].badgeText).toContain('0')
   expect(actions[0].badgeText).toContain('3')
+})
+
+test('getActions hides table badge when file group rows are excluded', () => {
+  const state = createMockState({
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
+      createMockProblem({ message: 'first diagnostic' }),
+      createMockProblem({ message: 'second diagnostic' }),
+    ],
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('')
+})
+
+test('getActions excludes multiple file groups from the table count', () => {
+  const state = createMockState({
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '', uri: 'first.ts' }),
+      createMockProblem({ message: 'first diagnostic', uri: 'first.ts' }),
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '', uri: 'second.ts' }),
+      createMockProblem({ message: 'second diagnostic', uri: 'second.ts' }),
+    ],
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('')
+})
+
+test('getActions uses table diagnostic rows as the denominator when filtered', () => {
+  const state = createMockState({
+    filterValue: 'first diagnostic',
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
+      createMockProblem({ message: 'first diagnostic' }),
+      createMockProblem({ message: 'second diagnostic' }),
+    ],
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('Showing 1 of 2 ')
+})
+
+test('getActions excludes severities disabled by the severity filters from the table denominator', () => {
+  const state = createMockState({
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
+      createMockProblem({ message: 'error', type: ProblemType.Error }),
+      createMockProblem({ message: 'warning', type: ProblemType.Warning }),
+    ],
+    showWarnings: false,
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('')
+})
+
+test('getActions uses zero as the table count when filters match no diagnostics', () => {
+  const state = createMockState({
+    filterValue: 'missing',
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
+      createMockProblem({ message: 'first diagnostic' }),
+      createMockProblem({ message: 'second diagnostic' }),
+    ],
+    viewMode: ProblemsViewMode.Table,
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('Showing 0 of 2 ')
 })
 
 test('getActions returns viewAsList button when in table mode', () => {

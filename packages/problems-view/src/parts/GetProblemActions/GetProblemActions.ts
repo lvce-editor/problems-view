@@ -2,6 +2,7 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import type { ViewletAction } from '../ViewletAction/ViewletAction.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as GetVisibleProblemCount from '../GetVisibleProblemCount/GetVisibleProblemCount.ts'
 import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
@@ -37,7 +38,10 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
     showWarnings,
     showInfos,
   ).length
-  const problemsCount = problems.length
+  const problemsCount =
+    viewMode === ProblemsViewMode.Table
+      ? GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, '', viewMode, showErrors, showWarnings, showInfos)
+      : problems.length
   const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
   if (!isSmall) {
