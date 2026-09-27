@@ -13,7 +13,7 @@
   "dependencies": {
     "@lvce-editor/editor-worker": "19.67.4",
     "@lvce-editor/main-area-worker": "9.63.0",
-    "@lvce-editor/server": "0.113.17",
+    "@lvce-editor/server": "0.118.3",
     "@lvce-editor/syntax-highlighting-worker": "2.6.1"
   }
 }
