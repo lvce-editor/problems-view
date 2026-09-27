@@ -17,6 +17,8 @@ const workerPath = join(root, '.tmp', 'dist', 'dist', 'problemsViewWorkerMain.js
 
 const editorWorkerPath = join(nodeModulesPath, '@lvce-editor', 'editor-worker', 'dist', 'editorWorkerMain.js')
 
+const syntaxHighlightingWorkerPath = join(nodeModulesPath, '@lvce-editor', 'syntax-highlighting-worker', 'dist', 'syntaxHighlightingWorkerMain.js')
+
 const mainAreaWorkerPath = join(nodeModulesPath, '@lvce-editor', 'main-area-worker', 'dist', 'mainAreaWorkerMain.js')
 
 const testWorkerPath = join(nodeModulesPath, '@lvce-editor', 'test-worker', 'dist', 'testWorkerMain.js')
@@ -57,6 +59,10 @@ if (newContent !== content) {
 }
 
 await copyFile(editorWorkerPath, editorWorkerStaticPath)
+await copyFile(
+  syntaxHighlightingWorkerPath,
+  join(serverStaticPath, commitHash, 'packages', 'syntax-highlighting-worker', 'dist', 'syntaxHighlightingWorkerMain.js'),
+)
 await copyFile(mainAreaWorkerPath, mainAreaWorkerStaticPath)
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
