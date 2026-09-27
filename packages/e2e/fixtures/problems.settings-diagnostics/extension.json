@@ -3,12 +3,18 @@
   "isolated": true,
   "diagnosticProviders": [
     {
-      "id": "test-settings-diagnostics",
+      "id": "test-json-diagnostics",
       "languageId": "json"
     },
     {
       "id": "test-javascript-diagnostics",
       "languageId": "javascript"
+    }
+  ],
+  "languages": [
+    {
+      "id": "json",
+      "extensions": [".json"]
     }
   ],
   "activation": ["onDiagnostic:json", "onDiagnostic:javascript"],
