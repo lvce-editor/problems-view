@@ -26,7 +26,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await expect(problemsView).toContainText('problem for settings.json')
   await expect(problemsView).toContainText('problem for other.js')
 
-  await Locator('.MainTab').nth(0).locator('.EditorTabCloseButton').click()
+  await Locator('.MainTab').nth(0).locator('.EditorTabCloseButton').dispatchEvent('click', '{}')
 
   await expect(problemsView).not.toContainText('settings.json')
   await expect(problemsView).toContainText('problem for other.js')
