@@ -24,12 +24,12 @@
     "printWidth": 150
   },
   "devDependencies": {
-    "@lvce-editor/eslint-config": "^18.9.0",
-    "@lvce-editor/renderer-process": "30.55.2",
-    "@lvce-editor/shared-process": "^0.113.12",
-    "@lvce-editor/static-server": "^0.113.12",
-    "eslint": "^10.10.0",
-    "prettier": "^3.9.6",
+    "@lvce-editor/eslint-config": "^18.14.2",
+    "@lvce-editor/renderer-process": "30.67.0",
+    "@lvce-editor/shared-process": "^0.119.16",
+    "@lvce-editor/static-server": "^0.119.16",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
     "typescript": "^6.0.3"
   }
 }
