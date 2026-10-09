@@ -3,6 +3,8 @@ import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
+import { toggleFileGroup } from '../ToggleFileGroup/ToggleFileGroup.ts'
+import { updateVirtualList } from '../UpdateVirtualList/UpdateVirtualList.ts'
 
 export const handleProblemClick = async (state: ProblemsState, eventX: number, eventY: number): Promise<ProblemsState> => {
   const newState = handleClickAt(state, eventX, eventY)
@@ -25,12 +27,17 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     showInfos,
   )
   const problem = visibleProblems[0]
-  if (!problem || problem.listItemType !== ProblemListItemType.Item) {
+  if (!problem) {
     return newState
   }
-  const { columnIndex, rowIndex, uri } = problem
-  await RendererWorker.openUri(uri, true)
-  await RendererWorker.focusEditor()
-  await RendererWorker.setEditorCursor(rowIndex, columnIndex)
+  if (problem.listItemType !== ProblemListItemType.Item) {
+    return updateVirtualList(toggleFileGroup(newState, problem.uri))
+  }
+  const { columnIndex, rowIndex, targetUri, uri } = problem
+  await RendererWorker.openUri({
+    initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
+    shouldFocus: false,
+    uri: targetUri || uri,
+  })
   return newState
 }

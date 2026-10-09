@@ -8,6 +8,7 @@ import * as GetProblemsListVirtualDom from '../src/parts/GetProblemsListVirtualD
 import * as GetProblemsNoProblemsFoundVirtualDom from '../src/parts/GetProblemsNoProblemsFoundVirtualDom/GetProblemsNoProblemsFoundVirtualDom.ts'
 import * as GetProblemsTableVirtualDom from '../src/parts/GetProblemsTableVirtualDom/GetProblemsTableVirtualDom.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('getProblemsVirtualDom returns message when problems.length === 0 && message is truthy', () => {
   const problems: readonly VisibleProblem[] = []
@@ -53,12 +54,11 @@ test('getProblemsVirtualDom returns table view when viewMode === ProblemsViewMod
       message: 'Test error message',
       messageMatchIndex: -1,
       posInSet: 1,
-      relativePath: 'file.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
       sourceMatchIndex: -1,
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/test/file.ts',
       uriMatchIndex: -1,
     },
@@ -89,12 +89,11 @@ test('getProblemsVirtualDom returns list view when viewMode !== ProblemsViewMode
       message: 'Test error message',
       messageMatchIndex: -1,
       posInSet: 1,
-      relativePath: 'file.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'TypeScript',
       sourceMatchIndex: -1,
-      type: 'error',
+      type: ProblemType.Error,
       uri: '/test/file.ts',
       uriMatchIndex: -1,
     },

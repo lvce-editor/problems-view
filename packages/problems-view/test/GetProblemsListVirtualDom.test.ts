@@ -4,6 +4,7 @@ import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getProblemsListVirtualDom } from '../src/parts/GetProblemsListVirtualDom/GetProblemsListVirtualDom.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('getProblemsListVirtualDom with empty problems array', () => {
   const problems: readonly VisibleProblem[] = []
@@ -14,6 +15,7 @@ test('getProblemsListVirtualDom with empty problems array', () => {
     ariaLabel: 'Problems Tree',
     childCount: 0,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })
@@ -35,12 +37,11 @@ test('getProblemsListVirtualDom with single problem', () => {
     message: 'Test error message',
     messageMatchIndex: 0,
     posInSet: 1,
-    relativePath: 'test.ts',
     rowIndex: 1,
     setSize: 1,
     source: 'TypeScript',
     sourceMatchIndex: 0,
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test.ts',
     uriMatchIndex: 0,
   }
@@ -53,6 +54,7 @@ test('getProblemsListVirtualDom with single problem', () => {
     ariaLabel: 'Problems Tree',
     childCount: 1,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })
@@ -74,12 +76,11 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     message: 'First error',
     messageMatchIndex: 0,
     posInSet: 1,
-    relativePath: 'test1.ts',
     rowIndex: 1,
     setSize: 2,
     source: 'TypeScript',
     sourceMatchIndex: 0,
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test1.ts',
     uriMatchIndex: 0,
   }
@@ -99,12 +100,11 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     message: 'Second warning',
     messageMatchIndex: 0,
     posInSet: 2,
-    relativePath: 'test2.ts',
     rowIndex: 2,
     setSize: 2,
     source: 'ESLint',
     sourceMatchIndex: 0,
-    type: 'warning',
+    type: ProblemType.Warning,
     uri: 'file:///test2.ts',
     uriMatchIndex: 0,
   }
@@ -117,6 +117,7 @@ test('getProblemsListVirtualDom with multiple problems', () => {
     ariaLabel: 'Problems Tree',
     childCount: 2,
     className: ClassNames.ProblemsList,
+    onClick: 5,
     role: AriaRoles.Tree,
     type: VirtualDomElements.Div,
   })

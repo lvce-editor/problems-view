@@ -7,10 +7,10 @@ export interface Problem {
   readonly listItemType: number
   readonly message: string
   readonly posInSet: number
-  readonly relativePath: string
   readonly rowIndex: number
   readonly setSize: number
   readonly source: string
-  readonly type: string
+  readonly targetUri?: string
+  readonly type: number
   readonly uri: string
 }

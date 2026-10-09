@@ -1,13 +1,13 @@
-import { type VirtualDomNode, AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { type VirtualDomNode, AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import * as GetChevronVirtualDom from '../GetChevronVirtualDom/GetChevronVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
-import * as GetProblemIndent from '../GetProblemIndent/GetProblemIndent.ts'
+import * as GetProblemClassName from '../GetProblemClassName/GetProblemClassName.ts'
 import * as GetProblemsIconVirtualDom from '../GetProblemsIconVirtualDom/GetProblemsIconVirtualDom.ts'
 import * as GetProblemSourceDetail from '../GetProblemSourceDetail/GetProblemSourceDetail.ts'
+import * as GetRelativeParentUri from '../GetRelativeParentUri/GetRelativeParentUri.ts'
 import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
@@ -35,7 +35,7 @@ const problemAtNode: VirtualDomNode = {
   type: VirtualDomElements.Span,
 }
 
-export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
+export const getProblemVirtualDom = (problem: VisibleProblem, workspaceUri = ''): readonly VirtualDomNode[] => {
   const {
     code,
     columnIndex,
@@ -49,20 +49,15 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     message,
     messageMatchIndex,
     posInSet,
-    relativePath,
     rowIndex,
     setSize,
     source,
     type,
     uri,
   } = problem
-  let className = ClassNames.Problem
-  const indent = GetProblemIndent.getProblemIndent(listItemType)
-  className = mergeClassNames(className, `Indent-${indent}`)
-  if (isActive) {
-    className = mergeClassNames(className, ClassNames.ProblemSelected)
-  }
+  const className = GetProblemClassName.getProblemClassName(listItemType, level, isActive)
   if (listItemType === ProblemListItemType.Expanded || listItemType === ProblemListItemType.Collapsed) {
+    const fileIconDom = icon ? [GetFileIconVirtualDom.getFileIconVirtualDom(icon)] : []
     return [
       {
         ariaExpanded: !isCollapsed,
@@ -70,23 +65,23 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
         ariaPosInSet: posInSet,
         ariaSelected: isActive,
         ariaSetSize: setSize,
-        childCount: 5,
+        childCount: 4 + fileIconDom.length,
         className,
         role: AriaRoles.TreeItem,
+        tabIndex: isActive ? 0 : -1,
         type: VirtualDomElements.Div,
       },
       listItemType === ProblemListItemType.Collapsed
         ? GetChevronVirtualDom.getChevronRightVirtualDom()
         : GetChevronVirtualDom.getChevronDownVirtualDom(),
-      GetFileIconVirtualDom.getFileIconVirtualDom(icon),
+      ...fileIconDom,
       {
         ...labelNode,
         'data-uri': uri,
-        onClick: DomEventListenerFunctions.HandleFileNameClick,
       },
       text(fileName),
       labelDetailNode,
-      text(relativePath),
+      text(GetRelativeParentUri.getRelativeParentUri(uri, workspaceUri)),
       ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.ProblemBadge, problem.count),
     ]
   }
@@ -96,10 +91,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
     className: ClassNames.ProblemLabel,
     type: VirtualDomElements.Div,
   }
-  /**
-   * @type {any}
-   */
-  const dom = [
+  const dom: VirtualDomNode[] = [
     {
       ariaLevel: level,
       ariaPosInSet: posInSet,
@@ -108,6 +100,7 @@ export const getProblemVirtualDom = (problem: VisibleProblem): readonly VirtualD
       childCount: 3,
       className,
       role: AriaRoles.TreeItem,
+      tabIndex: isActive ? 0 : -1,
       type: VirtualDomElements.Div,
     },
     GetProblemsIconVirtualDom.getProblemsIconVirtualDom(type),

@@ -19,7 +19,7 @@ const getClassName = (isEven: boolean): string => {
 }
 
 export const getProblemsTableRowVirtualDom = (problem: VisibleProblem): readonly VirtualDomNode[] => {
-  const { code, isEven, message, source, type, uri } = problem
+  const { code, isActive, isEven, message, source, type, uri } = problem
   // TODO problems are grouped by uri, depending
   // on which renderer is used the data needs to look different
   if (!message) {
@@ -28,7 +28,8 @@ export const getProblemsTableRowVirtualDom = (problem: VisibleProblem): readonly
   const dom = [
     {
       childCount: 5,
-      className: getClassName(isEven),
+      className: mergeClassNames(getClassName(isEven), isActive ? ClassNames.ProblemSelected : ''),
+      tabIndex: isActive ? 0 : -1,
       type: VirtualDomElements.Div,
     },
     rowItemNode,

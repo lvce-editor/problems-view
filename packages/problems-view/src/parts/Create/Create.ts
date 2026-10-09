@@ -7,6 +7,7 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
   const state: ProblemsState = {
     activeUri: '',
     collapsedUris: [],
+    columnWidths: [0.13, 0.52, 0.27, 0.08],
     deltaY: 0,
     fileIconCache: {},
     filteredProblems: [],
@@ -23,6 +24,10 @@ export const create = (id: number, uri: string, x: number, y: number, width: num
     minimumSliderSize: 20,
     minLineY: 0,
     problems: [],
+    resizeStartWidth: 0,
+    resizeStartWidths: [],
+    resizeStartX: 0,
+    resizingColumn: 0,
     scrollBarActive: false,
     scrollBarHeight: 0,
     showErrors: true,

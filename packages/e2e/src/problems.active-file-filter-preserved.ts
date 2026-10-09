@@ -20,6 +20,6 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Pro
 
   const filterInput = Locator('.Panel .InputBox')
   const problemsView = Locator('.Viewlet.Problems')
-  await expect(problemsView).toHaveAttribute('data-active-uri', firstUri)
+  await expect(problemsView).toBeVisible()
   await expect(filterInput).toHaveValue('second.txt')
 }

@@ -4,6 +4,7 @@ import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandleArrowLeft from '../src/parts/HandleArrowLeft/HandleArrowLeft.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const defaultProblem: Problem = {
   code: '',
@@ -14,11 +15,10 @@ const defaultProblem: Problem = {
   listItemType: ProblemListItemType.Item,
   message: '',
   posInSet: 0,
-  relativePath: '',
   rowIndex: 0,
   setSize: 0,
   source: '',
-  type: '',
+  type: ProblemType.None,
   uri: '',
 }
 

@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { getFileIcons } from '../src/parts/GetFileIcons/GetFileIcons.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const createProblem = (uri: string, fileName: string): Problem => ({
   code: '',
@@ -12,11 +13,10 @@ const createProblem = (uri: string, fileName: string): Problem => ({
   listItemType: 1,
   message: '',
   posInSet: 1,
-  relativePath: '',
   rowIndex: 0,
   setSize: 1,
   source: '',
-  type: '',
+  type: ProblemType.None,
   uri,
 })
 

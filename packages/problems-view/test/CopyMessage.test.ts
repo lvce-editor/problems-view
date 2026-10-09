@@ -3,6 +3,46 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { copyMessage } from '../src/parts/CopyMessage/CopyMessage.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
+
+test.each([-2, -1, 0, 1])('copyMessage should do nothing for an empty problems list with focusedIndex %i', async (focusedIndex) => {
+  const state = { ...createDefaultState(), focusedIndex }
+  using mockRpc = RendererWorker.registerMockRpc({
+    'ClipBoard.writeText': () => {},
+  })
+
+  const result = await copyMessage(state)
+
+  expect(result).toBe(state)
+  expect(mockRpc.invocations).toEqual([])
+})
+
+test.each([-2, -1, 1, 100])('copyMessage should do nothing for a missing problem with focusedIndex %i', async (focusedIndex) => {
+  const mockProblem: Problem = {
+    code: 'E1001',
+    columnIndex: 10,
+    count: 1,
+    fileName: 'test.ts',
+    level: 1,
+    listItemType: 1,
+    message: 'Test error message',
+    posInSet: 1,
+    rowIndex: 5,
+    setSize: 1,
+    source: 'TypeScript',
+    type: ProblemType.Error,
+    uri: 'file:///test.ts',
+  }
+  const state = { ...createDefaultState(), focusedIndex, problems: [mockProblem] }
+  using mockRpc = RendererWorker.registerMockRpc({
+    'ClipBoard.writeText': () => {},
+  })
+
+  const result = await copyMessage(state)
+
+  expect(result).toBe(state)
+  expect(mockRpc.invocations).toEqual([])
+})
 
 test('copyMessage should copy the focused problem message to clipboard', async () => {
   const mockProblem: Problem = {
@@ -14,11 +54,10 @@ test('copyMessage should copy the focused problem message to clipboard', async (
     listItemType: 1,
     message: 'Test error message',
     posInSet: 1,
-    relativePath: 'test.ts',
     rowIndex: 5,
     setSize: 1,
     source: 'TypeScript',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test.ts',
   }
 
@@ -44,11 +83,10 @@ test('copyMessage should copy message from different problem index', async () =>
     listItemType: 1,
     message: 'First error message',
     posInSet: 1,
-    relativePath: 'test1.ts',
     rowIndex: 5,
     setSize: 1,
     source: 'TypeScript',
-    type: 'error',
+    type: ProblemType.Error,
     uri: 'file:///test1.ts',
   }
 
@@ -61,11 +99,10 @@ test('copyMessage should copy message from different problem index', async () =>
     listItemType: 1,
     message: 'Second error message',
     posInSet: 1,
-    relativePath: 'test2.ts',
     rowIndex: 10,
     setSize: 1,
     source: 'TypeScript',
-    type: 'warning',
+    type: ProblemType.Warning,
     uri: 'file:///test2.ts',
   }
 

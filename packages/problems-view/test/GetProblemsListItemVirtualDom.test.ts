@@ -2,9 +2,9 @@ import { test, expect } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleProblem } from '../src/parts/VisibleProblem/VisibleProblem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getProblemVirtualDom } from '../src/parts/GetProblemsListItemVirtualDom/GetProblemsListItemVirtualDom.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActive' | 'icon' | 'filterValueLength'> = {
   code: 'TS100',
@@ -16,12 +16,11 @@ const baseProblem: Omit<VisibleProblem, 'listItemType' | 'isCollapsed' | 'isActi
   message: 'Syntax error',
   messageMatchIndex: -1,
   posInSet: 1,
-  relativePath: 'file.ts',
   rowIndex: 10,
   setSize: 1,
   source: 'TypeScript',
   sourceMatchIndex: -1,
-  type: 'error',
+  type: ProblemType.Error,
   uri: '/path/to/file.ts',
   uriMatchIndex: -1,
 }
@@ -47,6 +46,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
       childCount: 5,
       className: `${ClassNames.Problem} Indent-1rem ${ClassNames.ProblemSelected}`,
       role: AriaRoles.TreeItem,
+      tabIndex: 0,
       type: VirtualDomElements.Div,
     },
     {
@@ -66,7 +66,6 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
       childCount: 1,
       className: ClassNames.Label,
       'data-uri': '/path/to/file.ts',
-      onClick: DomEventListenerFunctions.HandleFileNameClick,
       type: VirtualDomElements.Span,
     },
     {
@@ -81,7 +80,7 @@ test('getProblemVirtualDom returns correct dom for Expanded', () => {
     },
     {
       childCount: 0,
-      text: 'file.ts',
+      text: 'path/to',
       type: 12,
     },
     {
@@ -119,6 +118,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
       childCount: 5,
       className: `${ClassNames.Problem} Indent-1rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {
@@ -138,7 +138,6 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
       childCount: 1,
       className: ClassNames.Label,
       'data-uri': '/path/to/file.ts',
-      onClick: DomEventListenerFunctions.HandleFileNameClick,
       type: VirtualDomElements.Span,
     },
     {
@@ -153,7 +152,7 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
     },
     {
       childCount: 0,
-      text: 'file.ts',
+      text: 'path/to',
       type: 12,
     },
     {
@@ -170,6 +169,23 @@ test('getProblemVirtualDom returns correct dom for Collapsed', () => {
   expect(dom).toEqual(expectedDom)
 })
 
+test('getProblemVirtualDom does not render an empty file icon', () => {
+  const problem: VisibleProblem = {
+    ...baseProblem,
+    filterValueLength: 0,
+    icon: '',
+    isActive: false,
+    isCollapsed: true,
+    isEven: true,
+    listItemType: ProblemListItemType.Collapsed,
+  }
+
+  const dom = getProblemVirtualDom(problem)
+
+  expect(dom[0].childCount).toBe(4)
+  expect(dom.some((node) => node.className === ClassNames.FileIcon)).toBe(false)
+})
+
 test('getProblemVirtualDom returns correct dom for Item without filter highlight', () => {
   const problem: VisibleProblem = {
     ...baseProblem,
@@ -180,7 +196,6 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
     isCollapsed: false,
     isEven: false,
     listItemType: ProblemListItemType.Item,
-    relativePath: '/path/to',
   }
   const dom = getProblemVirtualDom(problem)
   const expectedDom = [
@@ -192,6 +207,7 @@ test('getProblemVirtualDom returns correct dom for Item without filter highlight
       childCount: 3,
       className: `${ClassNames.Problem} Indent-2rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {
@@ -270,6 +286,7 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
       childCount: 3,
       className: `${ClassNames.Problem} Indent-2rem`,
       role: AriaRoles.TreeItem,
+      tabIndex: -1,
       type: VirtualDomElements.Div,
     },
     {

@@ -89,3 +89,11 @@ export const showWarnings = (): string => {
 export const showInfos = (): string => {
   return I18NString.i18nString(UiStrings.ShowInfos)
 }
+
+export const problemsTree = (): string => {
+  return I18NString.i18nString(UiStrings.ProblemsTree)
+}
+
+export const moreFilters = (): string => {
+  return I18NString.i18nString(UiStrings.MoreFilters)
+}

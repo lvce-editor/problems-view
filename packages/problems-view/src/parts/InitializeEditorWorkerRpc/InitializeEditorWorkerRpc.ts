@@ -3,7 +3,7 @@ import { EditorWorker } from '@lvce-editor/rpc-registry'
 import { VError } from '@lvce-editor/verror'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
-const send = (port: any): Promise<void> => {
+const send = (port: MessagePort): Promise<void> => {
   return RendererWorker.sendMessagePortToEditorWorker(port, 0)
 }
 

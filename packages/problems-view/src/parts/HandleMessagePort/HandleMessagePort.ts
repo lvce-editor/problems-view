@@ -7,7 +7,7 @@ export const handleMessagePort = async (
   viewletCommandMap: Readonly<Record<string, unknown>>,
   setAsRendererProcess = true,
 ): Promise<void> => {
-  const executeViewletCommand = async (uid: number, command: string, ...args: readonly any[]): Promise<void> => {
+  const executeViewletCommand = async (uid: number, command: string, ...args: readonly unknown[]): Promise<void> => {
     const fn = viewletCommandMap[`Problems.${command}`]
     if (typeof fn !== 'function') {
       throw new TypeError(`Viewlet command not found: ${command}`)

@@ -87,12 +87,38 @@ test('refreshes problems when diagnostics for the active uri change', async () =
   expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
 })
 
-test('ignores diagnostics changes for an inactive uri', async () => {
+test('refreshes workspace diagnostics without changing the active uri or filter', async () => {
   using mockRpc = EditorWorker.registerMockRpc({
-    'Editor.getProblems': () => [],
+    'Editor.getProblems': () => [{ message: 'updated', uri: 'file:///inactive.ts' }],
   })
-  const state = { ...createDefaultState(), activeUri: 'file:///active.ts' }
+  const state = { ...createDefaultState(), activeUri: 'file:///active.ts', filterValue: 'updated' }
 
-  await expect(handleDiagnosticsChange(state, 'file:///inactive.ts')).resolves.toBe(state)
-  expect(mockRpc.invocations).toEqual([])
+  const result = await handleDiagnosticsChange(state, 'file:///inactive.ts')
+
+  expect(result.activeUri).toBe(state.activeUri)
+  expect(result.filterValue).toBe(state.filterValue)
+  expect(result.problems).toHaveLength(2)
+  expect(result.problems[1].message).toBe('updated')
+  expect(result.message).toBe('Some problems have been detected in the workspace.')
+  expect(mockRpc.invocations).toEqual([['Editor.getProblems']])
+})
+
+test('refreshes diagnostics when the active uri is not set yet', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => 42,
+    'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
+  })
+  using editorRpc = EditorWorker.registerMockRpc({
+    'Editor.getProblems': () => [{ message: 'updated', uri: 'file:///active.ts' }],
+    'Editor.getUri': () => 'file:///active.ts',
+  })
+  const state = createDefaultState()
+
+  const result = await handleDiagnosticsChange(state, 'file:///active.ts')
+
+  expect(result.activeUri).toBe('file:///active.ts')
+  expect(result.problems).toHaveLength(2)
+  expect(result.problems[1].message).toBe('updated')
+  expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId'], ['IconTheme.getFileIcon', { name: 'active.ts' }]])
+  expect(editorRpc.invocations).toEqual([['Editor.getUri', 42], ['Editor.getProblems']])
 })

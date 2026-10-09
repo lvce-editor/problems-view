@@ -1,1 +1,1 @@
-export type ViewletCommand = readonly [string, ...any[]]
+export type ViewletCommand = readonly [string, ...unknown[]]

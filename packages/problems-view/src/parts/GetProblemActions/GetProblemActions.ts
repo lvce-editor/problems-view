@@ -2,8 +2,9 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import type { ViewletAction } from '../ViewletAction/ViewletAction.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetFilterInputName from '../GetFilterInputName/GetFilterInputName.ts'
+import * as GetVisibleProblemCount from '../GetVisibleProblemCount/GetVisibleProblemCount.ts'
 import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
+import * as InputName from '../InputName/InputName.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
@@ -37,7 +38,10 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
     showWarnings,
     showInfos,
   ).length
-  const problemsCount = problems.length
+  const problemsCount =
+    viewMode === ProblemsViewMode.Table
+      ? GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, '', viewMode, showErrors, showWarnings, showInfos)
+      : problems.length
   const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
   if (!isSmall) {
@@ -45,7 +49,7 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
       badgeText: visibleCount === problemsCount ? '' : ProblemStrings.showingOf(visibleCount, problemsCount),
       command: DomEventListenerFunctions.HandleFilterInput,
       id: 'Filter',
-      name: GetFilterInputName.getFilterInputName(inputSource, filterValue),
+      name: InputName.ProblemsInput,
       placeholder: ProblemStrings.filter(),
       type: ActionType.ProblemsFilter,
       value: inputSource === InputSource.Script ? filterValue : '',
@@ -53,23 +57,26 @@ export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
   }
   if (viewMode === ProblemsViewMode.Table) {
     actions.push({
-      command: 'viewAsList',
+      command: DomEventListenerFunctions.HandleViewAsList,
       icon: MaskIcon.ListTree,
       id: ProblemStrings.viewAsList(),
+      name: 'viewAsList',
       type: ActionType.Button,
     })
   } else {
     actions.push(
       {
-        command: 'collapseAll',
+        command: DomEventListenerFunctions.HandleCollapseAll,
         icon: MaskIcon.CollapseAll,
         id: ProblemStrings.collapseAll(),
+        name: 'collapseAll',
         type: ActionType.Button,
       },
       {
-        command: 'viewAsTable',
+        command: DomEventListenerFunctions.HandleViewAsTable,
         icon: MaskIcon.ListFlat,
         id: ProblemStrings.viewAsTable(),
+        name: 'viewAsTable',
         type: ActionType.Button,
       },
     )

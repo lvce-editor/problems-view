@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 import { renderCss } from '../src/parts/RenderCss/RenderCss.ts'
 
 const createProblem = (listItemType: number, uri: string): Problem => {
@@ -14,22 +15,21 @@ const createProblem = (listItemType: number, uri: string): Problem => {
     listItemType,
     message: 'message',
     posInSet: 1,
-    relativePath: 'file.ts',
     rowIndex: 1,
     setSize: 1,
     source: '',
-    type: 'error',
+    type: ProblemType.Error,
     uri,
   }
 }
 
-test('renderCss returns the virtual list base CSS when there are no visible problems', () => {
+test('renderCss returns dynamic virtual list CSS when there are no visible problems', () => {
   const state = createDefaultState()
   const result = renderCss(state, state)
 
   expect(result[0]).toBe('Viewlet.setCss')
   expect(result[1]).toBe(0)
-  expect(result[2]).toContain('.ProblemsContent')
+  expect(result[2]).toContain('.ProblemsTableRow')
   expect(result[2]).toContain('height: 0px;')
 })
 
@@ -71,6 +71,11 @@ test('renderCss positions the thumb and first partially visible item', () => {
 
   const result = renderCss(createDefaultState(), state)
 
+  expect(result[2]).toContain(`.ProblemsTableRow {
+  height: 20px;
+}`)
+  expect(result[2]).toContain(`.Problems .ScrollBarThumb {
+  height: 20px;`)
   expect(result[2]).toContain('translate: 0 18px;')
   expect(result[2]).toContain('margin-top: -5px;')
 })

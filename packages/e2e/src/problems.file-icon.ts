@@ -6,8 +6,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, IconTheme, Loc
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file1.xyz`, 'content 1')
   await Workspace.setPath(tmpDir)
-  await Extension.addWebExtension(new URL('../fixtures/problems.one-problem', import.meta.url).toString())
-  await Extension.addWebExtension(new URL('../fixtures/sample.icon-theme', import.meta.url).toString())
+  await Extension.addWebExtension(import.meta.resolve('../fixtures/problems.one-problem'))
+  await Extension.addWebExtension(import.meta.resolve('../fixtures/sample.icon-theme'))
   await IconTheme.setIconTheme('test-icon-theme')
 
   await Main.openUri(`${tmpDir}/file1.xyz`)

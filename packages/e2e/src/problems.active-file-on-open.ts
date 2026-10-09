@@ -12,5 +12,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Panel, Wor
   await Panel.openProblems()
 
   const problemsView = Locator('.Viewlet.Problems')
-  await expect(problemsView).toHaveAttribute('data-active-uri', fileUri)
+  const problemsViewWithActiveUri = Locator('.Viewlet.Problems[data-active-uri]')
+  await expect(problemsViewWithActiveUri).toHaveCount(0)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
 }

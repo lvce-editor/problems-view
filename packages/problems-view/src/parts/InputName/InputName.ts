@@ -1,1 +1,1 @@
-export const Filter = 'filter'
+export const ProblemsInput = 'ProblemsInput'

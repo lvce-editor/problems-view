@@ -13,3 +13,7 @@ test('getProblemIndent returns one rem for collapsed groups', () => {
 test('getProblemIndent returns two rem for problem items', () => {
   expect(getProblemIndent(ProblemListItemType.Item)).toBe('2rem')
 })
+
+test('getProblemIndent uses the tree level for related diagnostic items', () => {
+  expect(getProblemIndent(ProblemListItemType.Item, 3)).toBe('3rem')
+})

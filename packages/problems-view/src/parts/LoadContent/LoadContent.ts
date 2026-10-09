@@ -5,15 +5,21 @@ import * as GetProblems from '../GetProblems/GetProblems.ts'
 import * as GetSavedCollapsedUris from '../GetSavedCollapsedUris/GetSavedCollapsedUris.ts'
 import * as GetSavedFilterValue from '../GetSavedFilterValue/GetSavedFilterValue.ts'
 import * as GetSavedViewMode from '../GetSavedViewMode/GetSavedViewMode.ts'
-import * as GetWorkspacePath from '../GetWorkspacePath/GetWorkspacePath.ts'
+import * as GetWorkspaceUri from '../GetWorkspaceUri/GetWorkspaceUri.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
+import * as ProblemsRequest from '../ProblemsRequest/ProblemsRequest.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
-export const loadContent = async (state: ProblemsState, savedState: any): Promise<ProblemsState> => {
+export const loadContent = async (state: ProblemsState, savedState: unknown): Promise<ProblemsState> => {
+  const { uid } = state
+  const request = ProblemsRequest.startProblemsRequest(uid)
   const { fileIconCache: oldFileIconCache } = state
-  const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspacePath.getWorkspacePath()])
-  const { error, problems } = await GetProblems.getProblems(workspaceUri, activeUri)
+  const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspaceUri.getWorkspaceUri()])
+  const { error, problems } = await GetProblems.getProblems(activeUri)
   if (error) {
+    if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
+      return state
+    }
     return {
       ...state,
       activeUri,
@@ -25,6 +31,9 @@ export const loadContent = async (state: ProblemsState, savedState: any): Promis
   }
   const message = ViewletProblemsStrings.getMessage(problems.length)
   const fileIconCache = await GetFileIcons.getFileIcons(problems, oldFileIconCache)
+  if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
+    return state
+  }
   const viewMode = GetSavedViewMode.getSavedViewMode(savedState)
   const filterValue = GetSavedFilterValue.getSavedFilterValue(savedState)
   const collapsedUris = GetSavedCollapsedUris.getSavedCollapsedUris(savedState)

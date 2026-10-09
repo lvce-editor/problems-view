@@ -14,7 +14,7 @@ test('renderFilterValue returns correct ViewletCommand when filterValue changes'
 
   const result = renderFilterValue(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.setValueByName', 41, 'filter', 'test filter'])
+  expect(result).toEqual(['Viewlet.setValueByName', 41, 'ProblemsInput', 'test filter'])
 })
 
 test('renderFilterValue returns correct ViewletCommand when filterValue is empty', () => {
@@ -27,7 +27,7 @@ test('renderFilterValue returns correct ViewletCommand when filterValue is empty
 
   const result = renderFilterValue(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.setValueByName', 42, 'filter', ''])
+  expect(result).toEqual(['Viewlet.setValueByName', 42, 'ProblemsInput', ''])
 })
 
 test('renderFilterValue returns correct ViewletCommand when filterValue has special characters', () => {
@@ -41,5 +41,5 @@ test('renderFilterValue returns correct ViewletCommand when filterValue has spec
 
   const result = renderFilterValue(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.setValueByName', 43, 'filter-error%3A%20%22unexpected%20token%22', 'error: "unexpected token"'])
+  expect(result).toEqual(['Viewlet.setValueByName', 43, 'ProblemsInput', 'error: "unexpected token"'])
 })

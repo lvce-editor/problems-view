@@ -3,6 +3,7 @@ import type { Problem } from '../src/parts/Problem/Problem.ts'
 import type { ProblemsState } from '../src/parts/ProblemsState/ProblemsState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 test('isEqual returns true when problems arrays are the same reference', () => {
   const problems: readonly Problem[] = [
@@ -15,11 +16,10 @@ test('isEqual returns true when problems arrays are the same reference', () => {
       listItemType: 0,
       message: 'test',
       posInSet: 1,
-      relativePath: 'test.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'test',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'test.ts',
     },
   ]
@@ -39,11 +39,10 @@ test('isEqual returns false when problems arrays are different', () => {
       listItemType: 0,
       message: 'old',
       posInSet: 1,
-      relativePath: 'old.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'old',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'old.ts',
     },
   ]
@@ -57,11 +56,10 @@ test('isEqual returns false when problems arrays are different', () => {
       listItemType: 0,
       message: 'new',
       posInSet: 1,
-      relativePath: 'new.ts',
       rowIndex: 1,
       setSize: 1,
       source: 'new',
-      type: 'error',
+      type: ProblemType.Error,
       uri: 'new.ts',
     },
   ]
@@ -77,11 +75,11 @@ test('isEqual returns true when both states have the same empty problems array r
   expect(isEqual(oldState, newState)).toBe(true)
 })
 
-test('isEqual returns false when the active uri changes', () => {
+test('isEqual returns true when only the active uri changes', () => {
   const problems: readonly Problem[] = []
   const oldState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///old.ts', problems }
-  const newState: ProblemsState = { ...createDefaultState(), activeUri: 'file:///new.ts', problems }
-  expect(isEqual(oldState, newState)).toBe(false)
+  const newState: ProblemsState = { ...oldState, activeUri: 'file:///new.ts' }
+  expect(isEqual(oldState, newState)).toBe(true)
 })
 
 test('isEqual returns false when file icons change', () => {
@@ -94,6 +92,20 @@ test('isEqual returns false when file icons change', () => {
 test('isEqual returns false when shown severities change', () => {
   const oldState = createDefaultState()
   const newState = { ...oldState, showErrors: false }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})
+
+test('isEqual returns true when collapsed uris have equal contents', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///a.ts'] }
+
+  expect(isEqual(oldState, newState)).toBe(true)
+})
+
+test('isEqual returns false when collapsed uris change', () => {
+  const oldState = { ...createDefaultState(), collapsedUris: ['file:///a.ts'] }
+  const newState = { ...oldState, collapsedUris: ['file:///b.ts'] }
 
   expect(isEqual(oldState, newState)).toBe(false)
 })

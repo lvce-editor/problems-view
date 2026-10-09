@@ -1,0 +1,18 @@
+{
+  "browser": "dist/main.js",
+  "isolated": true,
+  "diagnosticProviders": [
+    {
+      "id": "test-settings-diagnostics",
+      "languageId": "json"
+    },
+    {
+      "id": "test-javascript-diagnostics",
+      "languageId": "javascript"
+    }
+  ],
+  "activation": ["onDiagnostic:json", "onDiagnostic:javascript"],
+  "id": "test.settings-diagnostics",
+  "name": "settings-diagnostics",
+  "publisher": "test"
+}

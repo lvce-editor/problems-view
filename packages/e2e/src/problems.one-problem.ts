@@ -9,7 +9,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
 
   await Workspace.setPath(tmpDir)
   // @ts-ignore
-  await Extension.addWebExtension(new URL(`../fixtures/${name}`, import.meta.url).toString())
+  await Extension.addWebExtension(import.meta.resolve(`../fixtures/${name}`))
 
   await Main.openUri(`${tmpDir}/file1.xyz`)
   await Panel.openProblems()

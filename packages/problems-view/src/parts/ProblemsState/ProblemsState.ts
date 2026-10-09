@@ -4,6 +4,7 @@ import type { Problem } from '../Problem/Problem.ts'
 export interface ProblemsState {
   readonly activeUri: string
   readonly collapsedUris: readonly string[]
+  readonly columnWidths: readonly number[]
   readonly deltaY: number
   readonly fileIconCache: FileIconCache
   readonly filteredProblems: readonly Problem[]
@@ -14,12 +15,16 @@ export interface ProblemsState {
   readonly height: number
   readonly inputSource: number
   readonly itemHeight: number
-  readonly listItems: readonly any[]
+  readonly listItems: readonly unknown[]
   readonly maxLineY: number
   readonly message: string
   readonly minimumSliderSize: number
   readonly minLineY: number
   readonly problems: readonly Problem[]
+  readonly resizeStartWidth: number
+  readonly resizeStartWidths: readonly number[]
+  readonly resizeStartX: number
+  readonly resizingColumn: number
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
   readonly showErrors: boolean

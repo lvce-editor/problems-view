@@ -3,6 +3,7 @@ import type { Problem } from '../src/parts/Problem/Problem.ts'
 import { getVisibleProblems } from '../src/parts/GetVisibleProblems/GetVisibleProblems.ts'
 import * as ProblemListItemType from '../src/parts/ProblemListItemType/ProblemListItemType.ts'
 import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMode.ts'
+import * as ProblemType from '../src/parts/ProblemType/ProblemType.ts'
 
 const createProblem = (listItemType: number, message: string): Problem => ({
   code: 'test',
@@ -13,11 +14,10 @@ const createProblem = (listItemType: number, message: string): Problem => ({
   listItemType,
   message,
   posInSet: 1,
-  relativePath: 'file.ts',
   rowIndex: 1,
   setSize: 1,
   source: 'test',
-  type: 'error',
+  type: ProblemType.Error,
   uri: 'file:///file.ts',
 })
 
