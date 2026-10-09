@@ -37,21 +37,32 @@ const editorWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'e
 const mainAreaWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'main-area-worker', 'dist', 'mainAreaWorkerMain.js')
 
 const testWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
-const rendererProcessPath = join(nodeModulesPath, '@lvce-editor', 'renderer-process', 'dist', 'rendererProcessMain.js')
-const rendererProcessStaticPath = join(serverStaticPath, commitHash, 'packages', 'renderer-process', 'dist', 'rendererProcessMain.js')
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 // Older renderer bundles still invoke the removed Problems initializer.
 let newContent = content.replace(/^  await invoke[\w$]*\(ipc, 'Problems\.initialize'\);\r?\n/gm, '')
 
 const remoteUrl = getRemoteUrl(workerPath)
-if (!content.includes('// const problemsViewWorkerUrl = ')) {
-  const occurrence = `const problemsViewWorkerUrl = \`\${assetDir}/packages/problems-view/dist/problemsViewWorkerMain.js\``
-  const replacement = `// const problemsViewWorkerUrl = \`\${assetDir}/packages/problems-view/dist/problemsViewWorkerMain.js\`
-const problemsViewWorkerUrl = \`${remoteUrl}\``
-
+const occurrence = '`${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/problems-view/dist/problemsViewWorkerMain.js`'
+const replacement = `\`${remoteUrl}\``
+if (!newContent.includes(replacement)) {
+  if (!newContent.includes(occurrence)) {
+    throw new Error('problems worker development URL not found')
+  }
   newContent = newContent.replace(occurrence, replacement)
 }
+
+// Workspace resets can recreate the view with the new URI before notifying it.
+// Use the reset command instead of the direct command's unchanged-URI shortcut.
+const workspaceCommand = '        await invoke121(`Problems.${key}`, uid, ...args);'
+const workspaceResetCommand = '        await invoke121(`Problems.${key === "handleWorkspaceChange" ? "resetWorkspace" : key}`, uid, ...args);'
+if (!newContent.includes(workspaceResetCommand)) {
+  if (!newContent.includes(workspaceCommand)) {
+    throw new Error('problems workspace command adapter not found')
+  }
+  newContent = newContent.replace(workspaceCommand, workspaceResetCommand)
+}
+
 if (newContent !== content) {
   await writeFile(rendererWorkerMainPath, newContent)
 }
@@ -60,15 +71,13 @@ await copyFile(editorWorkerPath, editorWorkerStaticPath)
 await copyFile(mainAreaWorkerPath, mainAreaWorkerStaticPath)
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
-const rendererProcessContent = await readFile(rendererProcessPath, 'utf8')
-const staticRendererProcessContent = rendererProcessContent
-  .replace('const platform = getPlatform();', 'const platform = Remote;')
-  .replace('const assetDir = getAssetDir();', `const assetDir = '/${commitHash}';`)
-await writeFile(rendererProcessStaticPath, staticRendererProcessContent)
-
 const indexHtmlPath = join(serverStaticPath, 'index.html')
 const indexHtml = await readFile(indexHtmlPath, 'utf8')
+const configMatch = indexHtml.match(/<script id="Config" type="application\/json">([\s\S]*?)<\/script>/)
+const existingConfig = configMatch ? JSON.parse(configMatch[1]) : {}
 const config = {
+  ...existingConfig,
+  workerUrls: { ...existingConfig.workerUrls, 'develop.problemsWorkerPath': remoteUrl },
   rendererWorkerUrl: `/${commitHash}/packages/renderer-worker/dist/rendererWorkerMain.js`,
   editorWorkerUrl: `/${commitHash}/packages/editor-worker/dist/editorWorkerMain.js`,
   syntaxHighlightingWorkerUrl: `/${commitHash}/packages/syntax-highlighting-worker/dist/syntaxHighlightingWorkerMain.js`,

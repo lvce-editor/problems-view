@@ -6,6 +6,10 @@ export const handleWorkspaceChange = (state: ProblemsState, newWorkspaceUri: str
   if (newWorkspaceUri === workspaceUri) {
     return state
   }
+  return resetWorkspace(state, newWorkspaceUri)
+}
+
+export const resetWorkspace = (state: ProblemsState, newWorkspaceUri: string): ProblemsState => {
   return {
     ...state,
     activeUri: '',
