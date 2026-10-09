@@ -25,7 +25,7 @@ import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/Handle
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
-import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
+import { handleWorkspaceChange, resetWorkspace } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as WrapCommand from '../ProblemsStates/ProblemsStates.ts'
 import { getCommandIds } from '../ProblemsStates/ProblemsStates.ts'
@@ -78,6 +78,7 @@ export const commandMap = {
   'Problems.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'Problems.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'Problems.handleWheel': WrapCommand.wrapCommand(handleWheel),
+  'Problems.resetWorkspace': WrapCommand.wrapCommand(resetWorkspace),
   'Problems.handleWorkspaceChange': WrapCommand.wrapCommand(handleWorkspaceChange),
   'Problems.loadContent': WrapCommand.wrapCommand(loadContent),
   'Problems.render2': Render2.render2,
