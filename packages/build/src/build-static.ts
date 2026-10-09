@@ -43,10 +43,10 @@ if (!configMatch) {
   throw new Error('static configuration not found')
 }
 const config = JSON.parse(configMatch[2])
-if (config['develop.problemsWorkerPath'] !== remoteUrl) {
+if (config.workerUrls?.['develop.problemsWorkerPath'] !== remoteUrl) {
   throw new Error('problems worker development configuration not found')
 }
-config['develop.problemsWorkerPath'] = `/problems-view/${commitHash}/packages/problems-view/dist/problemsViewWorkerMain.js`
+config.workerUrls['develop.problemsWorkerPath'] = `/problems-view/${commitHash}/packages/problems-view/dist/problemsViewWorkerMain.js`
 await writeFile(
   indexHtmlPath,
   indexHtml.replace(configRegex, (_, open, _content, close) => `${open}${JSON.stringify(config)}${close}`),

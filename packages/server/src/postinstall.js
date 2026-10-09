@@ -37,8 +37,6 @@ const editorWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'e
 const mainAreaWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'main-area-worker', 'dist', 'mainAreaWorkerMain.js')
 
 const testWorkerStaticPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
-const rendererProcessPath = join(nodeModulesPath, '@lvce-editor', 'renderer-process', 'dist', 'rendererProcessMain.js')
-const rendererProcessStaticPath = join(serverStaticPath, commitHash, 'packages', 'renderer-process', 'dist', 'rendererProcessMain.js')
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 // Older renderer bundles still invoke the removed Problems initializer.
@@ -62,19 +60,13 @@ await copyFile(editorWorkerPath, editorWorkerStaticPath)
 await copyFile(mainAreaWorkerPath, mainAreaWorkerStaticPath)
 await copyFile(testWorkerPath, testWorkerStaticPath)
 
-const rendererProcessContent = await readFile(rendererProcessPath, 'utf8')
-const staticRendererProcessContent = rendererProcessContent
-  .replace('const platform = getPlatform();', 'const platform = Remote;')
-  .replace('const assetDir = getAssetDir();', `const assetDir = '/${commitHash}';`)
-await writeFile(rendererProcessStaticPath, staticRendererProcessContent)
-
 const indexHtmlPath = join(serverStaticPath, 'index.html')
 const indexHtml = await readFile(indexHtmlPath, 'utf8')
 const configMatch = indexHtml.match(/<script id="Config" type="application\/json">([\s\S]*?)<\/script>/)
 const existingConfig = configMatch ? JSON.parse(configMatch[1]) : {}
 const config = {
   ...existingConfig,
-  'develop.problemsWorkerPath': remoteUrl,
+  workerUrls: { ...existingConfig.workerUrls, 'develop.problemsWorkerPath': remoteUrl },
   rendererWorkerUrl: `/${commitHash}/packages/renderer-worker/dist/rendererWorkerMain.js`,
   editorWorkerUrl: `/${commitHash}/packages/editor-worker/dist/editorWorkerMain.js`,
   syntaxHighlightingWorkerUrl: `/${commitHash}/packages/syntax-highlighting-worker/dist/syntaxHighlightingWorkerMain.js`,
