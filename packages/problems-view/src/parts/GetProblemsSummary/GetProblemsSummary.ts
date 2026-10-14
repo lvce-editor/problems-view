@@ -6,7 +6,7 @@ import { getActiveDiagnostics } from '../GetActiveDiagnostics/GetActiveDiagnosti
 import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
-export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
+export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummary> => {
   const editorId = await RendererWorker.getActiveEditorId()
   if (editorId === -1) {
     return {
@@ -16,8 +16,17 @@ export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
       warningCount: 0,
     }
   }
-  const [allDiagnostics, activeDiagnostics] = await Promise.all([EditorWorker.getProblems(), getActiveDiagnostics(editorId)])
-  const uniqueDiagnostics = getUniqueDiagnostics(allDiagnostics)
+  const [allDiagnostics, activeDiagnostics] = await Promise.all([
+    Promise.try(() => EditorWorker.getProblems()),
+    Promise.try(() => getActiveDiagnostics(editorId)),
+  ])
+  const allDiagnosticUris = [...new Set(allDiagnostics.map((diagnostic) => diagnostic.uri))]
+  const visibleUris = await RendererWorker.getVisibleEditorUris(activeUri, allDiagnosticUris)
+  const visibleUriSet = new Set(visibleUris)
+  if (activeUri) {
+    visibleUriSet.add(activeUri)
+  }
+  const uniqueDiagnostics = getUniqueDiagnostics(allDiagnostics.filter((diagnostic) => visibleUriSet.has(diagnostic.uri)))
   const uniqueActiveDiagnostics = getUniqueDiagnostics(activeDiagnostics)
   return {
     errorCount: countByType(uniqueActiveDiagnostics, DiagnosticType.Error),

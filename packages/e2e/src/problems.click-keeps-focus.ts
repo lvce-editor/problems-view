@@ -13,8 +13,8 @@ export const test: Test = async ({ Command, Editor, expect, Extension, FileSyste
   await Workspace.setPath(tmpDir)
   // @ts-ignore
   await Extension.addWebExtension(import.meta.resolve('../fixtures/problems.click-focuses-editor'))
-  await Main.openUri(fileUri)
   await Main.openUri(otherUri)
+  await Main.openUri(fileUri)
   await Panel.openProblems()
 
   const problem = Locator('.Problem').nth(1)

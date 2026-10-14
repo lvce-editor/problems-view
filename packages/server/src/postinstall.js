@@ -54,13 +54,15 @@ if (!newContent.includes(replacement)) {
 
 // Workspace resets can recreate the view with the new URI before notifying it.
 // Use the reset command instead of the direct command's unchanged-URI shortcut.
-const workspaceCommand = '        await invoke121(`Problems.${key}`, uid, ...args);'
-const workspaceResetCommand = '        await invoke121(`Problems.${key === "handleWorkspaceChange" ? "resetWorkspace" : key}`, uid, ...args);'
-if (!newContent.includes(workspaceResetCommand)) {
-  if (!newContent.includes(workspaceCommand)) {
+const workspaceCommand = /await (invoke[\w$]*)\(`Problems\.\$\{key\}`,\s*uid,\s*\.\.\.args\);/
+const workspaceResetCommand = /Problems\.\$\{key === "handleWorkspaceChange" \? "resetWorkspace" : key\}/
+if (!workspaceResetCommand.test(newContent)) {
+  if (!workspaceCommand.test(newContent)) {
     throw new Error('problems workspace command adapter not found')
   }
-  newContent = newContent.replace(workspaceCommand, workspaceResetCommand)
+  newContent = newContent.replace(workspaceCommand, (_match, invoke) => {
+    return 'await ' + invoke + '(`Problems.${key === "handleWorkspaceChange" ? "resetWorkspace" : key}`,uid,...args);'
+  })
 }
 
 if (newContent !== content) {
