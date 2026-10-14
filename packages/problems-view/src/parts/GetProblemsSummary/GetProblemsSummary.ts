@@ -18,7 +18,7 @@ export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummar
   }
   const [allDiagnostics, visibleUris, activeDiagnostics] = await Promise.all([
     Promise.try(() => EditorWorker.getProblems()),
-      Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
+    Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
     Promise.try(() => getActiveDiagnostics(editorId)),
   ])
   const visibleUriSet = new Set(visibleUris)
