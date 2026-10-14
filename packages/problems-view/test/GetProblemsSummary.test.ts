@@ -114,6 +114,35 @@ test('includes the active uri supplied by the editor-change event', async () => 
   expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
 })
 
+test('does not include hidden active diagnostics in the visible problem count', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => 7,
+    'GetActiveEditor.getVisibleEditorUris': () => ['file:///visible.ts'],
+  })
+  const hiddenDiagnostic = {
+    code: '',
+    columnIndex: 0,
+    message: 'hidden error',
+    rowIndex: 0,
+    source: 'typescript',
+    type: 'error',
+    uri: 'file:///hidden.ts',
+  }
+  using editorRpc = EditorWorker.registerMockRpc({
+    'Editor.getDiagnostics': () => [hiddenDiagnostic],
+    'Editor.getProblems': () => [{ ...hiddenDiagnostic, message: 'visible error', uri: 'file:///visible.ts' }, hiddenDiagnostic],
+  })
+
+  await expect(getProblemsSummary()).resolves.toEqual({
+    errorCount: 1,
+    hasEditor: true,
+    problemCount: 1,
+    warningCount: 0,
+  })
+  expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId'], ['GetActiveEditor.getVisibleEditorUris']])
+  expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
+})
+
 test('keeps legacy problem counts when the visible editor rpc is unavailable', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
     'GetActiveEditor.getActiveEditorId': () => 7,
