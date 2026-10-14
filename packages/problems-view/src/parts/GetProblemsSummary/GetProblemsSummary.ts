@@ -16,11 +16,12 @@ export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummar
       warningCount: 0,
     }
   }
-  const [allDiagnostics, visibleUris, activeDiagnostics] = await Promise.all([
+  const [allDiagnostics, activeDiagnostics] = await Promise.all([
     Promise.try(() => EditorWorker.getProblems()),
-    Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
     Promise.try(() => getActiveDiagnostics(editorId)),
   ])
+  const allDiagnosticUris = [...new Set(allDiagnostics.map((diagnostic) => diagnostic.uri))]
+  const visibleUris = await RendererWorker.getVisibleEditorUris(activeUri, allDiagnosticUris)
   const visibleUriSet = new Set([...visibleUris, ...activeDiagnostics.map((diagnostic) => diagnostic.uri)])
   if (activeUri) {
     visibleUriSet.add(activeUri)

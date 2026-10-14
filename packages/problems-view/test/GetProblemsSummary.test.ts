@@ -114,7 +114,7 @@ test('includes the active uri supplied by the editor-change event', async () => 
   expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
 })
 
-test('includes active diagnostics when the visible editor rpc is unavailable', async () => {
+test('keeps legacy problem counts when the visible editor rpc is unavailable', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
     'GetActiveEditor.getActiveEditorId': () => 7,
     'GetActiveEditor.getVisibleEditorUris': () => {
@@ -139,11 +139,11 @@ test('includes active diagnostics when the visible editor rpc is unavailable', a
   await expect(getProblemsSummary()).resolves.toEqual({
     errorCount: 1,
     hasEditor: true,
-    problemCount: 1,
+    problemCount: 2,
     warningCount: 0,
   })
-  expect(rendererRpc.invocations).toHaveLength(3)
+  expect(rendererRpc.invocations).toHaveLength(2)
   expect(rendererRpc.invocations).toEqual(expect.arrayContaining([['GetActiveEditor.getActiveEditorId'], ['GetActiveEditor.getVisibleEditorUris']]))
-  expect(editorRpc.invocations).toHaveLength(3)
-  expect(editorRpc.invocations).toEqual(expect.arrayContaining([['Editor.getProblems'], ['Editor.getUri', 7], ['Editor.getDiagnostics', 7]]))
+  expect(editorRpc.invocations).toHaveLength(2)
+  expect(editorRpc.invocations).toEqual(expect.arrayContaining([['Editor.getProblems'], ['Editor.getDiagnostics', 7]]))
 })
