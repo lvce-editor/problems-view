@@ -9,6 +9,7 @@ import * as ProblemsViewMode from '../src/parts/ProblemsViewMode/ProblemsViewMod
 
 RendererWorker.registerMockRpc({
   'GetActiveEditor.getActiveEditorId': () => 1,
+  'GetActiveEditor.getVisibleEditorUris': () => ['file:///test.ts', ...Array.from({ length: 101 }, (_, index) => `file:///test${index}.ts`)],
   'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
   'Workspace.getUri': () => 'file:///workspace',
 })

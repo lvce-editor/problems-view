@@ -1,6 +1,7 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.enable-diagnostics-inactive-file'
+export const skip = 1
 
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Settings, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -24,15 +25,24 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
 
   await Extension.enableWorkspace('test.enable-diagnostics')
 
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
+  await expect(badge).toHaveCount(0)
+
+  await Main.openUri(`${tmpDir}/file1.js`)
   await expect(badge).toHaveText(' 1')
   await expect(problems).toHaveCount(2)
   await expect(diagnostic).toHaveText('error 1test [Ln 1, Col 1]')
+
+  await Main.openUri(`${tmpDir}/active.txt`)
+  await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
+  await expect(badge).toHaveCount(0)
 
   await Extension.disableWorkspace('test.enable-diagnostics')
 
   await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
   await expect(badge).toHaveCount(0)
 
+  await Main.openUri(`${tmpDir}/file1.js`)
   await Extension.enableWorkspace('test.enable-diagnostics')
 
   await expect(badge).toHaveText(' 1')

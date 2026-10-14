@@ -6,7 +6,7 @@ import { getActiveDiagnostics } from '../GetActiveDiagnostics/GetActiveDiagnosti
 import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
-export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
+export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummary> => {
   const editorId = await RendererWorker.getActiveEditorId()
   if (editorId === -1) {
     return {
@@ -16,8 +16,16 @@ export const getProblemsSummary = async (): Promise<ProblemsSummary> => {
       warningCount: 0,
     }
   }
-  const [allDiagnostics, activeDiagnostics] = await Promise.all([EditorWorker.getProblems(), getActiveDiagnostics(editorId)])
-  const uniqueDiagnostics = getUniqueDiagnostics(allDiagnostics)
+  const [allDiagnostics, visibleUris, activeDiagnostics] = await Promise.all([
+    Promise.try(() => EditorWorker.getProblems()),
+      Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
+    Promise.try(() => getActiveDiagnostics(editorId)),
+  ])
+  const visibleUriSet = new Set(visibleUris)
+  if (activeUri) {
+    visibleUriSet.add(activeUri)
+  }
+  const uniqueDiagnostics = getUniqueDiagnostics(allDiagnostics.filter((diagnostic) => visibleUriSet.has(diagnostic.uri)))
   const uniqueActiveDiagnostics = getUniqueDiagnostics(activeDiagnostics)
   return {
     errorCount: countByType(uniqueActiveDiagnostics, DiagnosticType.Error),

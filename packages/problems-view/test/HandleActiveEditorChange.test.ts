@@ -4,6 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleActiveEditorChange, handleDiagnosticsChange } from '../src/parts/HandleActiveEditorChange/HandleActiveEditorChange.ts'
 
 RendererWorker.registerMockRpc({
+  'GetActiveEditor.getVisibleEditorUris': () => ['file:///old.ts', 'file:///new.ts', 'file:///active.ts', 'file:///inactive.ts'],
   'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
 })
 
@@ -106,6 +107,7 @@ test('refreshes workspace diagnostics without changing the active uri or filter'
 test('refreshes diagnostics when the active uri is not set yet', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
     'GetActiveEditor.getActiveEditorId': () => 42,
+    'GetActiveEditor.getVisibleEditorUris': () => ['file:///active.ts'],
     'IconTheme.getFileIcon': ({ name }: Readonly<{ name: string }>) => `/icons/${name}.svg`,
   })
   using editorRpc = EditorWorker.registerMockRpc({
@@ -119,6 +121,10 @@ test('refreshes diagnostics when the active uri is not set yet', async () => {
   expect(result.activeUri).toBe('file:///active.ts')
   expect(result.problems).toHaveLength(2)
   expect(result.problems[1].message).toBe('updated')
-  expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId'], ['IconTheme.getFileIcon', { name: 'active.ts' }]])
+  expect(rendererRpc.invocations).toEqual([
+    ['GetActiveEditor.getActiveEditorId'],
+    ['GetActiveEditor.getVisibleEditorUris'],
+    ['IconTheme.getFileIcon', { name: 'active.ts' }],
+  ])
   expect(editorRpc.invocations).toEqual([['Editor.getUri', 42], ['Editor.getProblems']])
 })

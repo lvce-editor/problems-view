@@ -8,6 +8,7 @@ test.each(['file:///workspace', 'file:///C:/workspace', 'file:///workspace%20wit
   async (workspaceUri) => {
     using rendererRpc = RendererWorker.registerMockRpc({
       'GetActiveEditor.getActiveEditorId': () => 1,
+      'GetActiveEditor.getVisibleEditorUris': () => ['file:///workspace/file.ts'],
       'Workspace.getUri': () => workspaceUri,
     })
     using editorRpc = EditorWorker.registerMockRpc({
@@ -26,6 +27,7 @@ test.each(['file:///workspace', 'file:///C:/workspace', 'file:///workspace%20wit
 test('loadContent preserves the workspace URI when loading diagnostics fails', async () => {
   using rendererRpc = RendererWorker.registerMockRpc({
     'GetActiveEditor.getActiveEditorId': () => 1,
+    'GetActiveEditor.getVisibleEditorUris': () => ['file:///workspace/file.ts'],
     'Workspace.getUri': () => 'memfs:///workspace',
   })
   using editorRpc = EditorWorker.registerMockRpc({

@@ -1,9 +1,32 @@
 import type { Rpc } from '@lvce-editor/rpc'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { EditorWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { OpenUriOptions } from '../OpenUriOptions/OpenUriOptions.ts'
 
 export const getActiveEditorId = (): Promise<number> => {
   return RendererWorker.getActiveEditorId()
+}
+
+export const getVisibleEditorUris = async (fallbackUri = ''): Promise<readonly string[]> => {
+  try {
+    return await RendererWorker.invoke('GetActiveEditor.getVisibleEditorUris')
+  } catch (error) {
+    if (!String(error).includes('command GetActiveEditor.getVisibleEditorUris not found')) {
+      throw error
+    }
+    if (fallbackUri) {
+      return [fallbackUri]
+    }
+    const editorId = await RendererWorker.getActiveEditorId()
+    if (editorId === -1) {
+      return []
+    }
+    try {
+      const activeUri = await EditorWorker.getUri(editorId)
+      return activeUri ? [activeUri] : []
+    } catch {
+      return []
+    }
+  }
 }
 
 export const openUri = async (options: OpenUriOptions): Promise<void> => {
