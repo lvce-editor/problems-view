@@ -1,8 +1,6 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'problems.enable-diagnostics-inactive-file'
-export const skip = 1
-
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main, Panel, Settings, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.setFiles([
