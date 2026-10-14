@@ -113,3 +113,37 @@ test('includes the active uri supplied by the editor-change event', async () => 
   expect(rendererRpc.invocations).toEqual([['GetActiveEditor.getActiveEditorId'], ['GetActiveEditor.getVisibleEditorUris']])
   expect(editorRpc.invocations).toEqual([['Editor.getProblems'], ['Editor.getDiagnostics', 7]])
 })
+
+test('includes active diagnostics when the visible editor rpc is unavailable', async () => {
+  using rendererRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => 7,
+    'GetActiveEditor.getVisibleEditorUris': () => {
+      throw new Error('Command "GetActiveEditor.getVisibleEditorUris" not found (renderer worker)')
+    },
+  })
+  const activeDiagnostic = {
+    code: '',
+    columnIndex: 0,
+    message: 'visible error',
+    rowIndex: 0,
+    source: 'typescript',
+    type: 'error',
+    uri: 'file:///active.ts',
+  }
+  using editorRpc = EditorWorker.registerMockRpc({
+    'Editor.getDiagnostics': () => [activeDiagnostic],
+    'Editor.getProblems': () => [activeDiagnostic, { ...activeDiagnostic, message: 'hidden error', uri: 'file:///hidden.ts' }],
+    'Editor.getUri': () => 'file:///active.ts',
+  })
+
+  await expect(getProblemsSummary()).resolves.toEqual({
+    errorCount: 1,
+    hasEditor: true,
+    problemCount: 1,
+    warningCount: 0,
+  })
+  expect(rendererRpc.invocations).toHaveLength(3)
+  expect(rendererRpc.invocations).toEqual(expect.arrayContaining([['GetActiveEditor.getActiveEditorId'], ['GetActiveEditor.getVisibleEditorUris']]))
+  expect(editorRpc.invocations).toHaveLength(3)
+  expect(editorRpc.invocations).toEqual(expect.arrayContaining([['Editor.getProblems'], ['Editor.getUri', 7], ['Editor.getDiagnostics', 7]]))
+})

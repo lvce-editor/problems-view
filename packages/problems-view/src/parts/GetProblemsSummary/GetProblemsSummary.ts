@@ -21,7 +21,7 @@ export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummar
     Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
     Promise.try(() => getActiveDiagnostics(editorId)),
   ])
-  const visibleUriSet = new Set(visibleUris)
+  const visibleUriSet = new Set([...visibleUris, ...activeDiagnostics.map((diagnostic) => diagnostic.uri)])
   if (activeUri) {
     visibleUriSet.add(activeUri)
   }
