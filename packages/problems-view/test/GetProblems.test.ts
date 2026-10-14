@@ -70,6 +70,25 @@ test('getProblems filters diagnostics from cached editors that are not visible',
   expect(result.problems.some((problem) => problem.message === 'hidden TypeScript problem')).toBe(false)
 })
 
+test('getProblems falls back to active URI when visibility RPC is unavailable', async () => {
+  RendererWorker.registerMockRpc({
+    'GetActiveEditor.getVisibleEditorUris': () => {
+      throw new Error('Command "GetActiveEditor.getVisibleEditorUris" not found (renderer worker)')
+    },
+  })
+  EditorWorker.registerMockRpc({
+    'Editor.getProblems': () => [
+      { message: 'hidden TypeScript problem', uri: 'file:///geometry.ts' },
+      { message: 'visible JSON problem', uri: 'file:///settings.json' },
+    ],
+  })
+
+  const result = await getProblems('file:///settings.json')
+
+  expect(result.error).toBe('')
+  expect(result.problems.every((problem) => problem.uri === 'file:///settings.json')).toBe(true)
+})
+
 test('getProblems does not query diagnostics when there is no active file', async () => {
   using mockRpc = EditorWorker.registerMockRpc({
     'Editor.getProblems': () => [{ message: 'one', uri: 'file:///one.ts' }],

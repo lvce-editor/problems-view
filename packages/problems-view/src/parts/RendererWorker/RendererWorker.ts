@@ -10,7 +10,10 @@ export const getVisibleEditorUris = async (fallbackUri = ''): Promise<readonly s
   try {
     return await RendererWorker.invoke('GetActiveEditor.getVisibleEditorUris')
   } catch (error) {
-    if (!String(error).includes('command GetActiveEditor.getVisibleEditorUris not found')) {
+    const errorMessage = String(error)
+    const isCommandNotFound = errorMessage.includes('command GetActiveEditor.getVisibleEditorUris not found')
+    const isRendererWorkerCommandNotFound = errorMessage.includes('Command "GetActiveEditor.getVisibleEditorUris" not found (renderer worker)')
+    if (!isCommandNotFound && !isRendererWorkerCommandNotFound) {
       throw error
     }
     if (fallbackUri) {
