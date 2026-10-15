@@ -11,14 +11,11 @@ import * as ProblemsRequest from '../ProblemsRequest/ProblemsRequest.ts'
 import * as ViewletProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 export const loadContent = async (state: ProblemsState, savedState: unknown): Promise<ProblemsState> => {
-  const { uid } = state
+  const { applicationId, uid } = state
   const request = ProblemsRequest.startProblemsRequest(uid)
   const { fileIconCache: oldFileIconCache } = state
-  const [activeUri, workspaceUri] = await Promise.all([
-    GetActiveUri.getActiveUri(state.applicationId),
-    GetWorkspaceUri.getWorkspaceUri(state.applicationId),
-  ])
-  const { error, problems } = await GetProblems.getProblems(activeUri, state.applicationId)
+  const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(applicationId), GetWorkspaceUri.getWorkspaceUri(applicationId)])
+  const { error, problems } = await GetProblems.getProblems(activeUri, applicationId)
   if (error) {
     if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
       return state

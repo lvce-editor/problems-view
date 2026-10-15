@@ -15,7 +15,7 @@ export const create = (
 ): void => {
   const state: ProblemsState = {
     activeUri: '',
-    ...(applicationId === undefined ? {} : { applicationId }),
+    ...(applicationId !== undefined && { applicationId }),
     collapsedUris: [],
     columnWidths: [0.13, 0.52, 0.27, 0.08],
     deltaY: 0,
