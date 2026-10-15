@@ -34,10 +34,13 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     return updateVirtualList(toggleFileGroup(newState, problem.uri))
   }
   const { columnIndex, rowIndex, targetUri, uri } = problem
-  await RendererWorker.openUri({
-    initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
-    shouldFocus: false,
-    uri: targetUri || uri,
-  })
+  await RendererWorker.openUri(
+    {
+      initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
+      shouldFocus: false,
+      uri: targetUri || uri,
+    },
+    state.applicationId,
+  )
   return newState
 }

@@ -14,8 +14,11 @@ export const loadContent = async (state: ProblemsState, savedState: unknown): Pr
   const { uid } = state
   const request = ProblemsRequest.startProblemsRequest(uid)
   const { fileIconCache: oldFileIconCache } = state
-  const [activeUri, workspaceUri] = await Promise.all([GetActiveUri.getActiveUri(), GetWorkspaceUri.getWorkspaceUri()])
-  const { error, problems } = await GetProblems.getProblems(activeUri)
+  const [activeUri, workspaceUri] = await Promise.all([
+    GetActiveUri.getActiveUri(state.applicationId),
+    GetWorkspaceUri.getWorkspaceUri(state.applicationId),
+  ])
+  const { error, problems } = await GetProblems.getProblems(activeUri, state.applicationId)
   if (error) {
     if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
       return state

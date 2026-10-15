@@ -8,7 +8,7 @@ import * as ProblemsStrings from '../ProblemStrings/ProblemStrings.ts'
 
 const refreshProblems = async (state: ProblemsState, activeUri: string, request: number): Promise<ProblemsState> => {
   const { fileIconCache, uid } = state
-  const { error, problems } = await GetProblems.getProblems(activeUri)
+  const { error, problems } = await GetProblems.getProblems(activeUri, state.applicationId)
   const newFileIconCache = await GetFileIcons.getFileIcons(problems, fileIconCache)
   if (!ProblemsRequest.isLatestProblemsRequest(uid, request)) {
     return state
@@ -38,6 +38,6 @@ export const handleActiveEditorChange = async (state: ProblemsState, activeUri: 
 export const handleDiagnosticsChange = async (state: ProblemsState, _uri: string): Promise<ProblemsState> => {
   const { activeUri: currentActiveUri, uid } = state
   const request = ProblemsRequest.startProblemsRequest(uid)
-  const activeUri = currentActiveUri || (await GetActiveUri.getActiveUri())
+  const activeUri = currentActiveUri || (await GetActiveUri.getActiveUri(state.applicationId))
   return refreshProblems(state, activeUri, request)
 }
