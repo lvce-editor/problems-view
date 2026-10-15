@@ -4,7 +4,7 @@ import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnosti
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 import { toProblems } from '../ToProblems/ToProblems.ts'
 
-export const getProblems = async (activeUri: string): Promise<ProblemsResult> => {
+export const getProblems = async (activeUri: string, applicationId?: string): Promise<ProblemsResult> => {
   if (!activeUri) {
     return {
       error: '',
@@ -14,7 +14,7 @@ export const getProblems = async (activeUri: string): Promise<ProblemsResult> =>
   try {
     const [allDiagnostics, visibleUris] = await Promise.all([
       Promise.try(() => EditorWorker.getProblems()),
-      Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri)),
+      Promise.try(() => RendererWorker.getVisibleEditorUris(activeUri, undefined, applicationId)),
     ])
     const visibleUriSet = new Set(visibleUris)
     visibleUriSet.add(activeUri)

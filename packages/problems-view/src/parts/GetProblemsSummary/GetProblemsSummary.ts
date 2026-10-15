@@ -6,8 +6,8 @@ import { getActiveDiagnostics } from '../GetActiveDiagnostics/GetActiveDiagnosti
 import { getUniqueDiagnostics } from '../GetUniqueDiagnostics/GetUniqueDiagnostics.ts'
 import * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 
-export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummary> => {
-  const editorId = await RendererWorker.getActiveEditorId()
+export const getProblemsSummary = async (activeUri = '', applicationId?: string): Promise<ProblemsSummary> => {
+  const editorId = await RendererWorker.getActiveEditorId(applicationId)
   if (editorId === -1) {
     return {
       errorCount: 0,
@@ -21,7 +21,7 @@ export const getProblemsSummary = async (activeUri = ''): Promise<ProblemsSummar
     Promise.try(() => getActiveDiagnostics(editorId)),
   ])
   const allDiagnosticUris = [...new Set(allDiagnostics.map((diagnostic) => diagnostic.uri))]
-  const visibleUris = await RendererWorker.getVisibleEditorUris(activeUri, allDiagnosticUris)
+  const visibleUris = await RendererWorker.getVisibleEditorUris(activeUri, allDiagnosticUris, applicationId)
   const visibleUriSet = new Set(visibleUris)
   if (activeUri) {
     visibleUriSet.add(activeUri)

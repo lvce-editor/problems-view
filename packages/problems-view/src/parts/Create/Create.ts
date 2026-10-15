@@ -3,9 +3,19 @@ import * as InputSource from '../InputSource/InputSource.ts'
 import * as ProblemsStates from '../ProblemsStates/ProblemsStates.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
-export const create = (id: number, uri: string, x: number, y: number, width: number, height: number, workspaceUri: string): void => {
+export const create = (
+  id: number,
+  uri: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  workspaceUri: string,
+  applicationId?: string,
+): void => {
   const state: ProblemsState = {
     activeUri: '',
+    ...(applicationId !== undefined && { applicationId }),
     collapsedUris: [],
     columnWidths: [0.13, 0.52, 0.27, 0.08],
     deltaY: 0,
