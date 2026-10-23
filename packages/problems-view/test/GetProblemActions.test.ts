@@ -134,7 +134,51 @@ test('getActions uses table diagnostic rows as the denominator when filtered', (
   expect(getFilterBadgeText(state)).toBe('Showing 1 of 2 ')
 })
 
-test('getActions excludes severities disabled by the severity filters from the table denominator', () => {
+test('getActions uses tree diagnostic items as the denominator when filtered', () => {
+  const state = createMockState({
+    filterValue: 'first diagnostic',
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
+      createMockProblem({ message: 'first diagnostic' }),
+      createMockProblem({ message: 'second diagnostic' }),
+    ],
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('Showing 1 of 2 ')
+})
+
+test('getActions excludes multiple tree file groups from the diagnostic count', () => {
+  const state = createMockState({
+    filterValue: 'first diagnostic',
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '', uri: 'first.ts' }),
+      createMockProblem({ message: 'first diagnostic', uri: 'first.ts' }),
+      createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '', uri: 'second.ts' }),
+      createMockProblem({ message: 'second diagnostic', uri: 'second.ts' }),
+    ],
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('Showing 1 of 2 ')
+})
+
+test('getActions keeps tree diagnostic counts independent of collapsed file groups', () => {
+  const state = createMockState({
+    collapsedUris: ['test.ts'],
+    filterValue: 'first diagnostic',
+    problems: [
+      createMockProblem({ listItemType: ProblemListItemType.Collapsed, message: '' }),
+      createMockProblem({ message: 'first diagnostic' }),
+      createMockProblem({ message: 'second diagnostic' }),
+    ],
+    width: 800,
+  })
+
+  expect(getFilterBadgeText(state)).toBe('Showing 1 of 2 ')
+})
+
+test('getActions excludes severities disabled by the severity filters from the denominator', () => {
   const state = createMockState({
     problems: [
       createMockProblem({ listItemType: ProblemListItemType.Expanded, message: '' }),
@@ -142,14 +186,13 @@ test('getActions excludes severities disabled by the severity filters from the t
       createMockProblem({ message: 'warning', type: ProblemType.Warning }),
     ],
     showWarnings: false,
-    viewMode: ProblemsViewMode.Table,
     width: 800,
   })
 
   expect(getFilterBadgeText(state)).toBe('')
 })
 
-test('getActions uses zero as the table count when filters match no diagnostics', () => {
+test('getActions uses zero as the count when filters match no diagnostics', () => {
   const state = createMockState({
     filterValue: 'missing',
     problems: [
@@ -157,7 +200,6 @@ test('getActions uses zero as the table count when filters match no diagnostics'
       createMockProblem({ message: 'first diagnostic' }),
       createMockProblem({ message: 'second diagnostic' }),
     ],
-    viewMode: ProblemsViewMode.Table,
     width: 800,
   })
 
