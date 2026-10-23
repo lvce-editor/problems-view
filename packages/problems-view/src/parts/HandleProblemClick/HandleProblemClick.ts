@@ -8,7 +8,7 @@ import { updateVirtualList } from '../UpdateVirtualList/UpdateVirtualList.ts'
 
 export const handleProblemClick = async (state: ProblemsState, eventX: number, eventY: number): Promise<ProblemsState> => {
   const newState = handleClickAt(state, eventX, eventY)
-  const { focusedIndex } = newState
+  const { applicationId, focusedIndex } = newState
   if (focusedIndex < 0) {
     return newState
   }
@@ -34,10 +34,13 @@ export const handleProblemClick = async (state: ProblemsState, eventX: number, e
     return updateVirtualList(toggleFileGroup(newState, problem.uri))
   }
   const { columnIndex, rowIndex, targetUri, uri } = problem
-  await RendererWorker.openUri({
-    initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
-    shouldFocus: false,
-    uri: targetUri || uri,
-  })
+  await RendererWorker.openUri(
+    {
+      initialCursorPosition: { columnIndex, highlightProblem: true, rowIndex },
+      shouldFocus: false,
+      uri: targetUri || uri,
+    },
+    applicationId,
+  )
   return newState
 }

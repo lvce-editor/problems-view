@@ -3,6 +3,7 @@ import type { Problem } from '../Problem/Problem.ts'
 
 export interface ProblemsState {
   readonly activeUri: string
+  readonly applicationId?: string
   readonly collapsedUris: readonly string[]
   readonly columnWidths: readonly number[]
   readonly deltaY: number

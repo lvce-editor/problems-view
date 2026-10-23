@@ -11,9 +11,9 @@
     "dev": "node ../../node_modules/@lvce-editor/server/bin/server.js --test-path=../e2e"
   },
   "dependencies": {
-    "@lvce-editor/editor-worker": "19.67.4",
-    "@lvce-editor/main-area-worker": "9.63.0",
-    "@lvce-editor/server": "0.118.3",
+    "@lvce-editor/editor-worker": "19.72.2",
+    "@lvce-editor/main-area-worker": "9.71.3",
+    "@lvce-editor/server": "0.122.18",
     "@lvce-editor/syntax-highlighting-worker": "2.6.1"
   }
 }

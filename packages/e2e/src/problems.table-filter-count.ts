@@ -31,5 +31,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
 
   await Problems.viewAsList()
   await Problems.handleFilterInput('first diagnostic')
-  await expect(filterBadge).toHaveText('Showing 1 of 3 ')
+  await expect(filterBadge).toHaveText('Showing 1 of 2 ')
 }

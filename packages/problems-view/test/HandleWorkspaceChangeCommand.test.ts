@@ -45,3 +45,26 @@ test('preserves problems when the workspace path is unchanged', async () => {
 
   expect(ProblemsStates.get(uid).newState).toBe(state)
 })
+
+test('clears diagnostics on a runtime reset after the workspace URI has been replaced', async () => {
+  const uid = 3
+  const state = {
+    ...createDefaultState(),
+    activeUri: 'file:///old-workspace/file.xyz',
+    filteredProblems: [{ message: 'stale', uri: 'file:///old-workspace/file.xyz' }] as any,
+    problems: [{ message: 'stale', uri: 'file:///old-workspace/file.xyz' }] as any,
+    uid,
+    workspaceUri: 'file:///new-workspace',
+  }
+  ProblemsStates.set(uid, state, state)
+
+  await commandMap['Problems.resetWorkspace'](uid, 'file:///new-workspace')
+
+  expect(ProblemsStates.get(uid).newState).toMatchObject({
+    activeUri: '',
+    filteredProblems: [],
+    message: 'No problems have been detected in the workspace.',
+    problems: [],
+    workspaceUri: 'file:///new-workspace',
+  })
+})
