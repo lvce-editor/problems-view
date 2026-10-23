@@ -2,46 +2,29 @@ import type { ProblemsState } from '../ProblemsState/ProblemsState.ts'
 import type { ViewletAction } from '../ViewletAction/ViewletAction.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetVisibleProblemCount from '../GetVisibleProblemCount/GetVisibleProblemCount.ts'
-import * as GetVisibleProblems from '../GetVisibleProblems/GetVisibleProblems.ts'
+import * as FilterProblems from '../FilterProblems/FilterProblems.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
 import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
+import * as ProblemListItemType from '../ProblemListItemType/ProblemListItemType.ts'
 import * as ProblemStrings from '../ProblemStrings/ProblemStrings.ts'
 import * as ProblemsViewMode from '../ProblemsViewMode/ProblemsViewMode.ts'
 
+const getDiagnosticCount = (
+  problems: ProblemsState['problems'],
+  filterValue: string,
+  showErrors: boolean,
+  showWarnings: boolean,
+  showInfos: boolean,
+): number => {
+  const filteredProblems = FilterProblems.filterProblems(problems, [], filterValue, showErrors, showWarnings, showInfos)
+  return filteredProblems.filter((problem) => problem.listItemType === ProblemListItemType.Item).length
+}
+
 export const getActions = (state: ProblemsState): readonly ViewletAction[] => {
-  const {
-    collapsedUris,
-    fileIconCache,
-    filterValue,
-    focusedIndex,
-    inputSource,
-    problems,
-    showErrors,
-    showInfos,
-    showWarnings,
-    smallWidthBreakPoint,
-    viewMode,
-    width,
-  } = state
-  const visibleCount = GetVisibleProblems.getVisibleProblems(
-    problems,
-    fileIconCache,
-    collapsedUris,
-    focusedIndex,
-    filterValue,
-    0,
-    Infinity,
-    viewMode,
-    showErrors,
-    showWarnings,
-    showInfos,
-  ).length
-  const problemsCount =
-    viewMode === ProblemsViewMode.Table
-      ? GetVisibleProblemCount.getVisibleProblemCount(problems, collapsedUris, '', viewMode, showErrors, showWarnings, showInfos)
-      : problems.length
+  const { filterValue, inputSource, problems, showErrors, showInfos, showWarnings, smallWidthBreakPoint, viewMode, width } = state
+  const visibleCount = getDiagnosticCount(problems, filterValue, showErrors, showWarnings, showInfos)
+  const problemsCount = getDiagnosticCount(problems, '', showErrors, showWarnings, showInfos)
   const isSmall = width <= smallWidthBreakPoint
   const actions: ViewletAction[] = []
   if (!isSmall) {
