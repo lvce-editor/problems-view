@@ -7,7 +7,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   const settingsUri = `${tmpDir}/settings.json`
   const otherUri = `${tmpDir}/other.js`
   await FileSystem.setFiles([
-    { content: '{ "valid": true }', uri: settingsUri },
+    { content: '{}', uri: settingsUri },
     { content: 'const other = true', uri: otherUri },
   ])
   await Workspace.setPath(tmpDir)
@@ -24,27 +24,27 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Main,
   await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
 
   await Extension.enableWorkspace('test.settings-diagnostics')
-  await expect(badge).toHaveText(' 2')
-  await expect(problemsView).toContainText('problem for other.js')
-  await expect(problemsView).toContainText('problem for settings.json')
-
-  await Main.handleClickCloseTab('0', '0')
-
+  await expect(badge).toHaveText(' 1')
   await expect(problemsView).toHaveText(otherProblemText)
-  await expect(problemsView).toContainText('problem for other.js')
+
+  // Closing an inactive diagnostic editor should retain the active editor's diagnostics.
+  await Main.handleClickCloseTab('0', '0')
+  await expect(problemsView).toHaveText(otherProblemText)
   await expect(badge).toHaveText(' 1')
 
+  // Closing the last diagnostic editor clears the Problems view.
   await Main.closeActiveEditor()
   await expect(badge).toHaveCount(0)
   await expect(problemsView).toHaveText('No problems have been detected in the workspace.')
 
   await Main.openUri(settingsUri)
-  await expect(badge).toHaveText(' 1')
   await expect(problemsView).toContainText('problem for settings.json')
+  await expect(badge).toHaveText(' 1')
 
+  // Closing the active settings editor restores the remaining editor's diagnostics.
   await Main.openUri(otherUri)
   await Main.openUri(settingsUri)
-  await expect(badge).toHaveText(' 2')
+  await expect(badge).toHaveText(' 1')
   await Main.closeActiveEditor()
   await expect(problemsView).toHaveText(otherProblemText)
   await expect(problemsView).toContainText('problem for other.js')
