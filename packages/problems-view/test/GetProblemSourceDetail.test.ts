@@ -6,6 +6,10 @@ test('getProblemSourceDetail with both source and code', () => {
   expect(getProblemSourceDetail('ts', 123)).toBe('ts(123) ')
 })
 
+test('getProblemSourceDetail does not repeat a syntax code in the source', () => {
+  expect(getProblemSourceDetail('json (syntax)', 'syntax')).toBe('json(syntax) ')
+})
+
 test('getProblemSourceDetail with only source', () => {
   expect(getProblemSourceDetail('eslint', '')).toBe('eslint ')
   expect(getProblemSourceDetail('ts', '' as any)).toBe('ts ')
