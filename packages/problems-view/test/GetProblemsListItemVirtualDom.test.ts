@@ -307,7 +307,7 @@ test('getProblemVirtualDom returns correct dom for Item with filter highlight', 
     {
       childCount: 1,
       className: ClassNames.Highlight,
-      type: VirtualDomElements.Div,
+      type: VirtualDomElements.Span,
     },
     {
       childCount: 0,

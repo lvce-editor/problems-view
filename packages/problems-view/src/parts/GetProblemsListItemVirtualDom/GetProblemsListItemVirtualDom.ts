@@ -26,7 +26,7 @@ const labelDetailNode: VirtualDomNode = {
 const highlightNode: VirtualDomNode = {
   childCount: 1,
   className: ClassNames.Highlight,
-  type: VirtualDomElements.Div,
+  type: VirtualDomElements.Span,
 }
 
 const problemAtNode: VirtualDomNode = {
